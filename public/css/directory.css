@@ -1,6 +1,31 @@
 /*---------------------*/
 /*directory*/
-
+*{
+    box-sizing: border-box;
+    
+}
 section{
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    scroll-snap-align: start;
   }
+.container{
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+}
+.one{
+    background: rgb(214, 208, 226);
+}
+.two{
+    background: rgb(70, 197, 102);
+}
+.three{
+    background: rgb(78, 187, 214);
+}
+.four{
+    background: rgb(75, 34, 158);
+}
