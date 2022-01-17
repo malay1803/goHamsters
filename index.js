@@ -10,6 +10,11 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/directory", (req, res) => {
+  //   res.send("hello");
+  res.render("directory");
+});
+
 app.listen(3000, () => {
   console.log("app running on port 3000");
 });
