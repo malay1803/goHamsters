@@ -6,8 +6,8 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'))
 
 app.get("/", (req, res) => {
-  //   res.send("hello");
-  res.render("index");
+    res.send("hello");
+  // res.render("index");
 });
 
 app.get("/directory", (req, res) => {
