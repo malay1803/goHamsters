@@ -23,33 +23,7 @@ h1 {
 }
 
 .toggle-btn {
-  position: fixed;
-  margin: 1.4em;
-  padding: 1em;
-  width: 40px;
-  height: 12px;
-  left: 0;
   z-index: 1;
-}
-
-.goHamText {
-  position: fixed;
-  margin: 1.4em;
-  
-  padding: 1em;
-  width: 40px;
-  height: 12px;
-  right: 0;
-  z-index: 1;
-}
-
-.goHamText img {
-  
-  max-width: 200px;
-  max-height: 200px;
-  width: auto;
-  height: auto;
-
 }
 
 span.one {
@@ -57,6 +31,8 @@ span.one {
   width: 40px;
   height: 2px;
   background: #fff;
+
+  margin-top: -6px;
 }
 
 span.two {
@@ -64,7 +40,15 @@ span.two {
   width: 40px;
   height: 2px;
   background: #fff;
-  margin-top: 12px;
+  margin-top: 6px;
+}
+
+.goHamText img {
+  width: min(50vw, 220px);
+}
+
+.goHamLogo img {
+  width: min(5vw, 220px);
 }
 
 .menu {
@@ -94,15 +78,8 @@ li {
   font-size: 42px;
 }
 
-a {
+.menu .data li a {
   text-decoration: none;
   color: #fff;
   font-family: Poppins;
-}
-
-/*---------------------*/
-/*directory*/
-
-section{
-  height: 100vh;
 }
