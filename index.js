@@ -14,7 +14,10 @@ app.get("/directory", (req, res) => {
   //   res.send("hello");
   res.render("directory");
 });
-
+app.get("/directory1", (req, res) => {
+  //   res.send("hello");
+  res.render("directory1");
+});
 app.listen(3000, () => {
   console.log("app running on port 3000");
 });
