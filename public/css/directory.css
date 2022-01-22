@@ -2,8 +2,8 @@
 /*directory*/
 *{
     box-sizing: border-box;
-    
 }
+
 section{
     height: 100vh;
     display: flex;
@@ -12,14 +12,15 @@ section{
     color: white;
     scroll-snap-align: start;
   }
-/* .container{
-    scroll-snap-type: y mandatory;
-    overflow-y: scroll;
-    height: 100vh;
-} */
+  
 .one{
     background: rgb(214, 208, 226);
 }
+
+.one>h1{
+    font-size: 8vw;
+}
+
 .two{
     background: rgb(70, 197, 102);
 }
