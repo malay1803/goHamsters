@@ -13,3 +13,8 @@ function myFunction() {
     navbar.classList.remove("sticky");
   }
 }
+
+// --------nextsection--------
+
+var enter = $('.circle1');
+var page = $('.page');

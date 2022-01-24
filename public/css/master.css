@@ -14,7 +14,7 @@ body {
 } */
 
 .toggle-btn {
-  z-index: 104;
+  z-index: 1000;
 }
 
 span.one {
