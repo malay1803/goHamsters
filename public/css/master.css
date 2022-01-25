@@ -21,7 +21,7 @@ span.one {
   position: absolute;
   width: 40px;
   height: 2px;
-  background: red;
+  background: #fff;
   margin-top: -6px;
 }
 
@@ -29,7 +29,7 @@ span.two {
   position: absolute;
   width: 40px;
   height: 2px;
-  background: red;
+  background: #fff;
   margin-top: 6px;
 }
 
@@ -44,7 +44,7 @@ span.two {
 .menu {
   z-index: 0;
   position: absolute;
-  background: orange;
+  background: black;
   height: 100vh;
   width: 100%;
   top: -100%;
@@ -69,13 +69,12 @@ li {
 
 .menu .data li a {
   text-decoration: none;
-  color: #000;
+  color: #fff;
   font-family: Poppins;
 }
 
 .row{
   width: 100vw;
-  /* height: 15%; */
   position: absolute;
   top: 0;
 }
