@@ -9,9 +9,21 @@
 
 <div class="genderSection">
   <h1 class="genderText">Select your <span class="outText">gender</span></h1>
-  <h3><input type="radio" name="gender" value="male" /> Male</h3>
-  <h3><input type="radio" name="gender" value="female" /> Female</h3>
+  <div class="radio">
+    <input type="radio" name="gender" id="male" value="male" class="gender selRad" />
+    <label for="male" class="genderLabel">Male</label>
+
+    <div class="check selRad"></div>
+  </div>
+  <div class="radio">
+    <input type="radio" name="gender" value="female" id="female" class="gender selRad" />
+    <label for="female" class="genderLabel">Female</label>
+
+    <div class="check selRad"></div>
+  </div>
 </div>
+
+<div class="back">back</div>
 
 <script src="js/functions.js"></script>
 
