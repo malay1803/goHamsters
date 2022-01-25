@@ -11,15 +11,15 @@
       <img src="images/goHamster.png" alt="" />
     </div>
   </div>
-
 </div>
+
 <div class="menu">
   <div class="data">
     <ul>
-      <li><a href="#">Directory</a></li>
-      <li><a href="#">Calorie Tracker</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Sign In</a></li>
+      <li><a id="link" href="#">Calorie Tracker</a></li>
+      <li><a id="link" href="#">About</a></li>
+      <li><a id="link" href="#">Directory</a></li>
+      <li><a id="link" href="#">Sign In</a></li>
     </ul>
   </div>
 </div>
@@ -56,7 +56,7 @@
   $(document).on("click", ".toggle-btn", function () {
     t1.reversed(!t1.reversed());
   });
-  $(document).on("click", "a", function () {
+  $(document).on("click", "#link", function () {
     t1.reversed(!t1.reversed());
   });
 </script>

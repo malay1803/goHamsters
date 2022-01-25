@@ -14,7 +14,7 @@ body {
 } */
 
 .toggle-btn {
-  z-index: 1000;
+  z-index: 1;
 }
 
 span.one {
@@ -44,7 +44,7 @@ span.two {
 .menu {
   z-index: 0;
   position: absolute;
-  background: #fff;
+  background: orange;
   height: 100vh;
   width: 100%;
   top: -100%;
@@ -54,7 +54,6 @@ span.two {
   padding: 8em 0 0 0;
   padding-left: auto;
   padding-right: auto;
-
   text-align: center;
 }
 
@@ -76,7 +75,7 @@ li {
 
 .row{
   width: 100vw;
-  height: 15%;
-  position: fixed;
+  /* height: 15%; */
+  position: absolute;
   top: 0;
 }
