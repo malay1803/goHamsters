@@ -56,6 +56,10 @@ h1 {
   -webkit-text-stroke: 0.1px #fff;
 }
 
+.genderText{
+  font-size: 5em;
+}
+
 input[type="radio"] {
   position: absolute;
   visibility: hidden;
@@ -84,7 +88,7 @@ input[type="radio"] {
   display: block;
   position: relative;
   font-weight: 700;
-  font-size: 1.35em;
+  font-size: 3em;
   padding: 25px 25px 25px 80px;
   margin: 10px auto;
   height: 30px;
