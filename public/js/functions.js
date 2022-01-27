@@ -30,3 +30,8 @@ t3.from(".dirText", {
   ease: Power4.easeOut,
   stagger: 0.1,
 });
+
+
+$("#sign-up-btn").on("click", function(){
+  console.log("helo")
+  })
