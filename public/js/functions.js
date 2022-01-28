@@ -56,3 +56,7 @@ $("input[type=radio]").click(function () {
 $(".back2").on("click", function () {
   t4.reverse();
 });
+
+$("#sign-up-btn").on("click", function(){
+  console.log("helo")
+  })

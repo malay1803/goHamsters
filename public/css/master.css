@@ -35,8 +35,11 @@ span.two {
 
 .goHamText img {
   width: min(50vw, 220px);
+  z-index: 100;
 }
-
+.goHamText{
+  z-index: 100;
+}
 .goHamLogo img {
   width: min(5vw, 220px);
 }
