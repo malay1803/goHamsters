@@ -192,19 +192,78 @@ input[type=radio]:checked ~ label{
 }
 
 .trapsA{
-  top: 17%;
+  top: 16.5%;
   left: 26.4%;
   width: 4%
 }
 
 .trapsB{
-  top: 17%;
+  top: 16.5%;
   left: 31.3%;
   width: 4%
 }
 
+.DeltoidA{
+  top: 19.9%;
+  left: 22%;
+  width: 5.5%
+}
 
-
+.DeltoidB{
+  top: 19.9%;
+  left: 34%;
+  width: 5.5%
+}
+.Pecs{
+  top: 21.1%;
+  left: 24.6%;
+  width: 12.4%
+}
+.Abs{
+  top: 27.2%;
+  left: 27.2%;
+  width: 6.7%
+}
+.QuadsA{
+  top: 40%;
+  left: 23.4%;
+  width: 6.7%
+}
+.QuadsB{
+  top: 40%;
+  left: 31.3%;
+  width: 6.7%
+}
+.CalvesA{
+  top: 62%;
+  left: 23.2%;
+  width: 4.5%
+}
+.CalvesB{
+  top: 62%;
+  left: 33.7%;
+  width: 4.5%
+}
+.ForearmA{
+  top: 32.4%;
+  left: 16.8%;
+  width: 6.2%
+}
+.ForearmB{
+  top: 32.4%;
+  left: 38.4%;
+  width: 6.2%
+}
+.BicepA{
+  top: 25.4%;
+  left: 20.7%;
+  width: 4.2%
+}
+.BicepB{
+  top: 25.4%;
+  left: 36.7%;
+  width: 4.2%
+}
 /* .shapes {
   display: flex;
   justify-content: center;
