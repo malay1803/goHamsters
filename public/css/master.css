@@ -1,17 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 html,
 body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100vh;
+  font-family: 'Montserrat', sans-serif;
 }
-
-/* .navbar{
-  background-color: red;
-  position: absolute;
-  top: 50%;
-  right: 50%;
-} */
 
 .toggle-btn {
   z-index: 100;
@@ -45,7 +41,7 @@ span.two {
 }
 
 .menu {
-  z-index: 0;
+  z-index: 10;
   position: absolute;
   background: #121212;
   height: 100vh;
@@ -73,7 +69,6 @@ li {
 .menu .data li a {
   text-decoration: none;
   color: #fff;
-  font-family: Poppins;
 }
 
 .row{
