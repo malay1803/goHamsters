@@ -1,18 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 html,
 body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100vh;
+<<<<<<< HEAD
   font-family: 'Montserrat';
+=======
+  font-family: 'Montserrat', sans-serif;
+>>>>>>> 993dfc033fd21884401e6a28300b1c7957af6ead
 }
-
-/* .navbar{
-  background-color: red;
-  position: absolute;
-  top: 50%;
-  right: 50%;
-} */
 
 .toggle-btn {
   z-index: 100;
@@ -74,7 +73,6 @@ li {
 .menu .data li a {
   text-decoration: none;
   color: #fff;
-
 }
 
 .row{
