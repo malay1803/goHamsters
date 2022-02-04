@@ -4,6 +4,10 @@ $(".enter").on("click", function () {
   t2.play();
 });
 
+$(".genderSelect").on("click", function () {
+  t5.play();
+});
+
 $(".back1").on("click", function () {
   t2.reverse();
 });
@@ -25,6 +29,11 @@ t2.to(".genderSection", 1, { top: "0%", ease: Power4.easeOut })
     { y: "100%", opacity: 0, ease: Power3.easeOut },
     0
   );
+
+  t5 = new TimelineMax({ paused: true });
+
+t5.to(".genderSection", 1, { top: "0%", ease: Power4.easeOut });
+  
 
 //directory text
 
@@ -60,3 +69,4 @@ $(".back2").on("click", function () {
 $("#sign-up-btn").on("click", function(){
   console.log("helo")
   })
+

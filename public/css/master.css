@@ -6,11 +6,7 @@ body {
   padding: 0;
   width: 100%;
   height: 100vh;
-<<<<<<< HEAD
   font-family: 'Montserrat';
-=======
-  font-family: 'Montserrat', sans-serif;
->>>>>>> 993dfc033fd21884401e6a28300b1c7957af6ead
 }
 
 .toggle-btn {
