@@ -1,9 +1,16 @@
 const express = require("express");
 const app = express();
+const mongoose=require("mongoose")
+const User=require("./models/users")
 
 app.set("view engine", "ejs");
 
 app.use(express.static(__dirname + '/public'))
+
+mongoose.connect("mongodb+srv://hamster:hamster@gohamsters.wo7az.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {useNewUrlParser:true, useUnifiedTopology:true}).then(
+  ()=>{console.log("mongodb connected")}
+).catch((err)=>{console.log(err)})
+
 
 app.get("/", (req, res) => {
     res.send("hello");
