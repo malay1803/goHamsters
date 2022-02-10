@@ -52,11 +52,11 @@ form {
 
 form.sign-up-form {
   opacity: 0;
-  z-index: 0;
+  z-index: 1;
 }
 
 form.sign-in-form {
-  z-index: 0;
+  z-index: 2;
 }
 
 .title {
