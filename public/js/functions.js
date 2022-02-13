@@ -67,9 +67,7 @@ $(".back2").on("click", function () {
   t4.reverse();
 });
 
-$("#sign-up-btn").on("click", function(){
-  console.log("helo")
-  })
+
 
 t6 = new TimelineMax({ paused: true });
 
