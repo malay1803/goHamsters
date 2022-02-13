@@ -35,6 +35,14 @@ app.get("/login1", (req, res) => {
   //   res.send("hello");
   res.render("login1");
 });
+app.get("/calculator", (req, res) => {
+  //   res.send("hello");
+  res.render("calculator");
+});
+app.get("/calculator1", (req, res) => {
+  //   res.send("hello");
+  res.render("calculator1");
+});
 app.listen(3000, () => {
   console.log("app running on port 3000");
 });
