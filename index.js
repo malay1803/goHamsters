@@ -72,9 +72,11 @@ app.post("/addUser", async (req, res) => {
 });
 
 app.post("/loginUser", async (req, res) => {
-  var results = await User.findOne({ name: req.body.loginUserName });
+  var results = await User.findOne({ Username: req.body.loginUserName });
+  console.log(results);
   if (results) {
     var check = await bcrypt.compare(req.body.loginPassword, results.Password);
+    console.log(check);
     if (check) {
       sess = req.session;
       sess.name = results.Username;

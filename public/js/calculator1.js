@@ -48,7 +48,6 @@ function CalCalculator(){
     const weight= $('.weightValue').text()
     const sel=$('#frequency').val()
     let BMR
-
     console.log("hello2",age)
     if(gender==="male"){
         BMR = ( (10 * weight) + (6.25 * height) - (5 * age) + 5 )
@@ -77,7 +76,6 @@ function CalCalculator(){
     else if(sel==1.9){
         BMR = BMR*1.9;
     }
-    
     $('#resultBMR').html(Math.ceil(BMR))
 }
 
