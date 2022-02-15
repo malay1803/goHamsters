@@ -37,35 +37,32 @@ app.get("/", (req, res) => {
 
 app.get("/directory", (req, res) => {
   //   res.send("hello");
-  res.render("directory");
+  res.render("directory", {userName: req.session.name});
 });
 app.get("/directory1", (req, res) => {
   //   res.send("hello");
-  res.render("directory1");
+  res.render("directory1", {userName: req.session.name});
 });
 
 app.get("/login", (req, res) => {
   //   res.send("hello");
-  res.render("login");
+  res.render("login", {userName: req.session.name});
 });
 
 app.get("/userDashboard", (req, res) => {
-  res.render("userDashboard");
+  res.render("userDashboard", {userName: req.session.name})
 });
-app.get("/calculator", (req, res) => {
-  //   res.send("hello");
-  res.render("calculator");
-});
+
 app.get("/calculator1", (req, res) => {
   //   res.send("hello");
-  res.render("calculator1");
+  res.render("calculator1", {userName: req.session.name});
 });
 
 app.post("/addUser", async (req, res) => {
   const hashPass = await bcrypt.hashSync(req.body.password, salt);
   const newUserDetails = {
     Username: req.body.username,
-    Email: req.body.mail,
+    Email: req.body.email,
     Password: hashPass,
   };
   const newUser = new User(newUserDetails);
@@ -75,25 +72,29 @@ app.post("/addUser", async (req, res) => {
 });
 
 app.post("/loginUser", async (req, res) => {
-  console.log(req.body.loginUserName);
   var results = await User.findOne({ name: req.body.loginUserName });
-  console.log(results);
   if (results) {
-    console.log(req.body.loginPassword);
     var check = await bcrypt.compare(req.body.loginPassword, results.Password);
-    console.log(check);
     if (check) {
       sess = req.session;
       sess.name = results.Username;
       sess.email = results.Email;
-      res.send("hello3");
+      console.log(sess);
+      res.redirect("userDashboard");
     } else {
-      res.send("hello1");
+      res.redirect("login");
     }
   } else {
-    res.send("hello2");
+    res.redirect("login");
   }
 });
+
+app.get("/logout", (req,res)=>{
+  req.session.destroy((err)=>{
+    console.log(err);
+  })
+  res.redirect("/login")
+})
 
 app.listen(3000, () => {
   console.log("app running on port 3000");
