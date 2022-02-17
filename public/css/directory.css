@@ -1,10 +1,10 @@
 ---------------------
 /*directory*/
-body{
+/* body{
     overflow:hidden ;
     padding: 0;
     margin: 0;
-}
+} */
 .breadcrumb-item + .breadcrumb-item::before {
      content: ">"; 
     color: #30475E;
@@ -81,4 +81,8 @@ a:hover{
     font-size: 10em;
     border-bottom: 1px solid #f05454;
     font-weight: 700;
+}
+
+.row{
+    overflow-x: hidden;
 }

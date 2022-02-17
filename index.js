@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const User = require("./models/users");
 const session = require("express-session");
 var bcrypt = require("bcryptjs");
 var salt = bcrypt.genSaltSync(10);
+
+const User = require("./models/users");
+const Excercise = require("./models/excercise")
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -31,14 +33,22 @@ mongoose
   });
 
 app.get("/", (req, res) => {
-  res.send("hello");
+  res.render("card");
   // res.render("index");
 });
 
-app.get("/directory", (req, res) => {
+app.get("/directory", async (req, res) => {
   //   res.send("hello");
-  res.render("directory", {userName: req.session.name});
+  var excercises = await Excercise.find()
+  var productChunks = []
+  var chunkSize = 3 
+  for(i = 0; i=excercises.length; i+=chunkSize){
+    productChunks.push(excercises.slice(i, i+chunkSize))
+  }
+  console.log(excercises);
+  res.render("directory", {userName: req.session.name, excercises: productChunks});
 });
+
 app.get("/directory1", (req, res) => {
   //   res.send("hello");
   res.render("directory1", {userName: req.session.name});
