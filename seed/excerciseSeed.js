@@ -15,17 +15,17 @@ mongoose
 
 var excercises = [
   new Excercise({
-    excerciseImage: "../public/images/male/shoulder/stretches/1.gif",
+    excerciseImage: "/images/male/shoulder/stretches/1.gif",
     excerciseName: "Traps Stretch 1",
     excerciseDesc: "excercise for shoulder 1",
   }),
   new Excercise({
-    excerciseImage: "../public/images/male/shoulder/stretches/2.gif",
+    excerciseImage: "/images/male/shoulder/stretches/2.gif",
     excerciseName: "Traps Stretch 2",
     excerciseDesc: "excercise for shoulder 2",
   }),
   new Excercise({
-    excerciseImage: "../public/images/male/shoulder/stretches/3.gif",
+    excerciseImage: "/images/male/shoulder/stretches/3.gif",
     excerciseName: "Traps Stretch 3",
     excerciseDesc: "excercise for shoulder 3",
   }),
