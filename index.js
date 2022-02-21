@@ -37,17 +37,21 @@ app.get("/", (req, res) => {
   // res.render("index");
 });
 
+
 app.get("/directory", async (req, res) => {
   //   res.send("hello");
-  var excercises = await Excercise.find()
-  var productChunks = []
-  var chunkSize = 3 
-  for(i = 0; i=excercises.length; i+=chunkSize){
-    productChunks.push(excercises.slice(i, i+chunkSize))
+  let excerType
+  if(req.query.type === undefined){
+    excerType = "Stretches"
+    var excercises = await Excercise.find({excerciseCategory: "shoulderStretches"})
+  }else{
+    excerType = req.query.type
+    var excercises = await Excercise.find({excerciseCategory: "shoulder"+req.query.type})
   }
-  console.log(excercises);
-  res.render("directory", {userName: req.session.name, excercises: productChunks});
+  // const bodyPart = req.params;
+  res.render("directory", {userName: req.session.name, excercises: excercises, excerType: excerType});
 });
+
 
 app.get("/directory1", (req, res) => {
   //   res.send("hello");

@@ -13,6 +13,10 @@ const excerciseSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  excerciseCategory: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Excercise", excerciseSchema);

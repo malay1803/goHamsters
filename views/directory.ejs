@@ -30,63 +30,81 @@
     <div
       class="w-50 d-none justify-content-between d-lg-flex flex-col bottomNav"
     >
-      <div class="stretches equipment">
-        <h4 class="activeEq">Stretches</h4>
-      </div>
-      <div class="bodyweight equipment">
-        <h4>Bodyweight</h4>
-      </div>
-      <div class="dumbbells equipment">
-        <h4>Dumbbells</h4>
-      </div>
-      <div class="barbells equipment">
-        <h4>Barbells</h4>
-      </div>
-      <div class="kettlebells equipment">
-        <h4>Kettlebells</h4>
-      </div>
+      <!-- <div class="equipment">
+        <h4 data-filter="all" id="all" class="activeEq tabs">All</h4>
+      </div> -->
+
+      <% let excerciseType = ["Stretches", "Bodyweight", "Dumbbells",
+      "Barbells", "Kettlebells"] %> <% for(let excercise of excerciseType){ %>
+      <div class="equipment">
+        <a
+          href="directory?type=<%=excercise%>"
+          data-filter="<%=excercise.toLowerCase()%>"
+          id="<%=excercise.toLowerCase()%>"
+          class=" <%-excercise == excerType?'activeEq':''%> tabs"
+          ><%=excercise%></a>
+      </div> %> <% } %>
+
+      
     </div>
   </div>
 </div>
 
-
 <div class="container col-lg-8 col-md-12 col-sm-12 mb-5 mt-4">
-    <%#  for(i=0; i<excercises.length; i++){  %> 
-        <div class="row">
+  <div class="row">
+    <% for(let excer of excercises){ %>
+    <div class="col-sm-4 col-xl-4 mb-4 ms-0">
+      <!-- card body -->
+      <div class="card h-100 shadow">
+        <img
+          class="card-img-top"
+          src="<%=excer.excerciseImage%>"
+          alt="Card image cap"
+        />
 
-            <%#  for(j=0; j<excercises.length; j++){  %> 
-                <div class="col-sm-4 col-xl-4 mb-4 ms-0">
-                    <!-- card body -->
-                    <div
-                      class="card h-100 shadow"
-                    >
-                      <img
-                        class="card-img-top"
-                        src="Image"
-                        alt="Card image cap"
-                      />
-              
-                      <div class="card-body" style="border-radius: 20%">
-                        <div class="d-flex justify-content-between">
-                          <h4 class="card-title" style="font-size: 105%">hello</h4>
-                          <h5 class="card-text fw-bold text-end;">₹10</h5>
-                        </div>
-              
-                        <p class="card-text" style="font-size: 80%">
-                          h are going to present a report on web application testing.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-            <%# } %> 
-
-            
+        <div class="card-body" style="border-radius: 20%">
+          <div class="d-flex justify-content-between">
+            <h4 class="card-title" style="font-size: 105%">
+              <%= excer.excerciseName %>
+            </h4>
           </div>
-        <%# } %> 
-    
 
-  
+          <p class="card-text" style="font-size: 80%">
+            <%= excer.excerciseDesc %>
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <% } %>
+    <% if(excercises.length==0){ %>
+      <div class="h1 text-center">Sorry No excercises Found!</div>
+      <% }%>  
+  </div>
 </div>
 
-<script src="js/functions.js"></script>
+<!-- <script type="text/javascript" src="js/directory.js"></script> -->
 <link rel="stylesheet" href="css/directory.css" />
+
+<script type="text/javascript">
+  const tabs = document.querySelectorAll(".tabs");
+  var excerData = "<%- JSON.stringify(excercises)%>";
+  for (let excer1 of excerData) {
+    console.log(excer1.excerciseName);
+  }
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      document.querySelector("a.activeEq").classList.remove("activeEq");
+      tab.classList.add("activeEq");
+    });
+  });
+
+  for (i = 0; i < tabs.length; i++) {
+    tabs[i].addEventListener("click", (e) => {
+      // e.preventDefault();
+      const filter = e.target.dataset.filter;
+      console.log(filter);
+    });
+  }
+</script>

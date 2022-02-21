@@ -83,4 +83,8 @@ t6.to(".userDetails", 1, { top: "0%", ease: Power4.easeOut }).from(
       console.log("frfr");
     }
   });
+
+  
+
+
   
