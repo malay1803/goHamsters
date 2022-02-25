@@ -1,84 +1,114 @@
 ---------------------
 /*directory*/
-body{
+/* body{
     overflow:hidden ;
     padding: 0;
     margin: 0;
-}
+} */
 .breadcrumb-item + .breadcrumb-item::before {
-     content: ">"; 
-    color: #30475E;
-    font-size: 0.6em;
-    margin-top: 3%;
+  content: ">";
+  color: #30475e;
+  font-size: 0.6em;
+  margin-top: 3%;
 }
-.breadcrumb{
-    height: 100px;
-    text-align: center;
-    line-height: 10px;
-    margin-top: 6%;
-    margin-bottom: 0;
-    justify-content: center;
-}
-
-.breadcrumb a{
-    color:#30475E;
-    text-decoration: solid;
-    font-size: 0.6em;
-}
-a:hover{
-    color: #f05454;
-}
-.breadcrumb >.active a {
-    color: #30475E;
-    font-size: 0.6em;
- }
-.excerciseHead{
-    
-    height: 100%;
-    line-height: 100%;
-    background-color: #f05454;
-    text-align: center;
-    margin: 0 auto;
-    margin-top: -2%;
-    border-radius: 20px;
-}
-.excerciseHead>h3{
-   padding: 2px;
-   line-height: 1.5;
-   vertical-align: middle;
-   color: white;
+.breadcrumb {
+  height: 100px;
+  text-align: center;
+  line-height: 10px;
+  margin-top: 6%;
+  margin-bottom: 0;
+  justify-content: center;
 }
 
- .exerciseImage img{
-    /* margin-left: 17%; */
-
-   max-width: 100%;
-   height: auto;
+.breadcrumb a {
+  color: #30475e;
+  text-decoration: solid;
+  font-size: 0.6em;
+}
+a:hover {
+  color: #f05454;
+}
+.breadcrumb > .active a {
+  color: #30475e;
+  font-size: 0.6em;
+}
+.excerciseHead {
+  height: 100%;
+  line-height: 100%;
+  background-color: #f05454;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: -2%;
+  border-radius: 20px;
+}
+.excerciseHead > h3 {
+  padding: 2px;
+  line-height: 1.5;
+  vertical-align: middle;
+  color: white;
 }
 
-.exerciseText{
-    /* height: 50%; */
-    /* margin-left: 10px; */
-    /* margin-top: 2%; */
-    color:#30475E
+.exerciseImage img {
+  /* margin-left: 17%; */
+
+  max-width: 100%;
+  height: auto;
 }
 
- .exerciseText li{
-    font-size: 0.9em;
-    text-align: justify;
-} 
-.bottomNav{
-    
-    margin: 0 auto;
-    margin-top: 5%;
+.exerciseText {
+  /* height: 50%; */
+  /* margin-left: 10px; */
+  /* margin-top: 2%; */
+  color: #30475e;
 }
 
-.equipment h4{
-    font-size: 1.4em;
+.exerciseText li {
+  font-size: 0.9em;
+  text-align: justify;
 }
-.activeEq{
-    color: #f05454;
-    font-size: 10em;
-    border-bottom: 1px solid #f05454;
-    font-weight: 700;
+
+.bottomNav {
+  border: 1px solid #f05454;
+  margin: 0 auto;
+  padding: 0 !important;
+}
+
+.equipment a {
+  font-size: 1.25em;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  color: #f05454;
+}
+
+.equipment {
+  background-color: white;
+  width: 100%;
+  text-align: center;
+}
+
+.activeEq {
+  /* font-size: 10em; */
+  background-color: #f05454;
+  font-weight: 700;
+  transition: 1s all;
+}
+
+.activeEq a {
+  color: white;
+}
+
+.showExcerciseBtn {
+  background-color: #f05454;
+}
+
+.showExcerciseBtn:hover {
+  background-color: #f05459;
+}
+
+.steps li {
+  font-size: 1.4em;
+  /* font-family: ; */
+  margin-top: 0.6em;
+  font-weight: 400;
 }

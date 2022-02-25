@@ -1,51 +1,148 @@
 <%- include('partials/head') %> <%- include('partials/nav') %>
 
-<script src="js/functions.js"></script>
+<div class="container col-lg-12 col-md-12 col-sm-12">
+  <div class="row">
+    <div
+      class="w-50 d-none justify-content-between d-lg-flex flex-col bottomNav mt-5"
+    >
+      <!-- <div class="equipment">
+        <h4 data-filter="all" id="all" class="activeEq tabs">All</h4>
+      </div> -->
+
+      <% let excerciseType = ["Stretches", "Bodyweight", "Dumbbells",
+      "Barbells", "Kettlebells"] %> <% for(let excercise of excerciseType){ %>
+      <div class="equipment <%-excercise == excerType?'activeEq':''%> tabs p-2">
+        <a
+          href="directory?bodyPart=<%=bodyPart%>&type=<%=excercise%>"
+          data-filter="<%=excercise.toLowerCase()%>"
+          id="<%=excercise.toLowerCase()%>"
+          ><%=excercise%></a
+        >
+      </div>
+      %> <% } %>
+    </div>
+  </div>
+</div>
+
+<div class="container col-lg-8 col-md-12 col-sm-12 mb-5 mt-4">
+  <div class="row">
+    <% let count = 0 %> <% for(let excer of excercises){ %> <% count +=1 %>
+    <div class="col-sm-4 col-xl-4 mb-4 ms-0">
+      <div class="card h-100 shadow">
+        <img
+          class="card-img-top"
+          src="<%=excer.excerciseImage%>"
+          alt="Card image cap"
+        />
+
+        <div class="card-body" style="border-radius: 20%">
+          <div class="d-flex justify-content-between">
+            <h4 class="card-title" style="font-size: 105%">
+              <%= excer.excerciseName %>
+            </h4>
+          </div>
+
+          <p class="card-text" style="font-size: 80%">
+            <%= excer.excerciseDesc %>
+          </p>
+          <a
+            href="#"
+            class="showExcerciseBtn btn btn-primary w-100"
+            data-bs-toggle="modal"
+            data-bs-target="#excerciseModal<%=count%>"
+            >Show Excercise</a
+          >
+          <div
+            class="fade modal"
+            id="excerciseModal<%=count%>"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="excerciseModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-xl" role="document">
+              <div class="modal-content">
+                <div
+                  class="modal-header"
+                  style="background-color: #f05454; color: white"
+                >
+                  <h2 class="modal-title" id="excerciseModalLabel">
+                    <%=excer.excerciseName %>
+                  </h2>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div
+                      class="col d-flex justify-content-center"
+                      style="flex-basis: auto"
+                    >
+                      <img
+                        class="img-fluid"
+                        style="width: 70%; height: auto"
+                        src="<%=excer.excerciseImage%>"
+                        alt=""
+                      />
+                    </div>
+                    <div class="row">
+                      <div class="col d-flex justify-content-center">
+                        <ol class="steps mt-3" style="width: 80%">
+                          <li><%=excer.step1%></li>
+                          <li><%=excer.step2%></li>
+                          <li><%=excer.step3%></li>
+                          <%if(excer.step4!==undefined){%>
+                          <li><%=excer.step4%></li>
+                          <%}%> 
+                          <%if(excer.step5!==undefined){%>
+                          <li><%=excer.step5%></li>
+                          <%}%>
+                        </ol>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% } %> <% if(excercises.length==0){ %>
+    <div class="h1 text-center">Sorry No excercises Found!</div>
+    <% }%>
+  </div>
+</div>
+
+<!-- <script type="text/javascript" src="js/directory.js"></script> -->
 <link rel="stylesheet" href="css/directory.css" />
 
-    <nav aria-label="breadcrumb">
-    <ol class=" align-items-center breadcrumb">
-      <li class="breadcrumb-item"><a href="#">Gender</a></li>
-      <li class="breadcrumb-item "><a class="genderSelect" href="/directory1#genderSection">Male</a></li>
-      <li class="breadcrumb-item active" aria-current="page"><a class="" href="/directory1#musclePick">Biceps</a></li>
-    </ol>
-    </nav>
-    <div class="col-lg-12 col-md-12 col-sm-12 mt-5">
-        <div class="w-75 d-flex justify-content-center excerciseHead">
-            <h3>Excercise Name</h3>
-        </div>
-        <div class="container w-75 col-lg-12 d-flex flex-column flex-lg-row exerciseContent">
-            <div class="col-lg-6 col-md-12 col-sm-12 mt-lg-5 exerciseImage">
-                <img class="img-fluid" src="images/bicep.gif"></img>
-            </div>
-            <div class="col-lg-6 col-md-12 col-sm-12 mt-lg-5 exerciseText">
-                <h4>
-                    <ol>
-                        <li>While holding the upper arms stationary, curl the weights forward while contracting the biceps as you breathe out.</li>
-                        <li class="mt-2">Continue the movement until your biceps are fully contracted and the bar is at shoulder level.</li>
-                        <li class="mt-2">Hold the contracted position for a second and squeeze the biceps hard.</li>
-                        <li class="mt-2">Slowly bring the weight back down to the starting position</li>
-                    </ol>
-                </h4>
-            </div>
-        </div>
-        <div class="w-50 d-none justify-content-between d-lg-flex flex-col bottomNav">
-            <div class="stretches equipment">
-                <h4 class="activeEq">Stretches</h4>
-            </div>
-            <div class="bodyweight equipment">
-                <h4>Bodyweight</h4>
-            </div>
-            <div class="dumbbells equipment">
-                <h4>Dumbbells</h4>
-            </div>
-            <div class="barbells equipment">
-                <h4>Barbells</h4>
-            </div>
-            <div class="kettlebells equipment">
-                <h4>Kettlebells</h4>
-            </div>
+<script type="text/javascript">
+  const tabs = document.querySelectorAll(".tabs");
+  var excerData = "<%- JSON.stringify(excercises)%>";
+  for (let excer1 of excerData) {
+    console.log(excer1.excerciseName);
+  }
 
-        </div>
-    </div>
-    
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      document.querySelector("a.activeEq").classList.remove("activeEq");
+      tab.classList.add("activeEq");
+    });
+  });
+
+  for (i = 0; i < tabs.length; i++) {
+    tabs[i].addEventListener("click", (e) => {
+      // e.preventDefault();
+      const filter = e.target.dataset.filter;
+      console.log(filter);
+    });
+  }
+</script>
