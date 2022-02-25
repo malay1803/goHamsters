@@ -45,7 +45,7 @@ body{
 
 .rectangle{
   top: 90%;
-  height: 40vh;
+  height: 35vh;
   width:100vw;
   background-color: #f5f5f5;
   display: flex;
@@ -87,11 +87,11 @@ select{
 
 .genderDiv h4{
   font-size: 1.8em;
-  font-weight: bold;
+  font-weight: 500;
 }
 .container h4{
   font-size: 2em;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .select-box {

@@ -22,7 +22,7 @@ body {
   font-size: 7em;
   text-align: center;
   font-weight: 600;
-  z-index: -1;
+  z-index: 0;
   
 }
 table {
@@ -53,6 +53,7 @@ table {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 }
 .genderSection {
   position: absolute;
@@ -64,6 +65,7 @@ table {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  z-index: 2;
 }
 
 .genderSection h1 {
