@@ -32,25 +32,36 @@ mongoose
     console.log(err);
   });
 
+const directoryRoute = require("./routes/Directory")
+
+app.use("/directory", directoryRoute)
+
+
 app.get("/", (req, res) => {
   res.render("card");
   // res.render("index");
 });
 
 
-app.get("/directory", async (req, res) => {
-  //   res.send("hello");
-  let excerType
-  if(req.query.type === undefined){
-    excerType = "Stretches"
-    var excercises = await Excercise.find({excerciseCategory: "shoulderStretches"})
-  }else{
-    excerType = req.query.type
-    var excercises = await Excercise.find({excerciseCategory: "shoulder"+req.query.type})
-  }
-  // const bodyPart = req.params;
-  res.render("directory", {userName: req.session.name, excercises: excercises, excerType: excerType});
-});
+// app.get("/directory", async (req, res) => {
+//   //   res.send("hello");
+//   let excerType
+//   let bodyPart = req.query.bodyPart 
+//   console.log( req.query.bodyPart);
+
+//   if(bodyPart==="traps"){
+//     excerType = req.query.type
+//     var excercises = await Excercise.find({excerciseCategory: "shoulder"+req.query.type})
+//   }
+
+//   if(req.query.type === undefined){
+//     excerType = "Stretches"
+//     bodyPart ="traps"
+//     var excercises = await Excercise.find({excerciseCategory: "shoulderStretches"})
+//   }
+//   // const bodyPart = req.params;
+//   res.render("directory", {userName: req.session.name, excercises: excercises, excerType: excerType, bodyPart:bodyPart});
+// });
 
 
 app.get("/directory1", (req, res) => {
