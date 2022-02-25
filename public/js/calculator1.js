@@ -1,4 +1,12 @@
+calcHeading = new TimelineMax({});
 
+calcHeading.from(".calculatorText", {
+  duration: 1.5,
+  y: "100%",
+  ease: Power4.easeOut,
+  stagger: 0.1,
+  delay: 1
+});
 
 $("#slider1").roundSlider({
     circleShape:"half", 
@@ -46,9 +54,11 @@ function CalCalculator(){
     const age= $('.ageValue').text()
     const height= $('.heightValue').text()
     const weight= $('.weightValue').text()
-    const sel=$('#frequency').val()
+    const sel=$("input[type='radio'][name='category']:checked").val()
+    // const gender=$("input[type='radio'][name='gender']:checked").val()
     let BMR
-    console.log("hello2",age)
+    console.log(gender)
+    console
     if(gender==="male"){
         BMR = ( (10 * weight) + (6.25 * height) - (5 * age) + 5 )
     }
@@ -77,5 +87,44 @@ function CalCalculator(){
         BMR = BMR*1.9;
     }
     $('#resultBMR').html(Math.ceil(BMR))
+    $('.gain').html(Math.ceil(1.2*BMR))
+    $('.mildgain').html(Math.ceil(1.1*BMR))
+    $('.maintain').html(Math.ceil(BMR))
+    $('.mildloss').html(Math.ceil(0.9*BMR))
+    $('.loss').html(Math.ceil(0.8*BMR))
+    $("#infoDiv").fadeToggle();
 }
+
+const selected = document.querySelector(".selected");
+const optionsContainer = document.querySelector(".options-container");
+
+const optionsList = document.querySelectorAll(".option");
+
+selected.addEventListener("click", () => {
+  optionsContainer.classList.toggle("active");
+});
+
+optionsList.forEach(o => {
+  o.addEventListener("click", () => {
+    selected.innerHTML = o.querySelector("label").innerHTML;
+    optionsContainer.classList.remove("active");
+  });
+});
+
+
+// const selected1 = document.querySelector(".selected1");
+// const optionsContainer1 = document.querySelector(".options-container1");
+
+// const optionsList1 = document.querySelectorAll(".option1");
+
+// selected1.addEventListener("click", () => {
+//   optionsContainer1.classList.toggle("active");
+// });
+
+// optionsList1.forEach(o => {
+//   o.addEventListener("click", () => {
+//     selected1.innerHTML = o.querySelector("label").innerHTML;
+//     optionsContainer1.classList.remove("active");
+//   });
+// });
 

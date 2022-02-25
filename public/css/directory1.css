@@ -25,7 +25,14 @@ body {
   z-index: -1;
   
 }
-
+table {
+  display: table;
+  border-collapse: separate;
+  box-sizing: border-box;
+  text-indent: initial;
+  border-spacing: 2px;
+  border-color: grey;
+}
 #enter {
   font-size: 1em;
   text-align: center;

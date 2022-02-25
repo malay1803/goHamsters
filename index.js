@@ -57,6 +57,9 @@ app.get("/calculator1", (req, res) => {
   //   res.send("hello");
   res.render("calculator1", {userName: req.session.name});
 });
+app.get("/about", (req, res) => {
+  res.render("about", {userName: req.session.name});
+});
 
 app.post("/addUser", async (req, res) => {
   const hashPass = await bcrypt.hashSync(req.body.password, salt);
