@@ -1,3 +1,142 @@
-<h1>Hello,<%=userName%></h1>
+<%- include('partials/head') %> <%- include('partials/nav') %>
+
+<div class="container col-lg-12 col-md-12 col-sm-12 mt-5">
+  <div class="row" style="height: 4em">
+    <div
+      class="hello h-100 d-flex justify-content-end align-items-center pe-5"
+      style="background-color: #30475e; border-radius: 2em"
+    >
+      <div class="h4 align-middle text-end" style="color: white">
+        Hello,<%=userName%>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div
+      class="col-md-3 shadow order-1"
+      style="background-color: #30475e; border-radius: 2em"
+    >
+      <div class="rounded userImgDiv w-100 text-center pt-4 pb-3">
+        <img
+          class="rounded-circle z-depth-2"
+          alt="100x100"
+          src="/images/defaultUser.jpg"
+          style="width: 6em"
+        />
+      </div>
+      <div class="userDetails d-flex justify-content-center">
+        <table
+          class="table w-75"
+          style="border: none; background-color: #f5f5f5"
+        >
+          <tr class="w-50">
+            <th class="text-end">Username:</th>
+            <th>User's Name</th>
+          </tr>
+          <tr class="w-50">
+            <th class="text-end">Email:</th>
+            <th>user@email.com</th>
+          </tr>
+          <tr class="w-50">
+            <th class="text-end">Time:</th>
+            <th>user@email.com</th>
+          </tr>
+        </table>
+      </div>
+      <div class="editProfile mb-4">
+        <div class="h6 text-center">
+          <a href="" style="color: #f5f5f5; text-decoration: none"
+            >Edit Profile</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-9 order-2 charts">
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <canvas class="donutChart" id="donutChart"></canvas>
+        </div>
+        <div class="col-md-8 text-center">
+          <canvas class="lineChart" id="lineChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 order-3 mt-2">
+      <div class="analyticsDiv w-100">
+        <button type="submit" class="showAnalytics w-100" style="background-color: #30475e; border-radius: 2em; color: #fff;">Show Analytics</button>
+      </div>
+      <div class="trackerDiv w-100 mt-2">
+        <button type="submit" class="showTracker w-100" style="background-color: #30475e; border-radius: 2em; color: #fff;">Show Calorie Tracker</button>
+      </div>
+    </div>
+
+    <div class="col-md-9 order-2">
+      <div class="row">
+        <div class="col-md-9 mx-auto">
+          <div class="h3 text-uppercase">Track your calories</div>
+          <input type="text" class="search w-100">
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form action="/search" method="post">    
+    <input type="text" name="searchQuery" id="searchQuery">
+    <button type="submit">submit</button>
+</form>
+
+<script>
+
+$(".showTracker").on("click", ()=>{
+  $(".charts").fadeOut()
+})
+
+// ------charts--------- 
+  var doughnutChart = document.getElementById("donutChart").getContext("2d");
+  var lineChart = document.getElementById("donutChart").getContext("2d");
+
+  var myDoughnutChart = new Chart(doughnutChart, {
+    type: "doughnut",
+    data: {
+      labels: ["Red", "Blue", "Yellow"],
+      datasets: [
+        {
+          label: "My First Dataset",
+          data: [300, 50, 100],
+          backgroundColor: [
+            "rgb(255, 99, 132)",
+            "rgb(54, 162, 235)",
+            "rgb(255, 205, 86)",
+          ],
+          hoverOffset: 4,
+        },
+      ],
+    },
+  });
+
+  var xValues = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
+  var yValues = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
+  const labels = 1;
+  new Chart("lineChart", {
+    type: "line",
+    data: {
+      labels: xValues,
+      datasets: [
+        {
+          label: "My First Dataset",
+          data: [65, 59, 80, 81, 56, 55, 40],
+          fill: false,
+          borderColor: "rgb(75, 192, 192)",
+          tension: 0.1,
+        },
+      ],
+    },
+  });
+</script>
+
 <a href="/logout">Logout</a>
 <a href="/directory">Directory</a>
