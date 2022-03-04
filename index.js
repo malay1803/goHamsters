@@ -54,7 +54,9 @@ app.post("/search", (req, res) => {
           response.statusCode,
           body.toString("utf8")
         );
-      else console.log(body);
+      else {
+        console.log(body.items[0].sugar_g);
+      }
     }
   );
 });
