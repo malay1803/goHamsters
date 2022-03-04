@@ -8,6 +8,14 @@ const request = require("request");
 
 const User = require("./models/users");
 const Excercise = require("./models/excercise");
+const FoodData = require("./models/foodData");
+
+var data;
+var carbs;
+var calories;
+var protein;
+var fat;
+var foodName;
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -37,7 +45,7 @@ const directoryRoute = require("./routes/Directory");
 
 app.use("/directory", directoryRoute);
 
-app.post("/search", (req, res) => {
+app.post("/search", async (req, res) => {
   var query = req.body.searchQuery;
   request.get(
     {
@@ -46,7 +54,7 @@ app.post("/search", (req, res) => {
         "X-Api-Key": "o6l5WsZgJr9hRQRTRauoog==vQ8OewoiWvHVb690",
       },
     },
-    function (error, response, body) {
+    async function (error, response, body) {
       if (error) return console.error("Request failed:", error);
       else if (response.statusCode != 200)
         return console.error(
@@ -55,7 +63,35 @@ app.post("/search", (req, res) => {
           body.toString("utf8")
         );
       else {
-        console.log(body.items[0].sugar_g);
+        data = JSON.parse(body);
+
+        // console.log(foodName, calories, fat, protein, carbs);
+        foodName = data.items[0].name;
+        calories = data.items[0].calories;
+        fat = data.items[0].fat_total_g;
+        protein = data.items[0].protein_g;
+        carbs = data.items[0].carbohydrates_total_g;
+
+        if (foodName === undefined) {
+          foodName = "name";
+          calories = "calories";
+          fat = "fat";
+          protein = "protein";
+          carbs = "carbs";
+        }
+
+        // const newFoodDetails = {
+        //   foodName: foodName,
+        //   calories: calories,
+        //   carbohydrate: carbs,
+        //   protein: protein,
+        //   fat: fat,
+        // };
+
+        // const newFood = new FoodData(newFoodDetails);
+        // await newFood.save();
+        // console.log(newFood);
+        // res.redirect("/userDashboard");
       }
     }
   );
@@ -72,7 +108,14 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/userDashboard", (req, res) => {
-  res.render("userDashboard", { userName: req.session.name });
+  res.render("userDashboard", {
+    userName: req.session.name,
+    foodName: foodName,
+    calories: calories,
+    fat: fat,
+    protein: protein,
+    carbs: carbs,
+  });
 });
 
 app.get("/calculator1", (req, res) => {

@@ -2,8 +2,14 @@
 
 <style>
   .addItems{
-    color: #f05454;
+    color: white;
     text-decoration: none;
+  }
+  .addFoodItem{
+    background-color: #f05454;
+  }
+  th,td{
+    text-align: center;
   }
 </style>
 
@@ -18,9 +24,9 @@
       </div>
     </div>
   </div>
-  <div class="row mt-2">
+  <div class="row mt-2 ">
     <div
-      class="col-md-3 shadow order-1"
+      class="col-md-3 shadow order-1 p-4"
       style="background-color: #30475e; border-radius: 2em"
     >
       <div class="rounded userImgDiv w-100 text-center pt-4 pb-3">
@@ -59,7 +65,7 @@
       </div>
     </div>
 
-    <div class="col-md-9 order-2 charts">
+    <div class="col-md-9 order-2 charts p-4">
       <div class="row">
         <div class="col-md-4 text-center">
           <canvas class="donutChart" id="donutChart"></canvas>
@@ -79,7 +85,29 @@
       </div>
     </div>
 
-    <div class="col-md-9 order-2 foodSearch">
+    <div class="col-md-9 order-4 mt-2">
+      <!-- <div class="totalText">Total</div> -->
+      <table class="table totalTable">
+        <thead>
+          <tr>
+            <th>Total calories</th>
+            <th>Total carbohydrate</th>
+            <th>Total fat</th>
+            <th>Total protein</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-9 order-2 foodSearch p-4" style="overflow-y: scroll; max-height: 350px;">
       <div class="row">
         <div class="col-md-9 mx-auto">
           <div class="h3 text-uppercase">Track your calories</div>
@@ -87,10 +115,60 @@
             <input type="text" class="search w-100 rounded p-2" name="searchQuery" id="searchQuery">
             <button type="submit" class="mt-3 p-2 rounded" style="background-color: #30475e; color: white; border: none;">Search Food</button>
           </form>
+          <!-- <hr> -->
+          <table class="my-3 table table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Calories</th>
+                <th>Carbohydrates</th>
+                <th>Fat</th>
+                <th>Protein</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                
+                <td><%= foodName%></td>
+                <td><%=calories%></td>
+                <td><%=carbs%></td>
+                <td><%=fat%></td>
+                <td><%=protein%></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="addItemsDiv w-100">
+            <div class="row">
+              <input type="text" class="addItemsInput w-100 rounded p-1" name="addItemsInput" placeholder="Enter grams intake(default 100)"></input>
+            </div>
+            <div class="row d-flex justify-content-around mt-3">
+              <select name="foodTime" class="w-50" id="foodTime">
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+                <option value="snacks">Snacks</option>
+              </select>
+              <button class="addFoodItem rounded w-25" type="button" onclick="addItems()"> <a href="/addItem" class="addItems w-100 h-100 h6">Add items</a> </button>
+            </div>
+          </div>
+          <hr>
+          <div class="breakfastDiv w-100">
+            <div class="h5">Breakfast</div>
+            <ul class="list-group d-flex justify-content-around w-100" id="breakfastList">
+              
+            </ul>
+          </div>
           <hr>
           <div class="breakfastDiv d-flex justify-content-between w-100">
-            <div class="h5">Breakfast</div>
-            <div class="addBreakFast"> <a href="" class="addItems h6">Add items</a> </div>
+            <div class="h5">Lunch</div>
+          </div>
+          <hr>
+          <div class="breakfastDiv d-flex justify-content-between w-100">
+            <div class="h5">Dinner</div>
+          </div>
+          <hr>
+          <div class="breakfastDiv d-flex justify-content-between w-100">
+            <div class="h5">Snacks</div>
           </div>
         </div>
         </div>
@@ -102,7 +180,25 @@
 
 <script>
 
-$(".foodSearch").hide()
+  // breakfast list 
+
+  function addItems(){
+    event.preventDefault();
+    let foodTIme = $("#foodTime").val() 
+    if (foodTIme==="breakfast"){
+      $("#breakfastList").append(`<li class="list-group-item h6">butter chicken 
+              <div class="remEdit">
+                <a href="" style="text-decoration: none; color: #f05454; font-size: .8em;">remove</a>
+                <div class="vr"></div>
+                <a href="" style="text-decoration: none; color: #f05454; font-size: .8em">edit intake(gms)</a>
+              </div>
+              </li>`)
+    }
+    // alert(foodTIme)
+  }
+
+// show analytics/tracker
+$(".charts").hide()
 
 $(".showTracker").on("click", ()=>{
   $(".charts").hide()
