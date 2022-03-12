@@ -112,7 +112,7 @@
       </table>
     </div>
 
-    <div class="col-md-9 order-2 foodSearch p-4" style="overflow-y: scroll; max-height: 350px;">
+    <div class="col-md-9 order-2 foodSearch p-4" style="overflow-y: scroll; max-height: 450px;">
       <div class="row">
         <div class="col-md-9 mx-auto">
           <div class="h3 text-uppercase">Track your calories</div>
@@ -308,7 +308,7 @@ $(".showAnalytics").on("click", ()=>{
   });
   
   $("#month").on("change",()=>{
-    var month= $("#month option:selected").val()+1;
+    var month= parseInt($("#month option:selected").val())+1;
     daysInMonth = new Date(year, month, 0).getDate();
     let xValues=[];
     for (let i = 1; i <= daysInMonth; i++) {
