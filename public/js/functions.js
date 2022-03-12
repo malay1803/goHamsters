@@ -30,10 +30,9 @@ t2.to(".genderSection", 1, { top: "0%", ease: Power4.easeOut })
     0
   );
 
-  t5 = new TimelineMax({ paused: true });
+t5 = new TimelineMax({ paused: true });
 
 t5.to(".genderSection", 1, { top: "0%", ease: Power4.easeOut });
-  
 
 //directory text
 
@@ -44,7 +43,7 @@ t3.from(".dirText", {
   y: "100%",
   ease: Power4.easeOut,
   stagger: 0.1,
-  delay: 1
+  delay: 1,
 });
 
 // Radio Button is checked
@@ -74,21 +73,25 @@ $("input[type=radio][name=gender][value='female']").click(function () {
   t4.play();
   $(".f-muscle-map").css("display","block");
   $(".muscle-map").css("display","none");
+$("input[type=radio][name=gender][value='male']").click(function () {
+    t4.play();
+});
+
+$("input[type=radio][name=gender][value='female']").click(function () {
+  alert("helo")
 })
 
 $(".back2").on("click", function () {
   t4.reverse();
 });
 
-
-
 t6 = new TimelineMax({ paused: true });
 
 t6.to(".userDetails", 1, { top: "0%", ease: Power4.easeOut }).from(
-    ".back2",
-    0.7,
-    // { display: "none" }
-  );
+  ".back2",
+  0.7
+  // { display: "none" }
+);
 
   $("input[type=radio]").click(function () {
     if ($(this).prop("checked")) {
@@ -96,8 +99,3 @@ t6.to(".userDetails", 1, { top: "0%", ease: Power4.easeOut }).from(
       console.log("frfr");
     }
   });
-
-  
-
-
- 
