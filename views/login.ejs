@@ -1,40 +1,38 @@
 <%- include('partials/head') %>
 <%- include('partials/nav') %>
+<%- include('partials/welcome') %>
 
 <link rel="stylesheet" href="css/login.css" />
 
 <div class="loginContainer">
   <div class="forms-container">
-    <div class="signin-signup">
-      <form action="/loginUser" method="POST" class="sign-in-form">
-        <h2 class="title">Sign in</h2>
-        <div class="input-field">
-          <i class="fas fa-user"></i>
-          <input type="text" placeholder="Username" name="loginUserName" />
-        </div>
-        <div class="input-field">
-          <i class="fas fa-lock"></i>
-          <input type="password" placeholder="Password" name="loginPassword" />
-        </div>
-        <input type="submit" class="btn solid" value="Login" />
-       <!--
-        <p class="social-text">Or Sign in with social platforms</p>
-        <div class="social-media">
-          <a href="#" class="social-icon">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" class="social-icon">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="#" class="social-icon">
-            <i class="fab fa-google"></i>
-          </a>
-          <a href="#" class="social-icon">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
-        </div>
-       --> 
-      </form>
+    <div class="signin-signup" >
+        <form action="/loginUser" method="POST" class="sign-in-form" id="hideDiv" >
+          <h2 class="title">Sign in</h2>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Username" name="loginUserName" />
+          </div>
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Password" name="loginPassword" />
+          </div>
+          
+          <input type="submit" class="btn solid" value="Login" />
+          <input type="button" class="btn forget" value="Forget Password" onclick="forgetPassword();"/>
+        </form>
+        <!-- forget -->
+        <form action="/forgotPassword" method="POST" class="sign-in-form" id="forget" >
+          <h2 class="title">Enter your email</h2>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <input type="email" placeholder="Email" id="email"  name="loginUserName" />
+          </div>
+          
+          <input type="submit" class="btn forget" value="Forget Password" />
+          <input type="button" class="btn solid" value="Login" onclick="forgetPasswordr();"/>
+        </form>
+        <!-- signup -->
       <form action="/addUser" method="POST" class="sign-up-form">
         <h2 class="title">Sign up</h2>
         <div class="input-field">
@@ -77,10 +75,9 @@
   <div class="panels-container">
     <div class="panel left-panel">
       <div class="content">
-        <h3>New here ?</h3>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-          ex ratione. Aliquid!
+        <h3>New here?</h3>
+        <p style="font-size: 1.2em;">
+          Signup to be a part of the Hamsters family
         </p>
         <button class="btn transparent" id="sign-up-btn">
           Sign up
@@ -90,10 +87,9 @@
     </div>
     <div class="panel right-panel">
       <div class="content">
-        <h3>One of us ?</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-          laboriosam ad deleniti.
+        <h3>One of us?</h3>
+        <p style="font-size: 1.2em;">
+          Already a part of our family, click here to login
         </p>
         <button class="btn transparent" id="sign-in-btn">
           Sign in

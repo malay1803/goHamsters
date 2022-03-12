@@ -21,6 +21,18 @@ router.get("/", async (req, res) => {
       excerciseCategory: "shoulder" + req.query.type,
     });
   }
+  if (bodyPart === "chest") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "chest" + req.query.type,
+    });
+  }
+  if (bodyPart === "biceps") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "biceps" + req.query.type,
+    });
+  }
 
   if (req.query.type === undefined) {
     excerType = "Stretches";
