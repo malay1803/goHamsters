@@ -5,5 +5,7 @@ aboutHeading.from(".aboutText", {
   y: "100%",
   ease: Power4.easeOut,
   stagger: 0.1,
-  delay: 1
+  delay: 2
 });
+
+ 

@@ -9,3 +9,13 @@ sign_up_btn.addEventListener("click", () => {
 sign_in_btn.addEventListener("click", () => {
   container.classList.remove("sign-up-mode");
 });
+$('#forget').hide();
+function forgetPassword(){
+  $('#hideDiv').hide();
+  $('#forget').show();
+}
+
+function forgetPasswordr(){
+  $('#hideDiv').show();
+  $('#forget').hide();
+}

@@ -57,11 +57,24 @@ t4.to(".musclePick", 1, { top: "0%", ease: Power4.easeOut }).from(
   { display: "none" }
 );
 
-$("input[type=radio]").click(function () {
-  if ($(this).prop("checked")) {
-    t4.play();
-  }
+// $("input[type=radio]").click(function () {
+//   if ($(this).prop("checked")) {
+//     t4.play();
+//   }
+// });
+$(".muscle-map").hide();
+$(".f-muscle-map").hide();
+$("input[type=radio][name=gender][value='male']").click(function () {
+  t4.play();
+  $(".muscle-map").show();
+  $(".f-muscle-map").hide();
 });
+
+$("input[type=radio][name=gender][value='female']").click(function () {
+  t4.play();
+  $(".f-muscle-map").css("display","block");
+  $(".muscle-map").css("display","none");
+})
 
 $(".back2").on("click", function () {
   t4.reverse();
@@ -87,4 +100,4 @@ t6.to(".userDetails", 1, { top: "0%", ease: Power4.easeOut }).from(
   
 
 
-  
+ 
