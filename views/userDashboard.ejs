@@ -98,10 +98,10 @@
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
+            <td><%=total.totalCalories%></td>
+            <td><%=total.totalCarbs%></td>
+            <td><%=total.totalFat%></td>
+            <td><%=total.totalProtein%></td>
           </tr>
         </tbody>
       </table>
@@ -116,6 +116,7 @@
             <button type="submit" class="mt-3 p-2 rounded" style="background-color: #30475e; color: white; border: none;">Search Food</button>
           </form>
           <!-- <hr> -->
+              <form action="/addItem" method="post" onsubmit="return addCheck()">
           <table class="my-3 table table-bordered">
             <thead>
               <tr>
@@ -128,48 +129,79 @@
             </thead>
             <tbody>
               <tr>
-                
-                <td><%= foodName%></td>
-                <td><%=calories%></td>
-                <td><%=carbs%></td>
-                <td><%=fat%></td>
-                <td><%=protein%></td>
+                <td><p name="foodName" id="foodName"><%= foodName%></p></td>
+                <td name="calories" id="calories"><%=calories%></td>
+                <td name="carbs"><%=carbs%></td>
+                <td name="fat"><%=fat%></td>
+                <td name="protein"><%=protein%></td>
               </tr>
             </tbody>
           </table>
           <div class="addItemsDiv w-100">
             <div class="row">
-              <input type="text" class="addItemsInput w-100 rounded p-1" name="addItemsInput" placeholder="Enter grams intake(default 100)"></input>
+              <input type="text" class="addItemsInput w-100 rounded p-1" name="gramsIntake" placeholder="Enter grams intake(default 100)"></input>
             </div>
             <div class="row d-flex justify-content-around mt-3">
-              <select name="foodTime" class="w-50" id="foodTime">
+              <select name="meal" class="w-50" id="meal">
+                <option value="none" disabled selected>Select meal type</option>
                 <option value="breakfast">Breakfast</option>
                 <option value="lunch">Lunch</option>
                 <option value="dinner">Dinner</option>
                 <option value="snacks">Snacks</option>
               </select>
-              <button class="addFoodItem rounded w-25" type="button" onclick="addItems()"> <a href="/addItem" class="addItems w-100 h-100 h6">Add items</a> </button>
+                <!-- <button class="addFoodItem rounded w-25" type="button"> <a href="" class="addItems w-100 h-100 h6">Add items</a> </button> -->
+                <input type="submit" value="Add items" class="addFoodItem addItems rounded w-25">
+              </form>
             </div>
           </div>
-          <hr>
-          <div class="breakfastDiv w-100">
-            <div class="h5">Breakfast</div>
-            <ul class="list-group d-flex justify-content-around w-100" id="breakfastList">
-              
-            </ul>
+          
+          <% let foodMeals = ["breakfast", "lunch", "dinner", "snacks"] %> 
+          <% for(let foodMeal of foodMeals){ %>
+            <hr>
+              <div class="<%=foodMeal%>Div w-100">
+                <div class="h5"><%=foodMeal%></div>
+                <ul class="list-group d-flex justify-content-around w-100" id="<%=foodMeal%>List">
+                    <% foodData.forEach(foodDatas =>{  %> 
+                      <% if(foodDatas.meal === foodMeal){ %> 
+                  <li class="list-group-item h6" style="position: relative;"><%=foodDatas.foodName %> 
+                    <div class="remEdit">
+                      <a href="/userDasboard/FoodDelete/<%= foodDatas._id%>" style="text-decoration: none; color: #f05454; font-size: .8em;" onclick="removeFood">remove</a>
+                      <div class="vr"></div>
+                      <a href="" style="text-decoration: none; color: #f05454; font-size: .8em" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editIntake('<%=foodDatas.foodName %>', '<%= foodDatas._id%>','<%= foodDatas.gramsIntake%>')">edit intake(gms)</a>
+                    </div>
+                    <p style="position: absolute; right: .8em; top: 1em;"><%=foodDatas.gramsIntake%>g</p>
+                    </li>
+                    
+                  <% }})%> 
+                </ul>
+              </div>
+          <% }%> 
+          
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="foodNameModal"></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/foodIntakeUpdate" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                      <label for="foodIntakeModal">Enter new food quantity</label>
+                      <input type="text" class="form-control" id="foodIntakeModal" placeholder="Please add new food Intake" name="foodIntake">
+                      <input type="hidden" class="form-control" id="foodIdModal" name="foodID">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                
+              </form>
+              </div>
+            </div>
           </div>
-          <hr>
-          <div class="breakfastDiv d-flex justify-content-between w-100">
-            <div class="h5">Lunch</div>
-          </div>
-          <hr>
-          <div class="breakfastDiv d-flex justify-content-between w-100">
-            <div class="h5">Dinner</div>
-          </div>
-          <hr>
-          <div class="breakfastDiv d-flex justify-content-between w-100">
-            <div class="h5">Snacks</div>
-          </div>
+
         </div>
         </div>
       </div>
@@ -181,21 +213,27 @@
 <script>
 
   // breakfast list 
-
-  function addItems(){
-    event.preventDefault();
-    let foodTIme = $("#foodTime").val() 
-    if (foodTIme==="breakfast"){
-      $("#breakfastList").append(`<li class="list-group-item h6">butter chicken 
-              <div class="remEdit">
-                <a href="" style="text-decoration: none; color: #f05454; font-size: .8em;">remove</a>
-                <div class="vr"></div>
-                <a href="" style="text-decoration: none; color: #f05454; font-size: .8em">edit intake(gms)</a>
-              </div>
-              </li>`)
+  function addCheck(){
+    let mealType = $("#meal option:selected").val()
+    let intakeGrams = $(".addItemsInput").val()
+    if(mealType==="none"){
+      alert("Select a meal type")
+      return false;
     }
-    // alert(foodTIme)
+    if(intakeGrams===""){
+      $(".addItemsInput").css("border-color", "red")
+      alert("Enter intake grams")
+      return false
+    }
+    console.log(mealType)
   }
+
+  function editIntake(x,y,z){
+    $("#foodIntakeModal").val(z)
+    $("#foodNameModal").text(x)
+    $("#foodIdModal").val(y)
+  }
+
 
 // show analytics/tracker
 $(".charts").hide()
@@ -217,15 +255,16 @@ $(".showAnalytics").on("click", ()=>{
   var myDoughnutChart = new Chart(doughnutChart, {
     type: "doughnut",
     data: {
-      labels: ["Red", "Blue", "Yellow"],
+      labels: ["Calories", "Proteins", "Fats", "Carbohydrates"],
       datasets: [
         {
           label: "My First Dataset",
-          data: [300, 50, 100],
+          data: ['<%=total.totalCalories%>', '<%=total.totalProtein%>', '<%=total.totalFat%>', '<%=total.totalCarbs%>'],
           backgroundColor: [
-            "rgb(255, 99, 132)",
-            "rgb(54, 162, 235)",
-            "rgb(255, 205, 86)",
+            "#79addc",
+            "#ffc09f",
+            "#ffee93",
+            "#adf7b6"
           ],
           hoverOffset: 4,
         },

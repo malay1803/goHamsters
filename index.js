@@ -17,9 +17,26 @@ var protein;
 var fat;
 var foodName;
 
+var foodNameTD;
+var caloriesTD;
+var carbsTD;
+var fatTD;
+var proteinTD;
+
+var totalCarbs = 0;
+var totalCalories = 0;
+var totalProtein = 0;
+var totalFat = 0;
+
+var foodData1 = "none";
+
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: true }));
+
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(cors());
 
 app.use(
   session({
@@ -42,8 +59,28 @@ mongoose
   });
 
 const directoryRoute = require("./routes/Directory");
+const userRoute = require("./routes/User");
 
 app.use("/directory", directoryRoute);
+app.use("/loginUser", userRoute);
+
+
+// app.post("/loginUser", async (req, res) => {
+//   var results = await User.findOne({ Username: req.body.loginUserName });
+//   if (results) {
+//     var check = await bcrypt.compare(req.body.loginPassword, results.Password);
+//     if (check) {
+//       sess = req.session;
+//       sess.name = results.Username;
+//       sess.email = results.Email;
+//       res.redirect("userDashboard");
+//     } else {
+//       res.redirect("login");
+//     }
+//   } else {
+//     res.redirect("login");
+//   }
+// });
 
 app.post("/search", async (req, res) => {
   var query = req.body.searchQuery;
@@ -64,8 +101,6 @@ app.post("/search", async (req, res) => {
         );
       else {
         data = JSON.parse(body);
-
-        // console.log(foodName, calories, fat, protein, carbs);
         foodName = data.items[0].name;
         calories = data.items[0].calories;
         fat = data.items[0].fat_total_g;
@@ -74,27 +109,47 @@ app.post("/search", async (req, res) => {
 
         if (foodName === undefined) {
           foodName = "name";
-          calories = "calories";
-          fat = "fat";
-          protein = "protein";
-          carbs = "carbs";
+          calories = "1";
+          carbs = "1";
+          fat = "1";
+          protein = "1";
         }
-
-        // const newFoodDetails = {
-        //   foodName: foodName,
-        //   calories: calories,
-        //   carbohydrate: carbs,
-        //   protein: protein,
-        //   fat: fat,
-        // };
-
-        // const newFood = new FoodData(newFoodDetails);
-        // await newFood.save();
-        // console.log(newFood);
-        // res.redirect("/userDashboard");
+        res.redirect("/userDashboard");
       }
     }
   );
+});
+
+app.post("/addItem", async (req, res) => {
+  foodNameTD = foodName;
+  caloriesTD = calories;
+  carbsTD = carbs;
+  fatTD = fat;
+  proteinTD = protein;
+
+  if (foodNameTD === undefined) {
+    foodNameTD = "foodName";
+    caloriesTD = "1";
+    carbsTD = "1";
+    fatTD = "1";
+    proteinTD = "1";
+  }
+
+  var mealTime = req.body.meal;
+  var gramsIntake = req.body.gramsIntake;
+
+  const newFoodAdd = {
+    foodName: foodNameTD,
+    calories: caloriesTD,
+    carbohydrate: carbsTD,
+    protein: proteinTD,
+    fat: fatTD,
+    meal: req.body.meal,
+    gramsIntake: req.body.gramsIntake,
+  };
+  const newFood = new FoodData(newFoodAdd);
+  await newFood.save();
+  res.redirect("/userDashboard");
 });
 
 app.get("/directory1", (req, res) => {
@@ -107,7 +162,31 @@ app.get("/login", (req, res) => {
   res.render("login", { userName: req.session.name });
 });
 
-app.get("/userDashboard", (req, res) => {
+app.get("/userDashboard", async (req, res) => {
+  console.log(req.session);
+  var totalCarbs = 0;
+  var totalCalories = 0;
+  var totalProtein = 0;
+  var totalFat = 0;
+
+  foodData1 = await FoodData.find();
+
+  for (let fd in foodData1) {
+    totalCalories += parseInt(foodData1[fd].calories);
+    totalCarbs += parseInt(foodData1[fd].carbohydrate);
+    totalProtein += parseInt(foodData1[fd].protein);
+    totalFat += parseInt(foodData1[fd].fat);
+  }
+
+  console.log(foodData1);
+
+  let total = {
+    totalCalories: totalCalories,
+    totalCarbs: totalCarbs,
+    totalProtein: totalProtein,
+    totalFat: totalFat,
+  };
+
   res.render("userDashboard", {
     userName: req.session.name,
     foodName: foodName,
@@ -115,7 +194,37 @@ app.get("/userDashboard", (req, res) => {
     fat: fat,
     protein: protein,
     carbs: carbs,
+    foodNameTD: foodNameTD,
+    caloriesTD: caloriesTD,
+    carbsTD: carbsTD,
+    fatTD: fatTD,
+    proteinTD: proteinTD,
+    foodData: foodData1,
+    total: total,
   });
+});
+
+app.get("/userDasboard/FoodDelete/:_id", async (req, res) => {
+  const { _id } = req.params;
+  await FoodData.deleteOne({ _id })
+    .then(() => {
+      console.log("Deleted successfully");
+      res.redirect("/userDashboard");
+    })
+    .catch((err) => console.log(err));
+});
+
+app.post("/foodIntakeUpdate", (req, res) => {
+  let foodIntakeUpdate = req.body.foodIntake;
+  let foodID = req.body.foodID;
+  console.log(foodID, foodIntakeUpdate);
+  FoodData.updateOne({_id: foodID}, {gramsIntake: foodIntakeUpdate})
+  .then(()=>{
+    console.log("updated");
+    res.redirect("/userDashboard")
+  }).catch((err)=>{
+    console.log(err);
+  })
 });
 
 app.get("/calculator1", (req, res) => {
@@ -127,37 +236,18 @@ app.get("/about", (req, res) => {
 });
 
 app.post("/addUser", async (req, res) => {
-  const hashPass = await bcrypt.hashSync(req.body.password, salt);
-  const newUserDetails = {
-    Username: req.body.username,
-    Email: req.body.email,
-    Password: hashPass,
-  };
-  const newUser = new User(newUserDetails);
-  await newUser.save();
-  console.log(newUser);
+  // const hashPass = await bcrypt.hashSync(req.body.password, salt);
+  // const newUserDetails = {
+  //   Username: req.body.username,
+  //   Email: req.body.email,
+  //   Password: hashPass,
+  // };
+  // const newUser = new User(newUserDetails);
+  // await newUser.save();
   res.redirect("/login");
 });
 
-app.post("/loginUser", async (req, res) => {
-  var results = await User.findOne({ Username: req.body.loginUserName });
-  console.log(results);
-  if (results) {
-    var check = await bcrypt.compare(req.body.loginPassword, results.Password);
-    console.log(check);
-    if (check) {
-      sess = req.session;
-      sess.name = results.Username;
-      sess.email = results.Email;
-      console.log(sess);
-      res.redirect("userDashboard");
-    } else {
-      res.redirect("login");
-    }
-  } else {
-    res.redirect("login");
-  }
-});
+
 
 app.get("/logout", (req, res) => {
   req.session.destroy((err) => {

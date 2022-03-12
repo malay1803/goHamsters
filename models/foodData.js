@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
+  userID:{
+    type: String,
+  },
   foodName: {
     type: String,
     required: [true, "Name should not be blank"],
@@ -21,6 +24,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  meal:{
+    type: String,
+    required: true
+  },
+  gramsIntake:{
+    type: String,
+    required: true
+  }
 });
 
 const User = mongoose.model("FoodData", userSchema);
