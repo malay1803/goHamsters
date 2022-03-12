@@ -28,16 +28,6 @@ const handleJWTExpiredError = () =>
 
 const sendError = (err, req, res) => {
    
-  if (req.originalUrl.startsWith('/api')) {
-    
-    return res.status(err.statusCode).json({
-      status: err.status,
-      message: err.message
-    });
-    
-  }
-
-  // B) RENDERED WEBSITE
   
   if (err.isOperational) {
     return res.status(err.statusCode).render('error', {
@@ -45,7 +35,6 @@ const sendError = (err, req, res) => {
       msg: err.message
     });
   }
-  // B) Programming or other unknown error: don't leak error details
   
   console.error('ERROR ', err);
   
