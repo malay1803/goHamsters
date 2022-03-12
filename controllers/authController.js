@@ -3,6 +3,8 @@ const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const User = require('./../models/users');
 const catchAsync = require('./../utils/catchAsync');
+const AppError = require('./../utils/appError');
+
 // const Email = require('./../utils/email.js');
 
 const signToken = id => {
@@ -25,14 +27,6 @@ const createSendToken = async(user, statusCode, req, res) => {
   });
   
   user.password = undefined;
-  
-  res.status(statusCode).json({
-  status: 'success',
-    token,
-    data: {
-      user
-    }
-  });
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
@@ -41,40 +35,41 @@ exports.signup = catchAsync(async (req, res, next) => {
       Email: req.body.email,
       Password: req.body.password,
   });
-//   const url = `${req.protocol}://${req.get('host')}/account`;
-//   await new Email(newUser, url).sendWelcome();
+  // const url = `${req.protocol}://${req.get('host')}/account`;
+  // await new Email(newUser, url).sendWelcome();
   createSendToken(newUser, 201, req, res);
+  next();
 });
   
 exports.login = catchAsync(async (req, res, next) => {
-  const { email, password } = req.body;
+  const  email = req.body.loginUserName;
+  const  password = req.body.loginPassword;
   
   if (!email || !password) {
     return next(new AppError('Please provide email and password!', 400));
   }
 
   // 2) Check if user exists && password is correct
-  const user = await User.findOne({ email }).select('+password');
-  
-  if (!user || !(await user.correctPassword(password, user.password))) {
+  const user = await User.findOne({ Username:email });
+  if (!user || !(await user.correctPassword(password, user.Password))) {
     return next(new AppError('Incorrect email or password', 401));
   }
-  
+
   // 3) If everything ok, send token to client
   createSendToken(user, 200, req, res);
+  next()
 });
   
-exports.logout = (req, res) => {
+exports.logout = (req, res,next) => {
   res.cookie('jwt', 'loggedout', {
     expires: new Date(Date.now() + 10 * 10000),
     httpOnly: true
   });
-  res.status(200).json({ status: 'success' });
+  next();
 };
   
 exports.isLoggedIn = async (req, res, next) => {
-  res.locals.address = req.headers.host=="localhost:3000"?'http://'+req.headers.host+'/':'https://'+req.headers.host+'/';
-      
+  res.locals.address = req.headers.host=="localhost:3000"?'http://'+req.headers.host+'/':'https://'+req.headers.host+'/';   
   res.locals.user =''
   if (req.cookies.jwt) {
     

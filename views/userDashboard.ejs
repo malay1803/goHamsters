@@ -20,7 +20,7 @@
       style="background-color: #30475e; border-radius: 2em"
     >
       <div class="h4 align-middle text-end" style="color: white">
-        Hello,<%=userName%>
+        Hello, <%=user.Username%>
       </div>
     </div>
   </div>
@@ -44,11 +44,11 @@
         >
           <tr class="w-50">
             <th class="text-end">Username:</th>
-            <th>User's Name</th>
+            <th><%=user.Username%></th>
           </tr>
           <tr class="w-50">
             <th class="text-end">Email:</th>
-            <th>user@email.com</th>
+            <th><%=user.Email%></th>
           </tr>
           <tr class="w-50">
             <th class="text-end">Time:</th>
