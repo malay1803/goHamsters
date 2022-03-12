@@ -31,22 +31,7 @@ var foodData1 = "none";
 
 
 app.post("/loginUser",auth.login ,async (req, res) => {
-    // var results = await User.findOne({ Username: req.body.loginUserName });
-    // if (results) {
-    //   var check = await bcrypt.compare(req.body.loginPassword, results.Password);
-    //   if (check) {
-    //     sess = req.session;
-    //     sess.name = results.Username;
-    //     sess.email = results.Email;
-    //     res.redirect("userDashboard");
-    //   } else {
-    //     res.redirect("login");
-    //   }
-    // } else {
-    //   res.redirect("login");
-    // }
     res.redirect("userDashboard");
-
   });
 
   app.post("/search", async (req, res) => {
@@ -68,18 +53,15 @@ app.post("/loginUser",auth.login ,async (req, res) => {
           );
         else {
           data = JSON.parse(body);
-          foodName = data.items[0].name;
-          calories = data.items[0].calories;
-          fat = data.items[0].fat_total_g;
-          protein = data.items[0].protein_g;
-          carbs = data.items[0].carbohydrates_total_g;
-  
-          if (foodName === undefined) {
-            foodName = "name";
-            calories = "1";
-            carbs = "1";
-            fat = "1";
-            protein = "1";
+          console.log(data.items[0]);
+          if(data.items[0]===undefined){
+            console.log("Food not found")
+          }else{
+            foodName = data.items[0].name;
+            calories = data.items[0].calories;
+            fat = data.items[0].fat_total_g;
+            protein = data.items[0].protein_g;
+            carbs = data.items[0].carbohydrates_total_g;
           }
           res.redirect("/userDashboard");
         }
@@ -95,11 +77,11 @@ app.post("/loginUser",auth.login ,async (req, res) => {
     proteinTD = protein;
   
     if (foodNameTD === undefined) {
-      foodNameTD = "foodName";
-      caloriesTD = "1";
-      carbsTD = "1";
-      fatTD = "1";
-      proteinTD = "1";
+      foodNameTD = "";
+      caloriesTD = "";
+      carbsTD = "";
+      fatTD = "";
+      proteinTD = "";
     }
   
     var mealTime = req.body.meal;
