@@ -14,10 +14,10 @@ module.exports = class Email {
   newTransport() {
       // Sendgrid
       return nodemailer.createTransport({
-        service: 'SendGrid',
+        service: 'SendinBlue',
         auth: {
-          user: "apikey",
-          pass: "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"
+          user: "gohamstersconnect@gmail.com",
+          pass: "gj2Esn0vQ1kaCGRh"
         }
       });
   }

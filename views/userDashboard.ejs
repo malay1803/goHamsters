@@ -16,11 +16,14 @@
 <div class="container col-lg-12 col-md-12 col-sm-12 mt-5">
   <div class="row" style="height: 4em">
     <div
-      class="hello h-100 d-flex justify-content-end align-items-center pe-5"
+      class="hello h-100 w-100 d-flex justify-content-between align-items-center px-5"
       style="background-color: #30475e; border-radius: 2em"
     >
-      <div class="h4 align-middle text-end" style="color: white">
+      <div class="h4 text-start" style="color: white">
         Hello, <%=user.Username%>
+      </div>
+      <div class="h4 text-end" style="color: white">
+<a href="/logout">Logout</a>
       </div>
     </div>
   </div>
@@ -39,20 +42,20 @@
       </div>
       <div class="userDetails d-flex justify-content-center">
         <table
-          class="table w-75"
-          style="border: none; background-color: #f5f5f5"
+          class="table w-25"
+          style="border: none; background-color: #f5f5f5; font-size: small;"
         >
-          <tr class="w-50">
+          <tr class="w-25">
             <th class="text-end">Username:</th>
-            <th><%=user.Username%></th>
+            <th class="text-start"><%=user.Username%></th>
           </tr>
           <tr class="w-50">
             <th class="text-end">Email:</th>
-            <th><%=user.Email%></th>
+            <th class="text-start"><%=user.Email%></th>
           </tr>
-          <tr class="w-50">
+          <tr class="w-25">
             <th class="text-end">Time:</th>
-            <th>user@email.com</th>
+            <th class="text-start" id="timeNow"></th>
           </tr>
         </table>
       </div>
@@ -112,7 +115,7 @@
       </table>
     </div>
 
-    <div class="col-md-9 order-2 foodSearch p-4" style="overflow-y: scroll; max-height: 450px;">
+    <div class="col-md-9 order-2 foodSearch p-4" style="overflow-y: scroll; max-height: 440px;">
       <div class="row">
         <div class="col-md-9 mx-auto">
           <div class="h3 text-uppercase">Track your calories</div>
@@ -239,6 +242,22 @@
     $("#foodIdModal").val(y)
   }
 
+function realTimeClock(){
+  var time = new Date();
+  var  h = time.getHours();
+  var  m = time.getMinutes();
+  var  s = time.getSeconds();
+  var ampm = (h<12)?"AM":"PM";
+  h = (h>12)?h-12:h;
+  h=("0" + h).slice(-2)
+  m=("0" + m).slice(-2)
+  s=("0" + s).slice(-2)
+  // $(".timeNow").html(h+" : "+m+" : "+s+" : "+ampm)
+  document.getElementById("timeNow").innerHTML = h+" : "+m+" : "+s+" "+ampm
+  var t = setTimeout(realTimeClock,500) 
+}
+
+window.onload = realTimeClock
 
 // show analytics/tracker
 $(".charts").hide()
@@ -334,6 +353,3 @@ $(".showAnalytics").on("click", ()=>{
     });
   });
 </script>
-
-<a href="/logout">Logout</a>
-<a href="/directory">Directory</a>

@@ -34,11 +34,11 @@ var foodData1 = "none";
 
 
 app.get("/directory1", (req, res) => {
-    res.render("directory1", { userName: req.session.name });
+    res.render("directory1", { userName: "hello" });
   });
   
 app.get("/login", (req, res) => {
-  res.render("login", { userName: req.session.name });
+  res.render("login", { userName: "hello" });
 });
   
 app.get("/userDashboard",auth.protect, async (req, res) => {
@@ -47,17 +47,17 @@ app.get("/userDashboard",auth.protect, async (req, res) => {
   var totalCalories = 0;
   var totalProtein = 0;
   var totalFat = 0;
+  var totalGramsIntake = 0;
 
   foodData1 = await FoodData.find({userID:req.user._id});
 
   for (let fd in foodData1) {
-    totalCalories += parseInt(foodData1[fd].calories);
-    totalCarbs += parseInt(foodData1[fd].carbohydrate);
-    totalProtein += parseInt(foodData1[fd].protein);
-    totalFat += parseInt(foodData1[fd].fat);
+    totalCalories += foodData1[fd].calories;
+    totalCarbs += foodData1[fd].carbohydrate;
+    totalProtein += foodData1[fd].protein;
+    totalFat += foodData1[fd].fat;
+    totalGramsIntake = foodData1[fd].gramsIntake;
   }
-
-  console.log(foodData1);
 
   let total = {
     totalCalories: totalCalories,
@@ -66,8 +66,13 @@ app.get("/userDashboard",auth.protect, async (req, res) => {
     totalFat: totalFat,
   };
 
+  for(let tot in total){
+    total[tot]*=(totalGramsIntake/100)
+    total[tot] = total[tot].toFixed(1)
+  }
+
   res.render("userDashboard", {
-    userName: req.session.name,
+    userName: "hello",
     foodName: foodName,
     calories: calories,
     fat: fat,
@@ -204,9 +209,6 @@ app.post("/addItem",auth.protect, async (req, res) => {
     fatTD = "";
     proteinTD = "";
   }
-
-  var mealTime = req.body.meal;
-  var gramsIntake = req.body.gramsIntake;
 
   const newFoodAdd = {
     foodName: foodNameTD,
