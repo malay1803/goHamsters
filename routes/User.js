@@ -96,6 +96,10 @@ app.get("/calculator1", (req, res) => {
 app.get("/about", (req, res) => {
   res.render("about", { userName: req.session.name });
 });
+
+app.get("/editProfile", (req, res) => {
+  res.render("editProfile", { userName: "hello" });
+});
   
 app.get("/logout",auth.logout, (req, res) => {
   res.redirect("/login");
