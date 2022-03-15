@@ -1,7 +1,7 @@
 const express = require("express");
 const request = require("request");
 const app = express.Router();
-const crypto = require('crypto');
+const crypto = require("crypto");
 
 const User = require("../models/users");
 const Excercise = require("../models/excercise");
@@ -9,8 +9,7 @@ const FoodData = require("../models/foodData");
 
 const view = require("../controllers/viewController");
 const auth = require("../controllers/authController");
-const AppError = require('./../utils/appError');
-
+const AppError = require("./../utils/appError");
 
 var data;
 var carbs;
@@ -32,16 +31,15 @@ var totalFat = 0;
 
 var foodData1 = "none";
 
-
-app.get("/directory1", (req, res) => {
-    res.render("directory1", { userName: "hello" });
-  });
-  
-app.get("/login", (req, res) => {
-  res.render("login", { userName: "hello" });
+app.get("/directory1", auth.isLoggedIn, (req, res) => {
+  res.render("directory1");
 });
-  
-app.get("/userDashboard",auth.protect, async (req, res) => {
+
+app.get("/login", auth.isLoggedIn, (req, res) => {
+  res.render("login");
+});
+
+app.get("/userDashboard", auth.protect, async (req, res) => {
   console.log(req.session);
   var totalCarbs = 0;
   var totalCalories = 0;
@@ -49,7 +47,7 @@ app.get("/userDashboard",auth.protect, async (req, res) => {
   var totalFat = 0;
   var totalGramsIntake = 0;
 
-  foodData1 = await FoodData.find({userID:req.user._id});
+  foodData1 = await FoodData.find({ userID: req.user._id });
 
   for (let fd in foodData1) {
     totalCalories += foodData1[fd].calories;
@@ -66,9 +64,9 @@ app.get("/userDashboard",auth.protect, async (req, res) => {
     totalFat: totalFat,
   };
 
-  for(let tot in total){
-    total[tot]*=(totalGramsIntake/100)
-    total[tot] = total[tot].toFixed(1)
+  for (let tot in total) {
+    total[tot] *= totalGramsIntake / 100;
+    total[tot] = total[tot].toFixed(1);
   }
 
   res.render("userDashboard", {
@@ -88,80 +86,110 @@ app.get("/userDashboard",auth.protect, async (req, res) => {
   });
 });
 
-app.get("/calculator1", (req, res) => {
+app.get("/calculator1", auth.isLoggedIn, (req, res) => {
   //   res.send("hello");
-  res.render("calculator1", { userName: req.session.name });
+  res.render("calculator1");
 });
 
 app.get("/about", (req, res) => {
   res.render("about", { userName: req.session.name });
 });
 
-app.get("/editProfile", (req, res) => {
-  res.render("editProfile", { userName: "hello" });
+app.get("/editProfile", auth.protect, async (req, res) => {
+  res.render("editProfile");
 });
-  
-app.get("/logout",auth.logout, (req, res) => {
+
+
+app.get("/logout", auth.logout, (req, res) => {
   res.redirect("/login");
 });
 
 app.get("/userDasboard/FoodDelete/:_id", async (req, res) => {
   const { _id } = req.params;
   await FoodData.deleteOne({ _id })
-  .then(() => {
-    console.log("Deleted successfully");
-    res.redirect("/userDashboard");
-  })
-  .catch((err) => console.log(err));
+    .then(() => {
+      console.log("Deleted successfully");
+      res.redirect("/userDashboard");
+    })
+    .catch((err) => console.log(err));
 });
 
-app.get("/resetPassword/:token", async(req, res, next) =>{
+app.get("/resetPassword/:token", async (req, res, next) => {
   const hashedToken = crypto
-      .createHash('sha256')
-      .update(req.params.token)
-      .digest('hex');
+    .createHash("sha256")
+    .update(req.params.token)
+    .digest("hex");
 
   const user = await User.findOne({
-      passwordResetToken: hashedToken
+    passwordResetToken: hashedToken,
   });
 
   if (!user) {
-      return next(new AppError('Token is invalid or has expired', 400));
+    return next(new AppError("Token is invalid or has expired", 400));
   }
 
-  res.status(200).render('newpass',{
-      title: 'Password Reset',
-      token:req.params.token,
-      email:user.Email
+  res.status(200).render("newpass", {
+    title: "Password Reset",
+    token: req.params.token,
+    email: user.Email,
   });
 });
- 
+
 // ------------------------------------------------ Post Requests ----------------------------------------------------------//
 app.post("/foodIntakeUpdate", (req, res) => {
   let foodIntakeUpdate = req.body.foodIntake;
   let foodID = req.body.foodID;
   console.log(foodID, foodIntakeUpdate);
-  FoodData.updateOne({_id: foodID}, {gramsIntake: foodIntakeUpdate})
-  .then(()=>{
-    console.log("updated");
-    res.redirect("/userDashboard")
-  }).catch((err)=>{
-    console.log(err);
-  })
+  FoodData.updateOne({ _id: foodID }, { gramsIntake: foodIntakeUpdate })
+    .then(() => {
+      console.log("updated");
+      res.redirect("/userDashboard");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
-app.post("/addUser",auth.signup ,view.adduser);
+app.post("/editProfileSubmit/:id", auth.protect, async (req,res)=>{
+  console.log(req.body.firstName);
+  console.log(req.params.id);
+  const editValues = req.body
+  console.log(req.body.editActivity);
+  const edit = await User.findByIdAndUpdate({_id:req.params.id}, {
+    $set:{
+      firstName: editValues.firstName,
+      lastName: editValues. lastName,
+      Age: editValues.editAge,
+      height: editValues.editHeight,
+      weight: editValues.editWeight,
+      weight: editValues.editWeight,
+      activity: editValues.editActivity,
+      reqCalories: editValues.userCalories,
+      gender: editValues.options
+    }
+  })
+  console.log(edit);
+  // const newEditUser = new User(editUser)
+  await edit.save()
+  res.redirect("/editProfile")
+})
 
-app.post('/forgotPassword',auth.forgotPassword , async (req, res, next) => {
+app.post("/addUser", auth.signup, view.adduser);
+
+app.post("/forgotPassword", auth.forgotPassword, async (req, res, next) => {
   res.redirect("login");
 });
 
-app.post('/resetPassword/:token',auth.resetPassword , async (req, res, next) => {
-  res.redirect("/login");
-});
+app.post(
+  "/resetPassword/:token",
+  auth.resetPassword,
+  async (req, res, next) => {
+    res.redirect("/login");
+  }
+);
 
-app.post("/loginUser",auth.login ,async (req, res) => {
-    res.redirect("userDashboard");
+app.post("/loginUser", auth.login, async (req, res) => {
+  res.redirect("userDashboard");
 });
 
 app.post("/search", async (req, res) => {
@@ -184,9 +212,9 @@ app.post("/search", async (req, res) => {
       else {
         data = JSON.parse(body);
         console.log(data.items[0]);
-        if(data.items[0]===undefined){
-          console.log("Food not found")
-        }else{
+        if (data.items[0] === undefined) {
+          console.log("Food not found");
+        } else {
           foodName = data.items[0].name;
           calories = data.items[0].calories;
           fat = data.items[0].fat_total_g;
@@ -199,7 +227,7 @@ app.post("/search", async (req, res) => {
   );
 });
 
-app.post("/addItem",auth.protect, async (req, res) => {
+app.post("/addItem", auth.protect, async (req, res) => {
   foodNameTD = foodName;
   caloriesTD = calories;
   carbsTD = carbs;
@@ -222,11 +250,11 @@ app.post("/addItem",auth.protect, async (req, res) => {
     fat: fatTD,
     meal: req.body.meal,
     gramsIntake: req.body.gramsIntake,
-    userID :req.user._id
+    userID: req.user._id,
   };
   const newFood = new FoodData(newFoodAdd);
   await newFood.save();
   res.redirect("/userDashboard");
 });
-  
+
 module.exports = app;

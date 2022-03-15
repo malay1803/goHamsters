@@ -22,10 +22,10 @@
       <li><a id="link" href="#">Calorie Tracker</a></li>
       <li><a id="link" href="#">About</a></li>
       <li><a id="link" href="#">Directory</a></li>
-      <% if(userName!=undefined){ %>
-      <li><a id="link" href="/logout">Logout, <%=userName%> </a></li>
-      <% }else{ %>
-      <li><a id="link" href="/login">Sign In</a></li>
+      <% if(!user){ %>
+        <li><a id="link" href="/login">Sign In</a></li>
+        <% }else{ %>
+          <li><a id="link" href="/logout">Logout, <%=user.Username%> </a></li>
       <% } %>
     </ul>
   </div>
