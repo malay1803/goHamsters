@@ -48,6 +48,7 @@ app.get("/userDashboard", auth.protect, async (req, res) => {
   var totalGramsIntake = 0;
 
   foodData1 = await FoodData.find({ userID: req.user._id });
+  
 
   for (let fd in foodData1) {
     totalCalories += foodData1[fd].calories;
@@ -233,6 +234,10 @@ app.post("/addItem", auth.protect, async (req, res) => {
   carbsTD = carbs;
   fatTD = fat;
   proteinTD = protein;
+  
+  var date = new Date();
+  console.log(date.toISOString().slice(0,10));
+
 
   if (foodNameTD === undefined) {
     foodNameTD = "";
@@ -251,7 +256,9 @@ app.post("/addItem", auth.protect, async (req, res) => {
     meal: req.body.meal,
     gramsIntake: req.body.gramsIntake,
     userID: req.user._id,
+    date: date.toISOString().slice(0,10)
   };
+
   const newFood = new FoodData(newFoodAdd);
   await newFood.save();
   res.redirect("/userDashboard");
