@@ -68,12 +68,17 @@
       </div>
     </div>
 
-    <div class="col-md-9 order-2 charts p-4">
+    <div class="col-md-9 order-2 charts p-4" style="overflow-y: scroll; max-height: 440px;">
       <div class="row">
-        <div class="col-md-4 text-center">
+        <div class="col-md-4 text-center mx-auto">
           <canvas class="donutChart" id="donutChart"></canvas>
         </div>
-        <div class="col-md-8 text-center">
+        <div class="col-md-4 text-center mx-auto">
+          <canvas class="donutChart" id="donutChart1"></canvas>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-8 mx-auto">
           <select name="month" id="month">
             <% let mon=['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];for(let i in mon) {%> 
               <option value="<%=i%>"><%=mon[i]%></option>
@@ -274,6 +279,7 @@ $(".showAnalytics").on("click", ()=>{
 
 // ------charts--------- 
   var doughnutChart = document.getElementById("donutChart").getContext("2d");
+  var doughnutChart1 = document.getElementById("donutChart1").getContext("2d");
   var lineChart = document.getElementById("donutChart").getContext("2d");
 
   var myDoughnutChart = new Chart(doughnutChart, {
@@ -289,6 +295,24 @@ $(".showAnalytics").on("click", ()=>{
             "#ffc09f",
             "#ffee93",
             "#adf7b6"
+          ],
+          hoverOffset: 4,
+        },
+      ],
+    },
+  });
+
+  var myDoughnutChart1 = new Chart(doughnutChart1, {
+    type: "doughnut",
+    data: {
+      labels: ["Calories eaten", "Calories Required"],
+      datasets: [
+        {
+          label: "My First Dataset",
+          data: ['<%=total.totalCalories%>', '<%=user.reqCalories%>'],
+          backgroundColor: [
+            "#79addc",
+            "#ffc09f",
           ],
           hoverOffset: 4,
         },
