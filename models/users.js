@@ -15,6 +15,30 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  firstName: {
+    type: String,
+  },
+  lastName: {
+    type: String,
+  },
+  Age: {
+    type: String,
+  },
+  weight:{
+    type: String
+  },
+  height:{
+    type: String
+  },
+  activity:{
+    type: String
+  },
+  reqCalories:{
+    type: String
+  },
+  gender:{
+    type: String
+  },
   passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date

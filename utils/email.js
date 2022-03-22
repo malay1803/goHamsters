@@ -14,13 +14,12 @@ module.exports = class Email {
   newTransport() {
       // Sendgrid
       return nodemailer.createTransport({
-        service: 'SendGrid',
+        service: 'SendinBlue',
         auth: {
-          user: "apikey",
-          pass: "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"
+          user: "gohamstersconnect@gmail.com",
+          pass: "gj2Esn0vQ1kaCGRh"
         }
       });
-    
   }
 
   // Send the actual email
@@ -32,7 +31,6 @@ module.exports = class Email {
       subject,
       template
     });
-
     // 2) Define email options
     const mailOptions = {
       from: this.from,
@@ -43,7 +41,8 @@ module.exports = class Email {
     };
 
     // 3) Create a transport and send email
-    await this.newTransport().sendMail(mailOptions);
+    const ma=await this.newTransport().sendMail(mailOptions);
+    console.log(ma);
   }
 
   async sendWelcome() {

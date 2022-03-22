@@ -1,197 +1,296 @@
-<%- include('partials/head') %>
-<%- include('partials/nav') %>
-<%- include('partials/welcome') %>
+<%- include('partials/head') %> <%- include('partials/nav') %> <%-
+include('partials/welcome') %>
 <link href="css/roundslider.min.css" rel="stylesheet" />
 <link href="css/calculator1.css" rel="stylesheet" />
 
-
 <div class="container col-lg-12 col-md-12 col-sm-12">
-  <div class="row d-flex justfy-content-center align-items-center  ">
-    <div class="calcText ">
+  <div class="row d-flex justfy-content-center align-items-center">
+    <div class="calcText">
       <h1 class="calculatorText">Calorie calculator</h1>
-    </div>     
+    </div>
     <div class="rectangle">
       <!-- <button id="enter" class="enter" onsubmit="smoothScroll(document.getElementById('info'))">ENTER</button> -->
     </div>
   </div>
 </div>
-                              
 
-<div class="inputInfo d-flex justfy-content-center align-items-center flex-column w-75 mx-auto h-100 " id="inputInfo">
-    <div style="font-size: 1.8em; margin-bottom: 60px;">Please enter your details</div>
-    <div class="sliders w-75 h-100 align-items-center justify-content-between d-lg-flex flex-row">
-        <div class=" slider ageDiv col-lg-4 shadow-sm w-25 h-75 text-center align-items-center  pt-5 pb-5 ">
-            <h4>Age</h4>
-            <div class="age mx-auto" id="slider1"></div>
-        </div>
-        <div class=" slider heightDiv col-lg-4 shadow-sm w-25 h-75 text-center pt-5 pb-5 ">
-            <h4>Height(in cm)</h4>
-            <div class="height mx-auto" id="slider2"></div>
-        </div>
-        <div class="slider weightDiv col-lg-4 shadow-sm w-25 h-75 text-center pt-5 pb-5">
-            <h4>Weight(in kg)</h4>
-            <div class="weight mx-auto" id="slider3"></div>
-        </div>
+<div
+  class="inputInfo d-flex justfy-content-center align-items-center flex-column w-75 mx-auto h-100"
+  id="inputInfo"
+>
+  <div style="font-size: 1.8em; margin-bottom: 60px">
+    Please enter your details
+  </div>
+  <div
+    class="sliders w-75 h-100 align-items-center justify-content-between d-lg-flex flex-row"
+  >
+    <div
+      class="slider ageDiv col-lg-4 shadow-sm w-25 h-75 text-center align-items-center pt-5 pb-5"
+    >
+      <h4>Age</h4>
+      <div class="age mx-auto" id="slider1"></div>
     </div>
-        <div class="extraInfo container ">
-            <div class="row w-75 mx-auto mt-5">
-              <div class="genderDiv col" >
-                <h4>Gender</h4>
-                <input type="radio" class="gender" name="gender" value="male"  id="male"/>
-                <label class="genderLabel" for="male">Male</label>
-                <input type="radio" class="gender"  name="gender" value="female" id="female"/>
-                <label class="genderLabel" for="female">Female</label> 
-                
-              </div>
-            
+    <div
+      class="slider heightDiv col-lg-4 shadow-sm w-25 h-75 text-center pt-5 pb-5"
+    >
+      <h4>Height(in cm)</h4>
+      <div class="height mx-auto" id="slider2"></div>
+    </div>
+    <div
+      class="slider weightDiv col-lg-4 shadow-sm w-25 h-75 text-center pt-5 pb-5"
+    >
+      <h4>Weight(in kg)</h4>
+      <div class="weight mx-auto" id="slider3"></div>
+    </div>
+  </div>
+  <div class="extraInfo container">
+    <div class="row w-75 mx-auto mt-5">
+      <div class="genderDiv col">
+        <h4>Gender</h4>
+        <input
+          type="radio"
+          class="gender"
+          name="gender"
+          value="male"
+          id="male"
+        />
+        <label class="genderLabel" for="male">Male</label>
+        <input
+          type="radio"
+          class="gender"
+          name="gender"
+          value="female"
+          id="female"
+        />
+        <label class="genderLabel" for="female">Female</label>
+      </div>
 
-            <div class="col">
-                <h4>How often do you exercise? </h4>
-          
-                <div class="select-box">
-                  <div class="options-container">
-          
-                    <div class="option">
-                      <input type="radio" class="radio" id="1" value="1" name="category" />
-                      <label for="1">Basal Metabolic Rate (BMR)</label>
-                    </div>
-          
-                    <div class="option">
-                      <input type="radio" class="radio" id="1.2" value="1.2" name="category" />
-                      <label for="1.2">Sedentary: little or no exercise</label>
-                    </div>
-          
-                    <div class="option">
-                      <input type="radio" class="radio" id="1.375" value="1.375" name="category" />
-                      <label for="1.375">Light: exercise 1-3 times/week</label>
-                    </div>
-          
-                    <div class="option">
-                      <input type="radio" class="radio" id="1.465" value="1.465" name="category" />
-                      <label for="1.465">Moderate: exercise 4-5 times/week</label>
-                    </div>
-          
-                    <div class="option">
-                      <input type="radio" class="radio" id="1.55" value="1.55" name="category" />
-                      <label for="1.55">Active: daily exercise or intense exercise 3-4 times/week</label>
-                    </div>
-          
-                    <div class="option">
-                      <input type="radio" class="radio" id="1.725" value="1.725" name="category" />
-                      <label for="1.725">Very Active: intense exercise 6-7 times/week</label>
-                    </div>
-          
-                    <div class="option">
-                      <input type="radio" class="radio" id="1.9" value="1.9" name="category" />
-                      <label for="1.9">Extra Active: very intense exercise daily, or physical job</label>
-                    </div>
-          
-                    
-                  </div>
-          
-                  <div class="selected">
-                    Select
-                  </div>
-                </div>
-              </div>
+      <div class="col">
+        <h4>How often do you exercise?</h4>
+
+        <div class="select-box">
+          <div class="options-container">
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="1"
+                value="1"
+                name="category"
+              />
+              <label for="1">Basal Metabolic Rate (BMR)</label>
             </div>
-            <div class="row w-75  mx-auto mt-5" style="margin-bottom:9em;">
-              <div class="col text-center">
-                <button class="btn btn-success" id="calculate" onclick="CalCalculator()" href="infoDiv">
-                  submit
-               </button>
-              </div>   
-            </div>               
-        </div>      
-</div>    
 
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="1.2"
+                value="1.2"
+                name="category"
+              />
+              <label for="1.2">Sedentary: little or no exercise</label>
+            </div>
 
-<div class="container col-lg-12 col-md-12 col-sm-12 w-75" id="infoDiv" style="display: none;">
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="1.375"
+                value="1.375"
+                name="category"
+              />
+              <label for="1.375">Light: exercise 1-3 times/week</label>
+            </div>
+
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="1.465"
+                value="1.465"
+                name="category"
+              />
+              <label for="1.465">Moderate: exercise 4-5 times/week</label>
+            </div>
+
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="1.55"
+                value="1.55"
+                name="category"
+              />
+              <label for="1.55"
+                >Active: daily exercise or intense exercise 3-4
+                times/week</label
+              >
+            </div>
+
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="1.725"
+                value="1.725"
+                name="category"
+              />
+              <label for="1.725"
+                >Very Active: intense exercise 6-7 times/week</label
+              >
+            </div>
+
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="1.9"
+                value="1.9"
+                name="category"
+              />
+              <label for="1.9"
+                >Extra Active: very intense exercise daily, or physical
+                job</label
+              >
+            </div>
+          </div>
+
+          <div class="selected">Select</div>
+        </div>
+      </div>
+    </div>
+    <div class="row w-75 mx-auto mt-5" style="margin-bottom: 9em">
+      <div class="col text-center">
+        <button
+          class="btn btn-success"
+          id="calculate"
+          onclick="CalCalculator()"
+          href="infoDiv"
+        >
+          submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="container col-lg-12 col-md-12 col-sm-12 w-75"
+  id="infoDiv"
+  style="display: none"
+>
   <div class="row d-flex justfy-content-center align-items-center">
     <div class="result text-center mt-4">
-      <h2 >Your BMR is <span id="resultBMR" style="font-weight: bold;"></span> </h2>
+      <h2>
+        Your BMR is <span id="resultBMR" style="font-weight: bold"></span>
+      </h2>
     </div>
     <div class="infoTable mt-4">
-      <table class="text-center mx-auto" style="font-size: 1.2em;">
+      <table class="text-center mx-auto" style="font-size: 1.2em">
         <tbody>
-          <tr style="background-color: #30475E; color: #f5f5f5;">
+          <tr style="background-color: #30475e; color: #f5f5f5">
             <td class="arrow_box">
               <div class="bigtext">Weight gain</div>
-              <div style="color:#888;">0.5 kg/week</div>
+              <div style="color: #888">0.5 kg/week</div>
             </td>
             <td class="arrow_box">
-              <div class="bigtext"> Mild weight gain</div>
-              <div style="color:#888;">0.25 kg/week</div>
+              <div class="bigtext">Mild weight gain</div>
+              <div style="color: #888">0.25 kg/week</div>
             </td>
             <td class="arrow_box" valign="top">
-              <div class="bigtext" style="vertical-align: top;">Maintain weight</div>
+              <div class="bigtext" style="vertical-align: top">
+                Maintain weight
+              </div>
             </td>
             <td class="arrow_box">
               <div class="bigtext">Mild weight loss</div>
-              <div style="color:#888;">0.25 kg/week</div>
+              <div style="color: #888">0.25 kg/week</div>
             </td>
             <td class="arrow_box">
               <div class="bigtext">Weight loss</div>
-              <div style="color:#888;">0.5 kg/week</div>
+              <div style="color: #888">0.5 kg/week</div>
             </td>
           </tr>
           <tr>
             <td class="result_box">
-              <div class="verybigtext"><b class="gain"></b> 
-                <div style="color:#888;">Calories/day</div>
+              <div class="verybigtext">
+                <b class="gain"></b>
+                <div style="color: #888">Calories/day</div>
                 <span class="smalltext">120%</span>
               </div>
             </td>
             <td class="result_box">
-              <div class="verybigtext"><b class="mildgain"></b> 
-                <div style="color:#888;">Calories/day</div>
+              <div class="verybigtext">
+                <b class="mildgain"></b>
+                <div style="color: #888">Calories/day</div>
                 <span class="smalltext">110%</span>
               </div>
             </td>
             <td class="result_box">
-              <div class="verybigtext "><b class="maintain"></b> 
-                <div style="color:#888;">Calories/day</div>
+              <div class="verybigtext">
+                <b class="maintain"></b>
+                <div style="color: #888">Calories/day</div>
                 <span class="smalltext">100%</span>
               </div>
+            </td>
+
             <td class="result_box">
-              <div class="verybigtext"><b class="mildloss"></b>   
-                <div style="color:#888;">Calories/day</div>
+              <div class="verybigtext">
+                <b class="mildloss"></b>
+                <div style="color: #888">Calories/day</div>
                 <span class="smalltext">90%</span>
               </div>
             </td>
             <td class="result_box">
-              <div class="verybigtext"><b class="loss"></b>
-                <div style="color:#888;">Calories/day</div>
+              <div class="verybigtext">
+                <b class="loss"></b>
+                <div style="color: #888">Calories/day</div>
                 <span class="smalltext">79%</span>
               </div>
             </td>
           </tr>
-          
         </tbody>
       </table>
     </div>
     <div class="info">
-    <div class="h5 text-justify mt-5" style="text-align: justify;">This Calorie Calculator is based on several equations, and the results of the calculator are based on an estimated average.
-      The calculator uses the reliable Mifflin-St Jeor Equation which was introduced in 1990.</div>
-    <div class="equation text-center mt-5">
-      <div class="h4 text-justify" style="font-weight:bold;">Mifflin-St Jeor Equation:</div>
-      <div class="h5 text-justify"><p>For men:</p>
-        <p>BMR = 10W + 6.25H - 5A + 5</p>
-        <p>For women:</p>
-        <p>BMR = 10W + 6.25H - 5A - 161</p>
+      <div class="h5 text-justify mt-5" style="text-align: justify">
+        This Calorie Calculator is based on several equations, and the results
+        of the calculator are based on an estimated average. The calculator uses
+        the reliable Mifflin-St Jeor Equation which was introduced in 1990.
       </div>
-      <div class="h5 text-justify">
-        where:
-        W is body weight in kg
-        H is body height in cm
-        A is age
-      </div> 
+      <div class="equation text-center mt-5">
+        <div class="h4 text-justify" style="font-weight: bold">
+          Mifflin-St Jeor Equation:
+        </div>
+        <div class="h5 text-justify">
+          <p>For men:</p>
+          <p>BMR = 10W + 6.25H - 5A + 5</p>
+          <p>For women:</p>
+          <p>BMR = 10W + 6.25H - 5A - 161</p>
+        </div>
+        <div class="h5 text-justify">
+          where: W is body weight in kg H is body height in cm A is age
+        </div>
+      </div>
+
+      <div class="h5 mt-5" style="text-align: justify; margin-bottom: 9em">
+        The value obtained from these equations is the estimated number of
+        calories a person can consume in a day to maintain their body-weight,
+        assuming they remain at rest. This value is multiplied by an activity
+        factor (generally 1.2-1.95), dependent on a person's typical levels of
+        exercise, in order to obtain a more realistic value for maintaining
+        body-weight (since people are less likely to be at rest throughout the
+        course of an entire day). 1 pound, or approximately 0.45 kg, equates to
+        about 3,500 calories. As such, in order to lose 1 pound per week, it is
+        recommended that 500 calories be shaved off the estimate of calories
+        necessary for weight maintenance per day. For example, if a person has
+        an estimated allotment of 2,500 calories per day to maintain
+        body-weight, consuming 2,000 calories per day for one week would
+        theoretically result in 3,500 calories (or 1 pound) lost during the
+        period.
+      </div>
     </div>
-    
-    <div class="h5 mt-5 " style="text-align: justify; margin-bottom: 9em;">
-      The value obtained from these equations is the estimated number of calories a person can consume in a day to maintain their body-weight, assuming they remain at rest. This value is multiplied by an activity factor (generally 1.2-1.95), dependent on a person's typical levels of exercise, in order to obtain a more realistic value for maintaining body-weight (since people are less likely to be at rest throughout the course of an entire day). 1 pound, or approximately 0.45 kg, equates to about 3,500 calories. As such, in order to lose 1 pound per week, it is recommended that 500 calories be shaved off the estimate of calories necessary for weight maintenance per day. For example, if a person has an estimated allotment of 2,500 calories per day to maintain body-weight, consuming 2,000 calories per day for one week would theoretically result in 3,500 calories (or 1 pound) lost during the period.
-    </div>
-    </div>     
   </div>
 </div>
 <p class="ageValue d-none"></p>
@@ -203,6 +302,6 @@
 <%- include('partials/footer') %>
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 
-<script src="js/roundslider.min.js"></script> 
+<script src="js/roundslider.min.js"></script>
 
 <script src="js/calculator1.js"></script>

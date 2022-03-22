@@ -16,11 +16,14 @@
 <div class="container col-lg-12 col-md-12 col-sm-12 mt-5">
   <div class="row" style="height: 4em">
     <div
-      class="hello h-100 d-flex justify-content-end align-items-center pe-5"
+      class="hello h-100 w-100 d-flex justify-content-between align-items-center px-5"
       style="background-color: #30475e; border-radius: 2em"
     >
-      <div class="h4 align-middle text-end" style="color: white">
+      <div class="h4 text-start" style="color: white">
         Hello, <%=user.Username%>
+      </div>
+      <div class="h4 text-end" style="color: white">
+<a href="/logout">Logout</a>
       </div>
     </div>
   </div>
@@ -29,48 +32,53 @@
       class="col-md-3 shadow order-1 p-4"
       style="background-color: #30475e; border-radius: 2em"
     >
-      <div class="rounded userImgDiv w-100 text-center pt-4 pb-3">
+      <!-- <div class="rounded userImgDiv w-100 text-center pt-4 pb-3">
         <img
           class="rounded-circle z-depth-2"
           alt="100x100"
           src="/images/defaultUser.jpg"
           style="width: 6em"
         />
-      </div>
+      </div> -->
       <div class="userDetails d-flex justify-content-center">
         <table
-          class="table w-75"
-          style="border: none; background-color: #f5f5f5"
+          class="table w-25"
+          style="border: none; background-color: #f5f5f5; font-size: small;"
         >
-          <tr class="w-50">
+          <tr class="w-25">
             <th class="text-end">Username:</th>
-            <th><%=user.Username%></th>
+            <th class="text-start"><%=user.Username%></th>
           </tr>
           <tr class="w-50">
             <th class="text-end">Email:</th>
-            <th><%=user.Email%></th>
+            <th class="text-start"><%=user.Email%></th>
           </tr>
-          <tr class="w-50">
+          <tr class="w-25">
             <th class="text-end">Time:</th>
-            <th>user@email.com</th>
+            <th class="text-start" id="timeNow"></th>
           </tr>
         </table>
       </div>
       <div class="editProfile mb-4">
         <div class="h6 text-center">
-          <a href="" style="color: #f5f5f5; text-decoration: none"
+          <a href="/editProfile" style="color: #f5f5f5; text-decoration: none"
             >Edit Profile</a
           >
         </div>
       </div>
     </div>
 
-    <div class="col-md-9 order-2 charts p-4">
+    <div class="col-md-9 order-2 charts p-4" style="overflow-y: scroll; max-height: 440px;">
       <div class="row">
-        <div class="col-md-4 text-center">
+        <div class="col-md-4 text-center mx-auto">
           <canvas class="donutChart" id="donutChart"></canvas>
         </div>
-        <div class="col-md-8 text-center">
+        <div class="col-md-4 text-center mx-auto">
+          <canvas class="donutChart" id="donutChart1"></canvas>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-8 mx-auto">
           <select name="month" id="month">
             <% let mon=['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];for(let i in mon) {%> 
               <option value="<%=i%>"><%=mon[i]%></option>
@@ -103,16 +111,18 @@
         </thead>
         <tbody>
           <tr>
-            <td><%=total.totalCalories%></td>
+            <% if(total!==undefined) {%> 
+              <td><%=total.totalCalories%></td>
             <td><%=total.totalCarbs%></td>
             <td><%=total.totalFat%></td>
             <td><%=total.totalProtein%></td>
+            <% } %> 
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="col-md-9 order-2 foodSearch p-4" style="overflow-y: scroll; max-height: 350px;">
+    <div class="col-md-9 order-2 foodSearch p-4" style="overflow-y: scroll; max-height: 440px;">
       <div class="row">
         <div class="col-md-9 mx-auto">
           <div class="h3 text-uppercase">Track your calories</div>
@@ -165,8 +175,11 @@
             <hr>
               <div class="<%=foodMeal%>Div w-100">
                 <div class="h5"><%=foodMeal%></div>
-                <ul class="list-group d-flex justify-content-around w-100" id="<%=foodMeal%>List">
+                <ul class="list-group d-flex justify-content-around w-100" id="<%=foodMeal%>List"> 
+                  <% if(foodData!==undefined){ %> 
                     <% foodData.forEach(foodDatas =>{  %> 
+                      <% var nowDate = new Date();%> 
+                      <% if(foodDatas.date === nowDate.toISOString().slice(0,10)){ %> 
                       <% if(foodDatas.meal === foodMeal){ %> 
                   <li class="list-group-item h6" style="position: relative;"><%=foodDatas.foodName %> 
                     <div class="remEdit">
@@ -176,8 +189,9 @@
                     </div>
                     <p style="position: absolute; right: .8em; top: 1em;"><%=foodDatas.gramsIntake%>g</p>
                     </li>
-                    
-                  <% }})%> 
+                    <% } %> 
+                    <% }})%> 
+                    <% } %> 
                 </ul>
               </div>
           <% }%> 
@@ -215,6 +229,15 @@
   </div>
 </div>
 
+<%let i=0;%> 
+        <% for(let fd2 of foodData){ %> 
+          <input type="hidden" id="<%= "getCalorie"+i%>" value="<%= fd2.calories %>">
+          <input type="hidden" id="<%= "getDate"+i%>" value="<%= fd2.date %>">
+          <% i = i+1 %> 
+        <% } console.log(i)%> 
+        
+<input type="hidden" id="count" value="<%=i%>">
+        
 <script>
 
   // breakfast list 
@@ -230,7 +253,6 @@
       alert("Enter intake grams")
       return false
     }
-    console.log(mealType)
   }
 
   function editIntake(x,y,z){
@@ -239,6 +261,22 @@
     $("#foodIdModal").val(y)
   }
 
+function realTimeClock(){
+  var time = new Date();
+  var  h = time.getHours();
+  var  m = time.getMinutes();
+  var  s = time.getSeconds();
+  var ampm = (h<12)?"AM":"PM";
+  h = (h>12)?h-12:h;
+  h=("0" + h).slice(-2)
+  m=("0" + m).slice(-2)
+  s=("0" + s).slice(-2)
+  // $(".timeNow").html(h+" : "+m+" : "+s+" : "+ampm)
+  document.getElementById("timeNow").innerHTML = h+" : "+m+" : "+s+" "+ampm
+  var t = setTimeout(realTimeClock,500) 
+}
+
+window.onload = realTimeClock
 
 // show analytics/tracker
 $(".charts").hide()
@@ -255,16 +293,16 @@ $(".showAnalytics").on("click", ()=>{
 
 // ------charts--------- 
   var doughnutChart = document.getElementById("donutChart").getContext("2d");
+  var doughnutChart1 = document.getElementById("donutChart1").getContext("2d");
   var lineChart = document.getElementById("donutChart").getContext("2d");
-
-  var myDoughnutChart = new Chart(doughnutChart, {
+    var myDoughnutChart = new Chart(doughnutChart, {
     type: "doughnut",
     data: {
       labels: ["Calories", "Proteins", "Fats", "Carbohydrates"],
       datasets: [
         {
           label: "My First Dataset",
-          data: ['<%=total.totalCalories%>', '<%=total.totalProtein%>', '<%=total.totalFat%>', '<%=total.totalCarbs%>'],
+            data: ['<%-total.totalCalories%>', '<%-total.totalProtein%>', '<%-total.totalFat%>', '<%-total.totalCarbs%>'],
           backgroundColor: [
             "#79addc",
             "#ffc09f",
@@ -277,10 +315,29 @@ $(".showAnalytics").on("click", ()=>{
     },
   });
 
+  var myDoughnutChart1 = new Chart(doughnutChart1, {
+    type: "doughnut",
+    data: {
+      labels: ["Calories eaten", "Calories Required"],
+      datasets: [
+        {
+          label: "My First Dataset",
+          data: ['<%-total.totalCalories%>', '<%=user.reqCalories%>'],
+          backgroundColor: [
+            "#79addc",
+            "#ffc09f",
+          ],
+          hoverOffset: 4,
+        },
+      ],
+    },
+  });
+
   var dt = new Date();
   var year = dt.getFullYear();
   var xValues=[];
   var yValues=[];
+  let dayCalorie = [];
   var daysInMonth=new Date(year, 1, 0).getDate();
 
   for (let i = 100; i <= 1000; i+=200) {
@@ -288,8 +345,33 @@ $(".showAnalytics").on("click", ()=>{
   }
   for (let i = 1; i <= daysInMonth; i++) {
     xValues.push(i);
+    dayCalorie.push(0);
   }
   
+  let getFoodData = $("#getFoodData").val()
+  console.log(getFoodData)
+  let getFoodData1 = $("#getFoodData1").val()
+  console.log(getFoodData1)
+  let getCalorie = []
+  let getDate = []
+
+  let c = $("#count").val();
+
+  for(let i=0; i<c;i++){
+       getCalorie.push($("#getCalorie"+i).val())
+       getDate.push($("#getDate"+i).val())
+  }
+  
+  for(let i=0; i<c;i++){
+    console.log(getDate[i].split("-")[1])
+    console.log(getDate[i].split("-")[2])
+      if('01'===getDate[i].split("-")[1]){
+        dayCalorie[getDate[i].split("-")[2] -1] += getCalorie[i]
+        console.log(dayCalorie)
+      }
+      // totalCalories += foodData1[fd].calories;
+  }
+
   const labels = 1;
   var mylinechart=new Chart("lineChart", {
     type: "line",
@@ -298,7 +380,7 @@ $(".showAnalytics").on("click", ()=>{
       datasets: [
         {
           label: "My First Dataset",
-          data: [65, 59, 80, 81, 56, 55, 40],
+          data: dayCalorie,
           fill: false,
           borderColor: "rgb(75, 192, 192)",
           tension: 0.1,
@@ -308,14 +390,25 @@ $(".showAnalytics").on("click", ()=>{
   });
   
   $("#month").on("change",()=>{
-    var month= $("#month option:selected").val()+1;
+    var month= parseInt($("#month option:selected").val())+1;
     daysInMonth = new Date(year, month, 0).getDate();
     let xValues=[];
+    let dayCalorie = [];
+
     for (let i = 1; i <= daysInMonth; i++) {
       xValues.push(i);
+      dayCalorie.push(0);
     }
     const labels = 1;
     mylinechart.destroy();
+    for(let i=0; i<c;i++){
+      console.log(month)
+      if(month===parseInt(getDate[i].split("-")[1])){
+        dayCalorie[getDate[i].split("-")[2] -1] += getCalorie[i]
+        console.log(dayCalorie)
+      }
+  }
+
 
     mylinechart=new Chart("lineChart", {
       type: "line",
@@ -324,7 +417,7 @@ $(".showAnalytics").on("click", ()=>{
         datasets: [
           {
             label: "My First Dataset",
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: dayCalorie,
             fill: false,
             borderColor: "rgb(75, 192, 192)",
             tension: 0.1,
@@ -334,6 +427,3 @@ $(".showAnalytics").on("click", ()=>{
     });
   });
 </script>
-
-<a href="/logout">Logout</a>
-<a href="/directory">Directory</a>

@@ -1,8 +1,9 @@
 const express = require("express")
 const Excercise = require("./../models/excercise")
 const router = express.Router()
+const auth = require("../controllers/authController");
 
-router.get("/", async (req, res) => {
+router.get("/",auth.isLoggedIn, async (req, res) => {
   //   res.send("hello");
   let excerType;
   let bodyPart = req.query.bodyPart;
@@ -44,7 +45,6 @@ router.get("/", async (req, res) => {
   
   // const bodyPart = req.params;
   res.render("directory", {
-    userName: req.session.name,
     excercises: excercises,
     excerType: excerType,
     bodyPart: bodyPart,

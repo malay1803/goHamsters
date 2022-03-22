@@ -4,6 +4,9 @@ const userSchema = new mongoose.Schema({
   userID:{
     type: String,
   },
+  date:{
+    type: String
+  },
   foodName: {
     type: String,
     required: [true, "Name should not be blank"],

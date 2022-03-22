@@ -1,0 +1,67 @@
+.navbar{
+    position: absolute;
+  }
+
+.bgEditEmail{
+    background-color: #121212;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.circle1{
+    background-color: #30475e;
+    opacity: .8;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    width: 30vw;
+    height: 30vw;
+    position: absolute;
+    left: -10vw;
+    top: -7vw;
+}
+
+.circle2{
+    background-color: #30475e;
+    opacity: .8;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    width: 30vw;
+    height: 30vw;
+    position: absolute;
+    right: -10vw;
+    bottom: -7vw;
+}
+
+.lab{
+    color: #f5f5f5;
+}
+
+form input, form select {
+    background-color: transparent !important;
+}
+
+form select option{
+    margin: 40px;
+  background: #30475e;
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+form input, form select{
+    color: white !important;
+}
+
+form input::placeholder, form input::value, form select{
+    color: white !important;
+}
+
+.options{
+    background-color: #f05454 !important;
+}
+
+.options:checked+label{
+    background-color: #aa3737 !important;
+}
+
+.options:focus, .options:active, .options:visited {
+    box-shadow: none !important;
+}

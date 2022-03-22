@@ -1,0 +1,192 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%# include('partials/welcome') %> 
+
+<link rel="stylesheet" href="css/editProfile.css" />
+
+<div class="container-fluid bgEditEmail col-lg-12 col-md-12 col-sm-12">
+    <div class="circle1"></div>
+    <div class="circle2"></div>
+    <div class="row h-100">
+        <!-- <div class="w-100 d-flex justify-content-center align-items-center">
+        </div> -->
+        <div class="w-50 m-auto">
+              <% if(!user.firstName){ %> 
+              <form action="/editProfileSubmit/<%=user._id%>" method="post">
+                <div class="display-3 text-center mb-4" style="color: #F05454;">Enter details</div>
+                <div class="row">
+                  <div class="col-6 mx-auto">
+                    <label class="lab" for="firstName">First Name</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name">
+                  </div>
+                  <div class="col-6 mx-auto">
+                    <label class="lab" for="lastName">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last name">
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-6 mx-auto">
+                    <label class="lab" for="editAge">Age</label>
+                    <input type="text" class="form-control" id="editAge" name="editAge" placeholder="Enter your age">
+                  </div>
+                  <div class="col-6 mx-auto">
+                    <label class="lab" for="editGender">Gender</label>
+                    <div id="editGender">
+                      <input type="radio" class="btn-check options shadow-now" name="options" value="male" id="option1" autocomplete="off" />
+                      <label class="btn btn-secondary options shadow-now" for="option1">Male</label>
+                      
+                      <input type="radio" class="btn-check options shadow-now ms-2" name="options" value="female" id="option2" autocomplete="off" />
+                      <label class="btn btn-secondary shadow-now options ms-2" for="option2">Female</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6 mx-auto">
+                      <label class="lab" for="editHeight">Height(in cms)</label>
+                      <input type="text" class="form-control" id="editHeight" name="editHeight" placeholder="Enter Height in cms">
+                    </div>
+                    <div class="col-6 mx-auto">
+                      <label class="lab" for="editWeight">Weight(in kgs)</label>
+                      <input type="text" class="form-control" id="editWeight" name="editWeight" placeholder="Enter Weight in kgs">
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col">
+                      <label class="lab" for="editActivity">How often do you exercise?</label>
+                      <select class="form-select" id="editActivity" name="editActivity" aria-label="Default select example">
+                        <option value="1">Basal Metabolic Rate (BMR)</option>
+                        <option value="1.2">Sedentary: little or no exercise</option>
+                        <option value="1.375">Light: exercise 1-3 times/week</option>
+                        <option value="1.465">Moderate: exercise 4-5 times/week</option>
+                        <option value="1.55">Active: daily exercise or intense exercise 3-4
+                          times/week</option>
+                          <option value="1.725">Very Active: intense exercise 6-7 times/week</option>
+                          <option value="1.9">Extra Active: very intense exercise daily, or physical
+                            job</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="h4 text-light">Your recommended calories: <span class="userCalories"></span> </div>
+                    <input type="hidden" name="userCalories" class="userCalories">
+                  </div>
+                  <div class="row mt-3 w-25 mx-auto">
+                    <button type="submit" class="btn btn-primary w-75 mx-auto" style="background-color: #F05454; border: none;">Submit</button>
+                  </div>
+              </form>
+              <% } else{%> 
+                <form action="/editProfileSubmit/<%=user._id%>" method="post">
+                  <div class="display-3 text-center mb-4" style="color: #F05454;">Enter details</div>
+                  <div class="row">
+                    <div class="col-6 mx-auto">
+                      <label class="lab" for="firstName">First Name</label>
+                      <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name" value="<%=user.firstName%>">
+                    </div>
+                    <div class="col-6 mx-auto">
+                      <label class="lab" for="lastName">Last Name</label>
+                      <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last name" value="<%=user.lastName%>">
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-6 mx-auto">
+                      <label class="lab" for="editAge">Age</label>
+                      <input type="text" class="form-control" id="editAge" name="editAge" placeholder="Enter your age" value="<%=user.Age%>">
+                    </div>
+                    <div class="col-6 mx-auto">
+                      <label class="lab" for="editGender">Gender</label>
+                      <div id="editGender">
+
+                        <% let editGenders=["male", "female"] %> 
+                        <% for(let g in editGenders){ %>
+                          <input type="radio" class="btn-check options shadow-now" name="options" value="<%=editGenders[g]%>"  id="option<%=g+1%>" <%-editGenders[g]==user.gender?"checked":""%> autocomplete="off" />
+                        <label class="btn btn-secondary options shadow-now" for="option<%=g+1%>"><%=editGenders[g]%></label>
+                          <% } %>  
+
+                        <!-- <input type="radio" class="btn-check options shadow-now" name="options" value="male" id="option1" autocomplete="off" />
+                        <label class="btn btn-secondary options shadow-now" for="option1">Male</label>
+                        
+                        <input type="radio" class="btn-check options shadow-now ms-2" name="options" value="female" id="option2" autocomplete="off" />
+                        <label class="btn btn-secondary shadow-now options ms-2" for="option2">Female</label> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                      <div class="col-6 mx-auto">
+                        <label class="lab" for="editHeight">Height(in cms)</label>
+                        <input type="text" class="form-control" id="editHeight" name="editHeight" placeholder="Enter Height in cms" value="<%=user.height%>">
+                      </div>
+                      <div class="col-6 mx-auto">
+                        <label class="lab" for="editWeight">Weight(in kgs)</label>
+                        <input type="text" class="form-control" id="editWeight" name="editWeight" placeholder="Enter Weight in kgs" value="<%=user.weight%>">
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col">
+                        <label class="lab" for="editActivity">How often do you exercise?</label>
+                        <select class="form-select" id="editActivity" name="editActivity" aria-label="Default select example">
+                          <% let options = ["Basal Metabolic Rate (BMR)", "Sedentary: little or no exercise", "Light: exercise 1-3 times/week", "Moderate: exercise 4-5 times/week", "Active: daily exercise or intense exercise 3-4 times/week", "Very Active: intense exercise 6-7 times/week", "Extra Active: very intense exercise daily, or physical job"] %> 
+                          <% let optionValue = [1,1.2,1.375, 1.465, 1.55, 1.725, 1.9] %> 
+                          <% for(let option in options){ %> 
+                          <option value="<%=optionValue[option]%>" <%-user.activity==optionValue[option]?"selected":"" %>><%=options[option]%></option>
+                          <% } %> 
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="h4 text-light">Your recommended calories: <span class="userCalories"><%=user.reqCalories%> </span> </div>
+                      <input type="hidden" name="userCalories" class="userCalories">
+                    </div>
+                    <div class="row mt-3 w-25 mx-auto">
+                      <button type="submit" class="btn btn-primary w-75 mx-auto" style="background-color: #F05454; border: none;">Submit</button>
+                    </div>
+                </form>
+                <% } %> 
+        </div>
+    </div>
+    
+</div>
+
+
+<script>
+  $("#editAge, #editHeight, #editWeight, #editActivity, input[type='radio'][name='options']").change(()=>{
+    const editAge = parseFloat($("#editAge").val())
+    const editHeight = parseFloat($("#editHeight").val())
+    const editWeight = parseFloat($("#editWeight").val())
+    const sel = parseFloat($("#editActivity").val())
+    const selGender=$("input[type='radio'][name='options']:checked").val()
+    console.log(editAge, editHeight, editWeight, sel, selGender)
+
+    let BMR
+    if(selGender==="male"){
+        BMR =  (10 * editWeight) + (6.25 * editHeight) - (5 * editAge) + 5 
+    }
+    else if(selGender==="female"){
+        BMR = (10 * editWeight) + (6.25 * editHeight) - (5 * editAge) - 161 
+    }
+    if(sel==1){
+        BMR = BMR*1; 
+    }
+    else if(sel==1.2){
+        BMR = BMR*1.2;
+    }
+    else if(sel==1.375){
+        BMR = BMR*1.375;
+    }
+    else if(sel==1.465){
+        BMR = BMR*1.465;
+    }
+    else if(sel==1.55){
+        BMR = BMR*1.55;
+    }
+    else if(sel==1.725){
+        BMR = BMR*1.725;
+    }
+    else if(sel==1.9){
+        BMR = BMR*1.9;
+    }
+    BMR = BMR.toFixed(0)
+    console.log(BMR)
+    $(".userCalories").val(BMR)
+    $(".userCalories").html(BMR)
+  })
+</script>
