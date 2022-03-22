@@ -111,10 +111,12 @@
         </thead>
         <tbody>
           <tr>
-            <td><%=total.totalCalories%></td>
+            <% if(total!==undefined) {%> 
+              <td><%=total.totalCalories%></td>
             <td><%=total.totalCarbs%></td>
             <td><%=total.totalFat%></td>
             <td><%=total.totalProtein%></td>
+            <% } %> 
           </tr>
         </tbody>
       </table>
@@ -173,8 +175,11 @@
             <hr>
               <div class="<%=foodMeal%>Div w-100">
                 <div class="h5"><%=foodMeal%></div>
-                <ul class="list-group d-flex justify-content-around w-100" id="<%=foodMeal%>List">
+                <ul class="list-group d-flex justify-content-around w-100" id="<%=foodMeal%>List"> 
+                  <% if(foodData!==undefined){ %> 
                     <% foodData.forEach(foodDatas =>{  %> 
+                      <% var nowDate = new Date();%> 
+                      <% if(foodDatas.date === nowDate.toISOString().slice(0,10)){ %> 
                       <% if(foodDatas.meal === foodMeal){ %> 
                   <li class="list-group-item h6" style="position: relative;"><%=foodDatas.foodName %> 
                     <div class="remEdit">
@@ -184,8 +189,9 @@
                     </div>
                     <p style="position: absolute; right: .8em; top: 1em;"><%=foodDatas.gramsIntake%>g</p>
                     </li>
-                    
-                  <% }})%> 
+                    <% } %> 
+                    <% }})%> 
+                    <% } %> 
                 </ul>
               </div>
           <% }%> 
@@ -223,6 +229,15 @@
   </div>
 </div>
 
+<%let i=0;%> 
+        <% for(let fd2 of foodData){ %> 
+          <input type="hidden" id="<%= "getCalorie"+i%>" value="<%= fd2.calories %>">
+          <input type="hidden" id="<%= "getDate"+i%>" value="<%= fd2.date %>">
+          <% i = i+1 %> 
+        <% } console.log(i)%> 
+        
+<input type="hidden" id="count" value="<%=i%>">
+        
 <script>
 
   // breakfast list 
@@ -238,7 +253,6 @@
       alert("Enter intake grams")
       return false
     }
-    console.log(mealType)
   }
 
   function editIntake(x,y,z){
@@ -281,15 +295,14 @@ $(".showAnalytics").on("click", ()=>{
   var doughnutChart = document.getElementById("donutChart").getContext("2d");
   var doughnutChart1 = document.getElementById("donutChart1").getContext("2d");
   var lineChart = document.getElementById("donutChart").getContext("2d");
-
-  var myDoughnutChart = new Chart(doughnutChart, {
+    var myDoughnutChart = new Chart(doughnutChart, {
     type: "doughnut",
     data: {
       labels: ["Calories", "Proteins", "Fats", "Carbohydrates"],
       datasets: [
         {
           label: "My First Dataset",
-          data: ['<%=total.totalCalories%>', '<%=total.totalProtein%>', '<%=total.totalFat%>', '<%=total.totalCarbs%>'],
+            data: ['<%-total.totalCalories%>', '<%-total.totalProtein%>', '<%-total.totalFat%>', '<%-total.totalCarbs%>'],
           backgroundColor: [
             "#79addc",
             "#ffc09f",
@@ -309,7 +322,7 @@ $(".showAnalytics").on("click", ()=>{
       datasets: [
         {
           label: "My First Dataset",
-          data: ['<%=total.totalCalories%>', '<%=user.reqCalories%>'],
+          data: ['<%-total.totalCalories%>', '<%=user.reqCalories%>'],
           backgroundColor: [
             "#79addc",
             "#ffc09f",
@@ -324,6 +337,7 @@ $(".showAnalytics").on("click", ()=>{
   var year = dt.getFullYear();
   var xValues=[];
   var yValues=[];
+  let dayCalorie = [];
   var daysInMonth=new Date(year, 1, 0).getDate();
 
   for (let i = 100; i <= 1000; i+=200) {
@@ -331,8 +345,33 @@ $(".showAnalytics").on("click", ()=>{
   }
   for (let i = 1; i <= daysInMonth; i++) {
     xValues.push(i);
+    dayCalorie.push(0);
   }
   
+  let getFoodData = $("#getFoodData").val()
+  console.log(getFoodData)
+  let getFoodData1 = $("#getFoodData1").val()
+  console.log(getFoodData1)
+  let getCalorie = []
+  let getDate = []
+
+  let c = $("#count").val();
+
+  for(let i=0; i<c;i++){
+       getCalorie.push($("#getCalorie"+i).val())
+       getDate.push($("#getDate"+i).val())
+  }
+  
+  for(let i=0; i<c;i++){
+    console.log(getDate[i].split("-")[1])
+    console.log(getDate[i].split("-")[2])
+      if('01'===getDate[i].split("-")[1]){
+        dayCalorie[getDate[i].split("-")[2] -1] += getCalorie[i]
+        console.log(dayCalorie)
+      }
+      // totalCalories += foodData1[fd].calories;
+  }
+
   const labels = 1;
   var mylinechart=new Chart("lineChart", {
     type: "line",
@@ -341,7 +380,7 @@ $(".showAnalytics").on("click", ()=>{
       datasets: [
         {
           label: "My First Dataset",
-          data: [65, 59, 80, 81, 56, 55, 40],
+          data: dayCalorie,
           fill: false,
           borderColor: "rgb(75, 192, 192)",
           tension: 0.1,
@@ -354,11 +393,22 @@ $(".showAnalytics").on("click", ()=>{
     var month= parseInt($("#month option:selected").val())+1;
     daysInMonth = new Date(year, month, 0).getDate();
     let xValues=[];
+    let dayCalorie = [];
+
     for (let i = 1; i <= daysInMonth; i++) {
       xValues.push(i);
+      dayCalorie.push(0);
     }
     const labels = 1;
     mylinechart.destroy();
+    for(let i=0; i<c;i++){
+      console.log(month)
+      if(month===parseInt(getDate[i].split("-")[1])){
+        dayCalorie[getDate[i].split("-")[2] -1] += getCalorie[i]
+        console.log(dayCalorie)
+      }
+  }
+
 
     mylinechart=new Chart("lineChart", {
       type: "line",
@@ -367,7 +417,7 @@ $(".showAnalytics").on("click", ()=>{
         datasets: [
           {
             label: "My First Dataset",
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: dayCalorie,
             fill: false,
             borderColor: "rgb(75, 192, 192)",
             tension: 0.1,

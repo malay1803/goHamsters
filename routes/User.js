@@ -30,6 +30,7 @@ var totalProtein = 0;
 var totalFat = 0;
 
 var foodData1 = "none";
+var foodData2 = "none";
 
 app.get("/directory1", auth.isLoggedIn, (req, res) => {
   res.render("directory1");
@@ -40,35 +41,36 @@ app.get("/login", auth.isLoggedIn, (req, res) => {
 });
 
 app.get("/userDashboard", auth.protect, async (req, res) => {
-  console.log(req.session);
   var totalCarbs = 0;
   var totalCalories = 0;
   var totalProtein = 0;
   var totalFat = 0;
   var totalGramsIntake = 0;
-
-  foodData1 = await FoodData.find({ userID: req.user._id });
+  let total
+  // var nowDate = new Date() 
+  // nowDate.toISOString().slice(0,10)
   
+  foodData1 = await FoodData.find({ userID: req.user._id});
+    for (let fd in foodData1) {
+      totalCalories += foodData1[fd].calories;
+      totalCarbs += foodData1[fd].carbohydrate;
+      totalProtein += foodData1[fd].protein;
+      totalFat += foodData1[fd].fat;
+      totalGramsIntake = foodData1[fd].gramsIntake;
+    }
 
-  for (let fd in foodData1) {
-    totalCalories += foodData1[fd].calories;
-    totalCarbs += foodData1[fd].carbohydrate;
-    totalProtein += foodData1[fd].protein;
-    totalFat += foodData1[fd].fat;
-    totalGramsIntake = foodData1[fd].gramsIntake;
-  }
-
-  let total = {
-    totalCalories: totalCalories,
-    totalCarbs: totalCarbs,
-    totalProtein: totalProtein,
-    totalFat: totalFat,
-  };
-
-  for (let tot in total) {
-    total[tot] *= totalGramsIntake / 100;
-    total[tot] = total[tot].toFixed(1);
-  }
+    total = {
+      totalCalories: totalCalories,
+      totalCarbs: totalCarbs,
+      totalProtein: totalProtein,
+      totalFat: totalFat,
+    };
+  
+    for (let tot in total) {
+      total[tot] *= totalGramsIntake / 100;
+      total[tot] = total[tot].toFixed(1);
+    }
+    
 
   res.render("userDashboard", {
     userName: "hello",
@@ -152,10 +154,7 @@ app.post("/foodIntakeUpdate", (req, res) => {
 });
 
 app.post("/editProfileSubmit/:id", auth.protect, async (req,res)=>{
-  console.log(req.body.firstName);
-  console.log(req.params.id);
   const editValues = req.body
-  console.log(req.body.editActivity);
   const edit = await User.findByIdAndUpdate({_id:req.params.id}, {
     $set:{
       firstName: editValues.firstName,
@@ -236,7 +235,6 @@ app.post("/addItem", auth.protect, async (req, res) => {
   proteinTD = protein;
   
   var date = new Date();
-  console.log(date.toISOString().slice(0,10));
 
 
   if (foodNameTD === undefined) {
