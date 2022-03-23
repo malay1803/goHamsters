@@ -81,8 +81,11 @@
         <div class="col-8 mx-auto">
           <select name="month" id="month">
             <% let mon=['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];for(let i in mon) {%> 
-              <option value="<%=i%>"><%=mon[i]%></option>
-            <% } %> 
+              <% dt = new Date(); if(dt.getMonth()==i){ %> 
+                <option value="<%=i%>" selected><%=mon[i]%></option>
+                <% }else{ %>
+                  <option value="<%=i%>"><%=mon[i]%></option>
+            <% }} %> 
           </select>
           <canvas class="lineChart" id="lineChart"></canvas>
         </div>
@@ -110,13 +113,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr> 
+            <% var nowDate = new Date();%> 
+            <% foodData.forEach(foodDatas =>{  %>
+            <% console.log(foodDatas.date); if(foodDatas.date === nowDate.toISOString().slice(0,10)){ %> 
             <% if(total!==undefined) {%> 
               <td><%=total.totalCalories%></td>
             <td><%=total.totalCarbs%></td>
             <td><%=total.totalFat%></td>
             <td><%=total.totalProtein%></td>
-            <% } %> 
+            <%}else{%>
+              <% for(let i in 4){ %> 
+                <td>0</td>
+            <%}}}})%>
           </tr>
         </tbody>
       </table>
@@ -177,8 +186,7 @@
                 <div class="h5"><%=foodMeal%></div>
                 <ul class="list-group d-flex justify-content-around w-100" id="<%=foodMeal%>List"> 
                   <% if(foodData!==undefined){ %> 
-                    <% foodData.forEach(foodDatas =>{  %> 
-                      <% var nowDate = new Date();%> 
+                    <% foodData.forEach(foodDatas =>{  %>
                       <% if(foodDatas.date === nowDate.toISOString().slice(0,10)){ %> 
                       <% if(foodDatas.meal === foodMeal){ %> 
                   <li class="list-group-item h6" style="position: relative;"><%=foodDatas.foodName %> 
@@ -232,6 +240,10 @@
 <%let i=0;%> 
         <% for(let fd2 of foodData){ %> 
           <input type="hidden" id="<%= "getCalorie"+i%>" value="<%= fd2.calories %>">
+          <input type="hidden" id="<%= "getFat"+i%>" value="<%= fd2.fat %>">
+          <input type="hidden" id="<%= "getProtein"+i%>" value="<%= fd2.protein %>">
+          <input type="hidden" id="<%= "getCarbohydrate"+i%>" value="<%= fd2.carbohydrate %>">
+          <input type="hidden" id="<%= "getGramsIntake"+i%>" value="<%= fd2.gramsIntake %>">
           <input type="hidden" id="<%= "getDate"+i%>" value="<%= fd2.date %>">
           <% i = i+1 %> 
         <% } console.log(i)%> 
@@ -301,7 +313,7 @@ $(".showAnalytics").on("click", ()=>{
       labels: ["Calories", "Proteins", "Fats", "Carbohydrates"],
       datasets: [
         {
-          label: "My First Dataset",
+          label: "Calories",
             data: ['<%-total.totalCalories%>', '<%-total.totalProtein%>', '<%-total.totalFat%>', '<%-total.totalCarbs%>'],
           backgroundColor: [
             "#79addc",
@@ -321,7 +333,7 @@ $(".showAnalytics").on("click", ()=>{
       labels: ["Calories eaten", "Calories Required"],
       datasets: [
         {
-          label: "My First Dataset",
+          label: "Calories",
           data: ['<%-total.totalCalories%>', '<%=user.reqCalories%>'],
           backgroundColor: [
             "#79addc",
@@ -349,9 +361,7 @@ $(".showAnalytics").on("click", ()=>{
   }
   
   let getFoodData = $("#getFoodData").val()
-  console.log(getFoodData)
   let getFoodData1 = $("#getFoodData1").val()
-  console.log(getFoodData1)
   let getCalorie = []
   let getDate = []
 
@@ -361,11 +371,13 @@ $(".showAnalytics").on("click", ()=>{
        getCalorie.push($("#getCalorie"+i).val())
        getDate.push($("#getDate"+i).val())
   }
+
+  // if(dt.)
   
   for(let i=0; i<c;i++){
     console.log(getDate[i].split("-")[1])
     console.log(getDate[i].split("-")[2])
-      if('01'===getDate[i].split("-")[1]){
+      if("0"+dt.getMonth()===getDate[i].split("-")[1]){
         dayCalorie[getDate[i].split("-")[2] -1] += getCalorie[i]
         console.log(dayCalorie)
       }
@@ -379,7 +391,7 @@ $(".showAnalytics").on("click", ()=>{
       labels: xValues,yValues,
       datasets: [
         {
-          label: "My First Dataset",
+          label: "Calories",
           data: dayCalorie,
           fill: false,
           borderColor: "rgb(75, 192, 192)",
@@ -390,6 +402,7 @@ $(".showAnalytics").on("click", ()=>{
   });
   
   $("#month").on("change",()=>{
+    console.log(dt.getMonth())
     var month= parseInt($("#month option:selected").val())+1;
     daysInMonth = new Date(year, month, 0).getDate();
     let xValues=[];
@@ -416,7 +429,7 @@ $(".showAnalytics").on("click", ()=>{
         labels: xValues,yValues,
         datasets: [
           {
-            label: "My First Dataset",
+            label: "Calories",
             data: dayCalorie,
             fill: false,
             borderColor: "rgb(75, 192, 192)",

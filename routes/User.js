@@ -52,12 +52,14 @@ app.get("/userDashboard", auth.protect, async (req, res) => {
   
   foodData1 = await FoodData.find({ userID: req.user._id});
     for (let fd in foodData1) {
-      totalCalories += foodData1[fd].calories;
-      totalCarbs += foodData1[fd].carbohydrate;
-      totalProtein += foodData1[fd].protein;
-      totalFat += foodData1[fd].fat;
-      totalGramsIntake = foodData1[fd].gramsIntake;
+      totalCalories += parseFloat(foodData1[fd].calories);
+      totalCarbs += parseFloat(foodData1[fd].carbohydrate);
+      totalProtein += parseFloat(foodData1[fd].protein);
+      totalFat += parseFloat(foodData1[fd].fat);
+      totalGramsIntake = parseFloat(foodData1[fd].gramsIntake);
     }
+
+    
 
     total = {
       totalCalories: totalCalories,
@@ -70,7 +72,8 @@ app.get("/userDashboard", auth.protect, async (req, res) => {
       total[tot] *= totalGramsIntake / 100;
       total[tot] = total[tot].toFixed(1);
     }
-    
+
+    console.log(total);
 
   res.render("userDashboard", {
     userName: "hello",
