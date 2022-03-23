@@ -72,15 +72,13 @@ $("input[type=radio][name=gender][value='male']").click(function () {
 $("input[type=radio][name=gender][value='female']").click(function () {
   t4.play();
   $(".f-muscle-map").css("display","block");
-  $(".muscle-map").css("display","none");
-})
-
+  $(".muscle-map").css("display","none");})
+  
 $("input[type=radio][name=gender][value='male']").click(function () {
     t4.play();
 });
 
 $("input[type=radio][name=gender][value='female']").click(function () {
-  alert("helo")
 })
 
 $(".back2").on("click", function () {
