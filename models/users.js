@@ -3,10 +3,6 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 
 const userSchema = new mongoose.Schema({
-  Username: {
-    type: String,
-    required: [true, "Name should not be blank"],
-  },
   Email: {
     type: String,
     required: true,

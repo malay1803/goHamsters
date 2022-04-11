@@ -11,7 +11,7 @@
           <h2 class="title">Sign in</h2>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <input type="text" placeholder="Username" name="loginUserName" />
+            <input type="text" placeholder="Email" name="loginUserName" />
           </div>
           <div class="input-field">
             <i class="fas fa-lock"></i>
@@ -19,7 +19,7 @@
           </div>
           
           <input type="submit" class="btn solid" value="Login" />
-          <input type="button" class="btn forget" value="Forget Password" onclick="forgetPassword();"/>
+          <input style="font-size: .8em;" type="button" class="btn forget" value="Forget Password" onclick="forgetPassword();"/>
         </form>
         <!-- forget -->
         <form action="/forgotPassword" method="POST" class="sign-in-form" id="forget" >
@@ -37,7 +37,12 @@
         <h2 class="title">Sign up</h2>
         <div class="input-field">
           <i class="fas fa-user"></i>
-          <input type="text" name="username" placeholder="Username" />
+          <!-- <input type="text" name="username" placeholder="Username" /> -->
+          <input type="text" name="firstName" placeholder="First Name" />
+        </div>
+        <div class="input-field">
+          <i class="fas fa-user"></i>
+          <input type="text" name="lastName" placeholder="Last Name" />
         </div>
         <div class="input-field">
           <i class="fas fa-envelope"></i>

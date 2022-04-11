@@ -37,7 +37,12 @@ app.get("/directory1", auth.isLoggedIn, (req, res) => {
 });
 
 app.get("/login", auth.isLoggedIn, (req, res) => {
-  res.render("login");
+  console.log(req.cookies.jwt);
+  if(req.cookies.jwt){
+    res.redirect("userDashboard")
+  }else{
+    res.render("login");
+  }
 });
 
 app.get("/userDashboard", auth.protect, async (req, res) => {
@@ -97,8 +102,8 @@ app.get("/calculator1", auth.isLoggedIn, (req, res) => {
   res.render("calculator1");
 });
 
-app.get("/about", (req, res) => {
-  res.render("about", { userName: req.session.name });
+app.get("/about", auth.isLoggedIn, (req, res) => {
+  res.render("about");
 });
 
 app.get("/editProfile", auth.protect, async (req, res) => {
@@ -192,7 +197,8 @@ app.post(
 );
 
 app.post("/loginUser", auth.login, async (req, res) => {
-  res.redirect("userDashboard");
+  
+  res.redirect("/userDashboard");
 });
 
 app.post("/search", async (req, res) => {
