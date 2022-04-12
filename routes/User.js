@@ -37,12 +37,12 @@ app.get("/directory1", auth.isLoggedIn, (req, res) => {
 });
 
 app.get("/login", auth.isLoggedIn, (req, res) => {
-  console.log(req.cookies.jwt);
-  if(req.cookies.jwt){
-    res.redirect("userDashboard")
-  }else{
+  // console.log(req.cookies.jwt);
+  // if(req.cookies.jwt){
+  //   res.redirect("userDashboard")
+  // }else{
     res.render("login");
-  }
+  // }
 });
 
 app.get("/userDashboard", auth.protect, async (req, res) => {
