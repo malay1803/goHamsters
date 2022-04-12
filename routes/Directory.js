@@ -15,8 +15,7 @@ router.get("/",auth.isLoggedIn, async (req, res) => {
       excerciseCategory: "traps" + req.query.type,
     });
   }
-
-  if (bodyPart === "shoulder") {
+  if (bodyPart === "shoulders") {
     excerType = req.query.type;
     var excercises = await Excercise.find({
       excerciseCategory: "shoulder" + req.query.type,
@@ -28,10 +27,58 @@ router.get("/",auth.isLoggedIn, async (req, res) => {
       excerciseCategory: "chest" + req.query.type,
     });
   }
+  if (bodyPart === "abs") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "abs" + req.query.type,
+    });
+  }
+  if (bodyPart === "quads") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "quads" + req.query.type,
+    });
+  }
+  if (bodyPart === "calves") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "calves" + req.query.type,
+    });
+  }
+  if (bodyPart === "forearms") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "forearms" + req.query.type,
+    });
+  }
   if (bodyPart === "biceps") {
     excerType = req.query.type;
     var excercises = await Excercise.find({
       excerciseCategory: "biceps" + req.query.type,
+    });
+  }
+  if (bodyPart === "triceps") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "triceps" + req.query.type,
+    });
+  }
+  if (bodyPart === "midback") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "midack" + req.query.type,
+    });
+  }
+  if (bodyPart === "lats") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "lats" + req.query.type,
+    });
+  }
+  if (bodyPart === "glutes") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "glutes" + req.query.type,
     });
   }
 

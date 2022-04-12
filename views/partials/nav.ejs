@@ -8,10 +8,16 @@
       <span class="two"></span>
     </div>
     <div class="col goHamLogo text-center my-auto">
-      <img src="images/goHamLogo1.png" alt="" />
+      <a href="/about">
+        <img src="images/goHamLogo1.png" href="" alt="" />
+      </a>
+      
     </div>
     <div class="col goHamText text-end my-auto">
-      <img src="images/goHamstersRed.png" alt="" />
+      <a href="/about">
+        <img src="images/goHamstersRed.png" href="/about" alt="" />
+      </a>
+      
     </div>
   </div>
 </div>
@@ -19,9 +25,12 @@
 <div class="menu">
   <div class="data">
     <ul>
-      <li><a id="link" href="#">Calorie Tracker</a></li>
-      <li><a id="link" href="/about">About</a></li>
-      <li><a id="link" href="#">Directory</a></li>
+      <li><a id="link" href="/about">Home</a></li>
+      <li><a id="link" href="/directory1">Exercise Directory</a></li>
+      <li><a id="link" href="/login">Calorie Tracker</a></li>
+      <li><a id="link" href="/calculator1">Calorie Calculator</a></li>
+
+      
       <% if(!user){ %>
         <li><a id="link" href="/login">Sign In</a></li>
         <% }else{ %>

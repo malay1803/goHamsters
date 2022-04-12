@@ -45,7 +45,7 @@ app.get("/login", auth.isLoggedIn, (req, res) => {
     res.redirect("/userDashboard")
   }else{
     res.render("login");
-  }
+  // }
 });
 
 app.get("/userDashboard", auth.protect, async (req, res) => {

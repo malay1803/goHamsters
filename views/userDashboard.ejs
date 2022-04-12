@@ -11,35 +11,58 @@
   th,td{
     text-align: center;
   }
-</style>
+  input[type=text] {
+  border: 2px solid #30475e;
+  border-radius: 4px;
+}
 
+
+</style>
+ 
 <div class="container col-lg-12 col-md-12 col-sm-12 mt-5">
-  <div class="row" style="height: 4em">
+  <div class="row " style="height: 4em" >
     <div
       class="hello h-100 w-100 d-flex justify-content-between align-items-center px-5"
-      style="background-color: #30475e; border-radius: 2em"
+      style="background-color: #30475e; border-radius: 2em; margin-top: -1em;"
     >
+<<<<<<< HEAD
       <div class="h4 text-start" style="color: white">
         Hello, <%=user.Username%>
+=======
+      <div class="h4 text-start mt-3" style="color: white">
+        Hello, <%=user.firstName%>
+        <div class="h6 d-flex">
+          <a href="/editProfile" style="color: #f5f5f5; text-decoration: none; display: flex;"
+            >Edit Profile</a>
+            &nbsp|&nbsp
+         <a href="/logout" style="color: #f5f5f5; text-decoration: none; display: flex;"> Logout</a>
+                    
+        </div>
+>>>>>>> 807a5bce4d97d21531d50d3602e9466ccdfd9641
       </div>
-      <div class="h4 text-end" style="color: white">
-<a href="/logout">Logout</a>
+      <div class="col-md-4 order-3 d-flex" >
+          <button type="submit" class="showAnalytics btn" style=" margin-left: 2em; background-color: #30475e;  color: #fff;">Show Analytics</button>
+        <div style="color: white; font-size: 1.5em;">
+          &nbsp |&nbsp
+        </div>
+          <button type="submit" class="showTracker btn " style="background-color: #30475e;  color: #fff;">Show Calorie Tracker</button>
       </div>
+      
     </div>
   </div>
   <div class="row mt-2 ">
-    <div
+    <!-- <div
       class="col-md-3 shadow order-1 p-4"
       style="background-color: #30475e; border-radius: 2em"
     >
-      <!-- <div class="rounded userImgDiv w-100 text-center pt-4 pb-3">
+      <div class="rounded userImgDiv w-100 text-center pt-4 pb-3">
         <img
           class="rounded-circle z-depth-2"
           alt="100x100"
           src="/images/defaultUser.jpg"
           style="width: 6em"
         />
-      </div> -->
+      </div>
       <div class="userDetails d-flex justify-content-center">
         <table
           class="table w-25"
@@ -66,9 +89,9 @@
           >
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <div class="col-md-9 order-2 charts p-4" style="overflow-y: scroll; max-height: 440px;">
+    <div class="col-md-12 order-2 charts p-4" style="overflow-y: scroll; max-height: 440px;">
       <div class="row">
         <div class="col-md-4 text-center mx-auto">
           <canvas class="donutChart" id="donutChart"></canvas>
@@ -92,16 +115,9 @@
       </div>
     </div>
 
-    <div class="col-md-3 order-3 mt-2">
-      <div class="analyticsDiv w-100">
-        <button type="submit" class="showAnalytics w-100" style="background-color: #30475e; border-radius: 2em; color: #fff;">Show Analytics</button>
-      </div>
-      <div class="trackerDiv w-100 mt-2">
-        <button type="submit" class="showTracker w-100" style="background-color: #30475e; border-radius: 2em; color: #fff;">Show Calorie Tracker</button>
-      </div>
-    </div>
+    
 
-    <div class="col-md-9 order-4 mt-2">
+    <div class="col-md-12 order-4 mt-2">
       <!-- <div class="totalText">Total</div> -->
       <table class="table totalTable">
         <thead>
@@ -131,16 +147,16 @@
       </table>
     </div>
 
-    <div class="col-md-9 order-2 foodSearch p-4" style="overflow-y: scroll; max-height: 440px;">
+    <div class="col-md-12 order-2 foodSearch p-4" style="overflow-y: scroll; max-height: 440px;">
       <div class="row">
         <div class="col-md-9 mx-auto">
-          <div class="h3 text-uppercase">Track your calories</div>
+          <div class="h3 text-uppercase text-center fw-bold">Track your calories</div>
           <form action="/search" method="post">
-            <input type="text" class="search w-100 rounded p-2" name="searchQuery" id="searchQuery">
-            <button type="submit" class="mt-3 p-2 rounded" style="background-color: #30475e; color: white; border: none;">Search Food</button>
+            <input type="text" class="search w-100 rounded p-2" name="searchQuery" id="searchQuery" >
+            <button type="submit" class="mt-3 p-2 rounded align-items-center" style="background-color: #30475e; color: white; border: none;">Search Items</button>
           </form>
           <!-- <hr> -->
-              <form action="/addItem" method="post" onsubmit="return addCheck()">
+              <form action="/addItem" method="post" onsubmit="~ addCheck()">
           <table class="my-3 table table-bordered">
             <thead>
               <tr>
@@ -153,7 +169,7 @@
             </thead>
             <tbody>
               <tr>
-                <td><p name="foodName" id="foodName"><%= foodName%></p></td>
+                <td><p name="foodName" id="foodName" style="text-transform: capitalize;"><%= foodName%></p></td>
                 <td name="calories" id="calories"><%=calories%></td>
                 <td name="carbs"><%=carbs%></td>
                 <td name="fat"><%=fat%></td>
@@ -173,6 +189,56 @@
                 <option value="dinner">Dinner</option>
                 <option value="snacks">Snacks</option>
               </select>
+              <!-- <div class="select-box w-50">
+                <div class="options-container">
+                  <div class="option">
+                    <input
+                      type="radio"
+                      class="radio"
+                      id="breakfast"
+                      value="breakfast"
+                      name="meal"
+                    />
+                    <label for="breakfast">Breakfast</label>
+                  </div>
+      
+                  <div class="option">
+                    <input
+                      type="radio"
+                      class="radio"
+                      id="lunch"
+                      value="lunch"
+                      name="meal"
+                    />
+                    <label for="lunch">Lunch</label>
+                  </div>
+      
+                  <div class="option">
+                    <input
+                      type="radio"
+                      class="radio"
+                      id="dinner"
+                      value="dinner"
+                      name="meal"
+                    />
+                    <label for="dinner">Dinner</label>
+                  </div>
+      
+                  <div class="option">
+                    <input
+                      type="radio"
+                      class="radio"
+                      id="snacks"
+                      value="snacks"
+                      name="meal"
+                    />
+                    <label for="snacks">Snacks</label>
+                  </div>
+
+                </div>
+      
+                <div class="selected">Select</div>
+              </div> -->
                 <!-- <button class="addFoodItem rounded w-25" type="button"> <a href="" class="addItems w-100 h-100 h6">Add items</a> </button> -->
                 <input type="submit" value="Add items" class="addFoodItem addItems rounded w-25">
               </form>
@@ -191,9 +257,9 @@
                       <% if(foodDatas.meal === foodMeal){ %> 
                   <li class="list-group-item h6" style="position: relative;"><%=foodDatas.foodName %> 
                     <div class="remEdit">
-                      <a href="/userDasboard/FoodDelete/<%= foodDatas._id%>" style="text-decoration: none; color: #f05454; font-size: .8em;" onclick="removeFood">remove</a>
+                      <a href="/userDasboard/FoodDelete/<%= foodDatas._id%>" style="text-decoration: none; color: #f05454; font-size: .8em;" onclick="removeFood">Remove</a>
                       <div class="vr"></div>
-                      <a href="" style="text-decoration: none; color: #f05454; font-size: .8em" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editIntake('<%=foodDatas.foodName %>', '<%= foodDatas._id%>','<%= foodDatas.gramsIntake%>')">edit intake(gms)</a>
+                      <a href="" style="text-decoration: none; color: #f05454; font-size: .8em" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editIntake('<%=foodDatas.foodName %>', '<%= foodDatas._id%>','<%= foodDatas.gramsIntake%>')">Edit Intake (gms)</a>
                     </div>
                     <p style="position: absolute; right: .8em; top: 1em;"><%=foodDatas.gramsIntake%>g</p>
                     </li>
@@ -221,7 +287,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Save changes</button>
+                  <button type="submit" class="btn btn-primary">Save Changes</button>
                 </div>
                 
               </form>
@@ -255,6 +321,7 @@
   // breakfast list 
   function addCheck(){
     let mealType = $("#meal option:selected").val()
+    alert(mealType)
     let intakeGrams = $(".addItemsInput").val()
     if(mealType==="none"){
       alert("Select a meal type")
@@ -295,7 +362,7 @@ $(".charts").hide()
 
 $(".showTracker").on("click", ()=>{
   $(".charts").hide()
-  $(".foodSearch").fadeToggle()
+  $(".foodSearch").fadeIn()
 })
 
 $(".showAnalytics").on("click", ()=>{
@@ -439,4 +506,22 @@ $(".showAnalytics").on("click", ()=>{
       },
     });
   });
+</script>
+<script>
+  const selected = document.querySelector(".selected");
+const optionsContainer = document.querySelector(".options-container");
+
+const optionsList = document.querySelectorAll(".option");
+
+selected.addEventListener("click", () => {
+  optionsContainer.classList.toggle("active");
+});
+
+optionsList.forEach(o => {
+  o.addEventListener("click", () => {
+    selected.innerHTML = o.querySelector("label").innerHTML;
+    optionsContainer.classList.remove("active");
+  });
+});
+
 </script>
