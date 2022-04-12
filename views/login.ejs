@@ -7,18 +7,18 @@
 <div class="loginContainer">
   <div class="forms-container">
     <div class="signin-signup" >
-        <form action="/loginUser" method="POST" class="sign-in-form" id="hideDiv" >
+        <form action="/loginUser" method="POST" onsubmit="return signinCheck()" class="sign-in-form" id="hideDiv" >
           <h2 class="title">Sign in</h2>
-          <div class="input-field">
+          <div class="input-field" id="inEmailDiv">
             <i class="fas fa-user"></i>
-            <input type="text" placeholder="Email" name="loginUserName" />
+            <input type="text" placeholder="Email" id="inEmail" name="loginUserName" />
           </div>
-          <div class="input-field">
+          <div class="input-field" id="inPassword">
             <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Password" name="loginPassword" />
+            <input type="password" placeholder="Password" id="inPass" name="loginPassword" />
           </div>
           
-          <input type="submit" class="btn solid" value="Login" />
+          <input type="submit" class="btn solid" value="Login" onclick="loginUser()" />
           <input style="font-size: .8em;" type="button" class="btn forget" value="Forget Password" onclick="forgetPassword();"/>
         </form>
         <!-- forget -->
@@ -33,28 +33,27 @@
           <input type="button" class="btn solid" value="Login" onclick="forgetPasswordr();"/>
         </form>
         <!-- signup -->
-      <form action="/addUser" method="POST" class="sign-up-form">
+      <form action="/addUser" method="POST" onsubmit="return signupCheck()" class="sign-up-form">
         <h2 class="title">Sign up</h2>
-        <div class="input-field">
+        <div class="input-field" id="upFirstName">
           <i class="fas fa-user"></i>
-          <!-- <input type="text" name="username" placeholder="Username" /> -->
-          <input type="text" name="firstName" placeholder="First Name" />
+          <input type="text" name="firstName" id="firstName" class="form-control" placeholder="First Name" />
         </div>
-        <div class="input-field">
+        <div class="input-field" id="upLastName">
           <i class="fas fa-user"></i>
-          <input type="text" name="lastName" placeholder="Last Name" />
+          <input type="text" name="lastName" id="lastName" class="form-control" placeholder="Last Name" />
         </div>
-        <div class="input-field">
+        <div class="input-field" id="upEmail">
           <i class="fas fa-envelope"></i>
-          <input type="text" name="email" placeholder="Email" />
+          <input type="text" name="email" id="signUpEmail" class="form-control" placeholder="Email" />
         </div>
-        <div class="input-field">
+        <div class="input-field" id="upPassword">
           <i class="fas fa-lock"></i>
-          <input type="password" name="password" placeholder="Password" />
+          <input type="password" name="password" id="password" class="form-control" placeholder="Password" />
         </div>
-        <div class="input-field">
+        <div class="input-field" id="upConfirmPassword">
           <i class="fas fa-lock"></i>
-          <input type="password" name="confirmPassword" placeholder=" Confirm Password" />
+          <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder=" Confirm Password" />
         </div>
 
         <input type="submit" class="btn" value="Sign up" />

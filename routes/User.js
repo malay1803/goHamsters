@@ -38,8 +38,11 @@ app.get("/directory1", auth.isLoggedIn, (req, res) => {
 
 app.get("/login", auth.isLoggedIn, (req, res) => {
   console.log(req.cookies.jwt);
-  if(req.cookies.jwt){
-    res.redirect("userDashboard")
+  console.log(auth.isLoggedIn);
+  if(req.cookies.jwt==="loggedout"){
+    res.render("login");
+  }else if(req.cookies.jwt){
+    res.redirect("/userDashboard")
   }else{
     res.render("login");
   }
@@ -78,7 +81,6 @@ app.get("/userDashboard", auth.protect, async (req, res) => {
       total[tot] = total[tot].toFixed(1);
     }
 
-    console.log(total);
 
   res.render("userDashboard", {
     userName: "hello",
@@ -119,7 +121,6 @@ app.get("/userDasboard/FoodDelete/:_id", async (req, res) => {
   const { _id } = req.params;
   await FoodData.deleteOne({ _id })
     .then(() => {
-      console.log("Deleted successfully");
       res.redirect("/userDashboard");
     })
     .catch((err) => console.log(err));
@@ -150,10 +151,8 @@ app.get("/resetPassword/:token", async (req, res, next) => {
 app.post("/foodIntakeUpdate", (req, res) => {
   let foodIntakeUpdate = req.body.foodIntake;
   let foodID = req.body.foodID;
-  console.log(foodID, foodIntakeUpdate);
   FoodData.updateOne({ _id: foodID }, { gramsIntake: foodIntakeUpdate })
     .then(() => {
-      console.log("updated");
       res.redirect("/userDashboard");
     })
     .catch((err) => {
@@ -176,7 +175,6 @@ app.post("/editProfileSubmit/:id", auth.protect, async (req,res)=>{
       gender: editValues.options
     }
   })
-  console.log(edit);
   // const newEditUser = new User(editUser)
   await edit.save()
   res.redirect("/editProfile")
@@ -220,7 +218,6 @@ app.post("/search", async (req, res) => {
         );
       else {
         data = JSON.parse(body);
-        console.log(data.items[0]);
         if (data.items[0] === undefined) {
           console.log("Food not found");
         } else {
