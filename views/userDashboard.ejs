@@ -25,10 +25,6 @@
       class="hello h-100 w-100 d-flex justify-content-between align-items-center px-5"
       style="background-color: #30475e; border-radius: 2em; margin-top: -1em;"
     >
-<<<<<<< HEAD
-      <div class="h4 text-start" style="color: white">
-        Hello, <%=user.Username%>
-=======
       <div class="h4 text-start mt-3" style="color: white">
         Hello, <%=user.firstName%>
         <div class="h6 d-flex">
@@ -38,7 +34,6 @@
          <a href="/logout" style="color: #f5f5f5; text-decoration: none; display: flex;"> Logout</a>
                     
         </div>
->>>>>>> 807a5bce4d97d21531d50d3602e9466ccdfd9641
       </div>
       <div class="col-md-4 order-3 d-flex" >
           <button type="submit" class="showAnalytics btn" style=" margin-left: 2em; background-color: #30475e;  color: #fff;">Show Analytics</button>
@@ -100,7 +95,7 @@
           <canvas class="donutChart" id="donutChart1"></canvas>
         </div>
       </div>
-      <div class="row mt-4">
+      <!-- <div class="row mt-4">
         <div class="col-8 mx-auto">
           <select name="month" id="month">
             <% let mon=['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];for(let i in mon) {%> 
@@ -112,7 +107,7 @@
           </select>
           <canvas class="lineChart" id="lineChart"></canvas>
         </div>
-      </div>
+      </div> -->
     </div>
 
     
@@ -131,8 +126,8 @@
         <tbody>
           <tr> 
             <% var nowDate = new Date();%> 
-            <% foodData.forEach(foodDatas =>{  %>
-            <% console.log(foodDatas.date); if(foodDatas.date === nowDate.toISOString().slice(0,10)){ %> 
+            <%# foodData.forEach(foodDatas =>{  %>
+            <%# console.log(foodDatas.date); const date = new Date(); if(foodDatas.date === `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`){ %> 
             <% if(total!==undefined) {%> 
               <td><%=total.totalCalories%></td>
             <td><%=total.totalCarbs%></td>
@@ -141,7 +136,7 @@
             <%}else{%>
               <% for(let i in 4){ %> 
                 <td>0</td>
-            <%}}}})%>
+            <%}}%>
           </tr>
         </tbody>
       </table>
@@ -253,7 +248,7 @@
                 <ul class="list-group d-flex justify-content-around w-100" id="<%=foodMeal%>List"> 
                   <% if(foodData!==undefined){ %> 
                     <% foodData.forEach(foodDatas =>{  %>
-                      <% if(foodDatas.date === nowDate.toISOString().slice(0,10)){ %> 
+                      <%let date=new Date(); if(foodDatas.date === `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`){ %> 
                       <% if(foodDatas.meal === foodMeal){ %> 
                   <li class="list-group-item h6" style="position: relative;"><%=foodDatas.foodName %> 
                     <div class="remEdit">
@@ -312,7 +307,8 @@
           <input type="hidden" id="<%= "getGramsIntake"+i%>" value="<%= fd2.gramsIntake %>">
           <input type="hidden" id="<%= "getDate"+i%>" value="<%= fd2.date %>">
           <% i = i+1 %> 
-        <% } console.log(i)%> 
+          <% } console.log(i)%> 
+          <input type="hidden" id="<%= "totCal"%>" value="<%=total.totalCalories%>">
         
 <input type="hidden" id="count" value="<%=i%>">
         
@@ -340,23 +336,6 @@
     $("#foodIdModal").val(y)
   }
 
-function realTimeClock(){
-  var time = new Date();
-  var  h = time.getHours();
-  var  m = time.getMinutes();
-  var  s = time.getSeconds();
-  var ampm = (h<12)?"AM":"PM";
-  h = (h>12)?h-12:h;
-  h=("0" + h).slice(-2)
-  m=("0" + m).slice(-2)
-  s=("0" + s).slice(-2)
-  // $(".timeNow").html(h+" : "+m+" : "+s+" : "+ampm)
-  document.getElementById("timeNow").innerHTML = h+" : "+m+" : "+s+" "+ampm
-  var t = setTimeout(realTimeClock,500) 
-}
-
-window.onload = realTimeClock
-
 // show analytics/tracker
 $(".charts").hide()
 
@@ -377,11 +356,11 @@ $(".showAnalytics").on("click", ()=>{
     var myDoughnutChart = new Chart(doughnutChart, {
     type: "doughnut",
     data: {
-      labels: ["Calories", "Proteins", "Fats", "Carbohydrates"],
+      labels: ["Proteins", "Fats", "Carbohydrates"],
       datasets: [
         {
           label: "Calories",
-            data: ['<%-total.totalCalories%>', '<%-total.totalProtein%>', '<%-total.totalFat%>', '<%-total.totalCarbs%>'],
+            data: ['<%-total.totalProtein%>', '<%-total.totalFat%>', '<%-total.totalCarbs%>'],
           backgroundColor: [
             "#79addc",
             "#ffc09f",
@@ -401,7 +380,7 @@ $(".showAnalytics").on("click", ()=>{
       datasets: [
         {
           label: "Calories",
-          data: ['<%-total.totalCalories%>', '<%=user.reqCalories%>'],
+          data: ['<%-total.totalCalories%>', '<%=user.reqCalories - total.totalCalories%>'],
           backgroundColor: [
             "#79addc",
             "#ffc09f",
@@ -412,100 +391,103 @@ $(".showAnalytics").on("click", ()=>{
     },
   });
 
-  var dt = new Date();
-  var year = dt.getFullYear();
-  var xValues=[];
-  var yValues=[];
-  let dayCalorie = [];
-  var daysInMonth=new Date(year, 1, 0).getDate();
+//   let totCal = $("#totCal").val()
+//   console.log("dasdasdsa"typeof(totalCal))
 
-  for (let i = 100; i <= 1000; i+=200) {
-    yValues.push(i);
-  }
-  for (let i = 1; i <= daysInMonth; i++) {
-    xValues.push(i);
-    dayCalorie.push(0);
-  }
+//   var dt = new Date();
+//   var year = dt.getFullYear();
+//   var xValues=[];
+//   var yValues=[];
+//   let dayCalorie = [];
+//   var daysInMonth=new Date(year, 1, 0).getDate();
+
+//   for (let i = 100; i <= 1000; i+=200) {
+//     yValues.push(i);
+//   }
+//   for (let i = 1; i <= daysInMonth; i++) {
+//     xValues.push(i);
+//     dayCalorie.push(0);
+//   }
   
-  let getFoodData = $("#getFoodData").val()
-  let getFoodData1 = $("#getFoodData1").val()
-  let getCalorie = []
-  let getDate = []
+//   let getFoodData = $("#getFoodData").val()
+//   let getFoodData1 = $("#getFoodData1").val()
+//   let getCalorie = []
+//   let getDate = []
 
-  let c = $("#count").val();
+//   let c = $("#count").val();
 
-  for(let i=0; i<c;i++){
-       getCalorie.push($("#getCalorie"+i).val())
-       getDate.push($("#getDate"+i).val())
-  }
+//   for(let i=0; i<c;i++){
+//        getCalorie.push($("#getCalorie"+i).val())
+//        getDate.push($("#getDate"+i).val())
+//   }
 
-  // if(dt.)
+//   // if(dt.)
   
-  for(let i=0; i<c;i++){
-    console.log(getDate[i].split("-")[1])
-    console.log(getDate[i].split("-")[2])
-      if("0"+dt.getMonth()===getDate[i].split("-")[1]){
-        dayCalorie[getDate[i].split("-")[2] -1] += getCalorie[i]
-        console.log(dayCalorie)
-      }
-      // totalCalories += foodData1[fd].calories;
-  }
+//   for(let i=0; i<c;i++){
+//     console.log(getDate[i].split("-")[1])
+//     console.log(getDate[i].split("-")[2])
+//       if("0"+dt.getMonth()===getDate[i].split("-")[1]){
+//         dayCalorie[getDate[i].split("-")[2] -1] += getCalorie[i]
+//         console.log(dayCalorie)
+//       }
+//       // totalCalories += foodData1[fd].calories;
+//   }
 
-  const labels = 1;
-  var mylinechart=new Chart("lineChart", {
-    type: "line",
-    data: {
-      labels: xValues,yValues,
-      datasets: [
-        {
-          label: "Calories",
-          data: dayCalorie,
-          fill: false,
-          borderColor: "rgb(75, 192, 192)",
-          tension: 0.1,
-        },
-      ],
-    },
-  });
+//   const labels = 1;
+//   var mylinechart=new Chart("lineChart", {
+//     type: "line",
+//     data: {
+//       labels: xValues,yValues,
+//       datasets: [
+//         {
+//           label: "Calories",
+//           data: totCal,
+//           fill: false,
+//           borderColor: "rgb(75, 192, 192)",
+//           tension: 0.1,
+//         },
+//       ],
+//     },
+//   });
   
-  $("#month").on("change",()=>{
-    console.log(dt.getMonth())
-    var month= parseInt($("#month option:selected").val())+1;
-    daysInMonth = new Date(year, month, 0).getDate();
-    let xValues=[];
-    let dayCalorie = [];
+//   $("#month").on("change",()=>{
+//     console.log(dt.getMonth())
+//     var month= parseInt($("#month option:selected").val())+1;
+//     daysInMonth = new Date(year, month, 0).getDate();
+//     let xValues=[];
+//     let dayCalorie = [];
 
-    for (let i = 1; i <= daysInMonth; i++) {
-      xValues.push(i);
-      dayCalorie.push(0);
-    }
-    const labels = 1;
-    mylinechart.destroy();
-    for(let i=0; i<c;i++){
-      console.log(month)
-      if(month===parseInt(getDate[i].split("-")[1])){
-        dayCalorie[getDate[i].split("-")[2] -1] += getCalorie[i]
-        console.log(dayCalorie)
-      }
-  }
+//     for (let i = 1; i <= daysInMonth; i++) {
+//       xValues.push(i);
+//       dayCalorie.push(0);
+//     }
+//     const labels = 1;
+//     mylinechart.destroy();
+//     for(let i=0; i<c;i++){
+//       console.log(month)
+//       if(month===parseInt(getDate[i].split("-")[1])){
+//         dayCalorie[getDate[i].split("-")[2] -1] += getCalorie[i]
+//         console.log(dayCalorie)
+//       }
+//   }
 
-
-    mylinechart=new Chart("lineChart", {
-      type: "line",
-      data: {
-        labels: xValues,yValues,
-        datasets: [
-          {
-            label: "Calories",
-            data: dayCalorie,
-            fill: false,
-            borderColor: "rgb(75, 192, 192)",
-            tension: 0.1,
-          },
-        ],
-      },
-    });
-  });
+// console.log("dasdas",'<%=total.totalCalories%>')
+//     mylinechart=new Chart("lineChart", {
+//       type: "line",
+//       data: {
+//         labels: xValues,yValues,
+//         datasets: [
+//           {
+//             label: "Calories",
+//             data: totCal,
+//             fill: false,
+//             borderColor: "rgb(75, 192, 192)",
+//             tension: 0.1,
+//           },
+//         ],
+//       },
+//     });
+//   });
 </script>
 <script>
   const selected = document.querySelector(".selected");

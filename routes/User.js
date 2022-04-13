@@ -49,37 +49,65 @@ app.get("/login", auth.isLoggedIn, (req, res) => {
 });
 
 app.get("/userDashboard", auth.protect, async (req, res) => {
-  var totalCarbs = 0;
-  var totalCalories = 0;
-  var totalProtein = 0;
-  var totalFat = 0;
-  var totalGramsIntake = 0;
-  let total
-  // var nowDate = new Date() 
+  var totalCarbs = [];
+  var totalCalories = [];
+  var totalProtein = [];
+  var totalFat = [];
+  var totalGramsIntake = [];
+  let total=undefined
+  var date = new Date() 
   // nowDate.toISOString().slice(0,10)
   
   foodData1 = await FoodData.find({ userID: req.user._id});
-    for (let fd in foodData1) {
-      totalCalories += parseFloat(foodData1[fd].calories);
-      totalCarbs += parseFloat(foodData1[fd].carbohydrate);
-      totalProtein += parseFloat(foodData1[fd].protein);
-      totalFat += parseFloat(foodData1[fd].fat);
-      totalGramsIntake = parseFloat(foodData1[fd].gramsIntake);
-    }
 
-    
+  for (let fd in foodData1) {
+    console.log("123213new", foodData1[fd].date, `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`);
+      if(foodData1[fd].date===`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`){
+      totalCalories.push(parseFloat(foodData1[fd].calories))
+      totalCarbs.push(parseFloat(foodData1[fd].carbohydrate))
+      totalProtein.push(parseFloat(foodData1[fd].protein))
+      totalFat.push(parseFloat(foodData1[fd].fat))
+      totalGramsIntake.push(parseFloat(foodData1[fd].gramsIntake))
+        // totalCalories += parseFloat(foodData1[fd].calories);
+      // totalCarbs += parseFloat(foodData1[fd].carbohydrate);
+      // totalProtein += parseFloat(foodData1[fd].protein);
+      // totalFat += parseFloat(foodData1[fd].fat);
+      // totalGramsIntake = parseFloat(foodData1[fd].gramsIntake);
+    }
+  }
+  console.log(totalFat);
+  var totalCal = 0;
+  var totalPro = 0;
+  var totalCarb = 0;
+  var totalF=0;
+
+  for(var i=0; i< totalCalories.length; i++) {
+    totalCal += totalCalories[i]*totalGramsIntake[i];
+    totalPro += totalProtein[i]*totalGramsIntake[i];
+    totalCarb += totalCarbs[i]*totalGramsIntake[i];
+    totalF += totalFat[i]*totalGramsIntake[i];
+  }
+
+  console.log(totalFat);
 
     total = {
-      totalCalories: totalCalories,
-      totalCarbs: totalCarbs,
-      totalProtein: totalProtein,
-      totalFat: totalFat,
+      totalCalories: totalCal,
+      totalCarbs: totalCarb,
+      totalProtein: totalPro,
+      totalFat: totalF,
     };
   
-    for (let tot in total) {
-      total[tot] *= totalGramsIntake / 100;
+    console.log(total);
+
+    for (let tot in total){
+      total[tot] /= 100
       total[tot] = total[tot].toFixed(1);
     }
+
+    // for (let tot in total) {
+    //   total[tot] *= totalGramsIntake / 100;
+    //   total[tot] = total[tot].toFixed(1);
+    // }
 
 
   res.render("userDashboard", {
@@ -104,7 +132,7 @@ app.get("/calculator1", auth.isLoggedIn, (req, res) => {
   res.render("calculator1");
 });
 
-app.get("/about", auth.isLoggedIn, (req, res) => {
+app.get("/", auth.isLoggedIn, (req, res) => {
   res.render("about");
 });
 
@@ -177,7 +205,7 @@ app.post("/editProfileSubmit/:id", auth.protect, async (req,res)=>{
   })
   // const newEditUser = new User(editUser)
   await edit.save()
-  res.redirect("/editProfile")
+  res.redirect("/userDashboard")
 })
 
 app.post("/addUser", auth.signup, view.adduser);
@@ -242,6 +270,9 @@ app.post("/addItem", auth.protect, async (req, res) => {
   
   var date = new Date();
 
+  console.log("fdate", date.getMonth(), date.getDate(), date.getFullYear())
+
+  console.log("lsadl", date.toISOString().slice(0,10))
 
   if (foodNameTD === undefined) {
     foodNameTD = "";
@@ -260,7 +291,7 @@ app.post("/addItem", auth.protect, async (req, res) => {
     meal: req.body.meal,
     gramsIntake: req.body.gramsIntake,
     userID: req.user._id,
-    date: date.toISOString().slice(0,10)
+    date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
   };
 
   const newFood = new FoodData(newFoodAdd);
