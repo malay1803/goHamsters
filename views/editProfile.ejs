@@ -12,14 +12,14 @@
         </div> -->
         <div class="w-50 m-auto">
               <% if(!user.firstName){ %> 
-              <form action="/editProfileSubmit/<%=user._id%>" method="post">
+              <form action="/editProfileSubmit/<%=user._id%>" method="post" onclick="editValidations()">
                 <div class="display-3 text-center mb-4" style="color: #F05454;">Enter details</div>
                 <div class="row">
-                  <div class="col-6 mx-auto">
+                  <div class="col-6 mx-auto" id="editFirstName">
                     <label class="lab" for="firstName">First Name</label>
                     <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name">
                   </div>
-                  <div class="col-6 mx-auto">
+                  <div class="col-6 mx-auto" id="editFirstName">
                     <label class="lab" for="lastName">Last Name</label>
                     <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last name">
                   </div>
@@ -190,3 +190,5 @@
     $(".userCalories").html(BMR)
   })
 </script>
+
+<script src="js/validations/editProfile.js"></script>

@@ -20,3 +20,6 @@ function forgetPasswordr(){
   $('#forget').hide();
 }
 
+if(document.referrer==="http://localhost:3000/userExist"){
+  $("#sign-up-btn").trigger('click'); 
+}

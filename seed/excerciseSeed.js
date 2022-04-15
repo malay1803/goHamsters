@@ -1093,7 +1093,17 @@ var excercises = [
 
 // triceps
 
-
+//female
+new Excercise({
+  excerciseImage: "/images/male/lats/kettlebells/3.gif",
+  excerciseName: "Pullover",
+  excerciseDesc: "Difficulty: Advanced",
+  excerciseCategory: "ftrapsStretches",
+  step1: "Rest your upper back on the bench and place soles of your feet firmly on the floor keeping torso and thighs suspended and parallel to the floor.",
+  step2: "Hold the kettlebell with both hands above your chest, keeping your arms straight.",
+  step3: "Keeping your arms straight, move the kettlebell in the direction of your head until your arms are parallel to the floor.",
+  step4: "Return to starting to position and repeat."
+}),
 
 
 

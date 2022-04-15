@@ -82,6 +82,13 @@ router.get("/",auth.isLoggedIn, async (req, res) => {
     });
   }
 
+  if (bodyPart === "ftraps") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "ftraps" + req.query.type,
+    });
+  }
+
   if (req.query.type === undefined) {
     excerType = "Stretches";
     bodyPart = "traps";

@@ -12,7 +12,7 @@ $("#slider1").roundSlider({
     circleShape:"half", 
     radius:90,
     width:20,
-    min:1,
+    min:10,
     max:100,
     rangeColor:"#30475E",
     pathColor:"#f05454",
@@ -25,7 +25,7 @@ $("#slider2").roundSlider({
     radius:90,
     width:20,
     handleSize:20,
-    min:1,
+    min:100,
     max:200,
     rangeColor:"#30475E",
     pathColor:"#f05454",
@@ -38,7 +38,7 @@ $("#slider3").roundSlider({
     radius:90,
     width:20,
     handleSize:20,
-    min:1,
+    min:20,
     max:150,
     rangeColor:"#30475E",
     pathColor:"#f05454",
@@ -49,12 +49,15 @@ $("#slider3").roundSlider({
 
 // CALCULATION
 
+
+
 function CalCalculator(){
     const gender=$('input[name="gender"]:checked').val()
-    const age= $('.ageValue').text()
-    const height= $('.heightValue').text()
-    const weight= $('.weightValue').text()
+    const age= $('.ageValue').text() || 10
+    const height= $('.heightValue').text() || 100
+    const weight= $('.weightValue').text() || 20
     const sel=$("input[type='radio'][name='category']:checked").val()
+    
     // const gender=$("input[type='radio'][name='gender']:checked").val()
     let BMR
     console.log(gender)
@@ -92,7 +95,19 @@ function CalCalculator(){
     $('.maintain').html(Math.ceil(BMR))
     $('.mildloss').html(Math.ceil(0.9*BMR))
     $('.loss').html(Math.ceil(0.8*BMR))
-    $("#infoDiv").fadeToggle();
+    
+    $(".errorMessage").remove()
+    console.log("sel", sel);
+    if(gender===undefined){
+        $("#infoDiv").hide();
+        $(".genderDiv").append(`<div class="errorMessage">Select your gender.</div>`)
+    }else if(sel===undefined){
+        $("#infoDiv").hide();
+        $(".sel").append(`<div class="errorMessage">Select your activity.</div>`)
+    }
+    else{
+        $("#infoDiv").show();
+    }
 }
 
 const selected = document.querySelector(".selected");
