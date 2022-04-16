@@ -264,3 +264,8 @@ td{
 .bigtext{
   font-weight: 500;
 }
+
+
+.errorMessage{
+  color: red;
+}

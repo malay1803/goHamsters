@@ -6,6 +6,7 @@ const crypto = require("crypto");
 const User = require("../models/users");
 const Excercise = require("../models/excercise");
 const FoodData = require("../models/foodData");
+const Total = require("../models/total");
 
 const view = require("../controllers/viewController");
 const auth = require("../controllers/authController");
@@ -37,8 +38,6 @@ app.get("/directory1", auth.isLoggedIn, (req, res) => {
 });
 
 app.get("/login", auth.isLoggedIn, (req, res) => {
-  console.log(req.cookies.jwt);
-  console.log(auth.isLoggedIn);
   if(req.cookies.jwt==="loggedout"){
     res.render("login");
   }else if(req.cookies.jwt){
@@ -49,66 +48,14 @@ app.get("/login", auth.isLoggedIn, (req, res) => {
 });
 
 app.get("/userDashboard", auth.protect, async (req, res) => {
-  var totalCarbs = [];
-  var totalCalories = [];
-  var totalProtein = [];
-  var totalFat = [];
-  var totalGramsIntake = [];
-  let total=undefined
-  var date = new Date() 
-  // nowDate.toISOString().slice(0,10)
   
-  foodData1 = await FoodData.find({ userID: req.user._id});
+ const foodData1 = await FoodData.find({ userID: req.user._id});
 
-  for (let fd in foodData1) {
-    console.log("123213new", foodData1[fd].date, `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`);
-      if(foodData1[fd].date===`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`){
-      totalCalories.push(parseFloat(foodData1[fd].calories))
-      totalCarbs.push(parseFloat(foodData1[fd].carbohydrate))
-      totalProtein.push(parseFloat(foodData1[fd].protein))
-      totalFat.push(parseFloat(foodData1[fd].fat))
-      totalGramsIntake.push(parseFloat(foodData1[fd].gramsIntake))
-        // totalCalories += parseFloat(foodData1[fd].calories);
-      // totalCarbs += parseFloat(foodData1[fd].carbohydrate);
-      // totalProtein += parseFloat(foodData1[fd].protein);
-      // totalFat += parseFloat(foodData1[fd].fat);
-      // totalGramsIntake = parseFloat(foodData1[fd].gramsIntake);
-    }
+  const totalDisp = await Total.find({ userID: req.user._id})
+  for(let i in totalDisp){
+    console.log(totalDisp[i].userID)
   }
-  console.log(totalFat);
-  var totalCal = 0;
-  var totalPro = 0;
-  var totalCarb = 0;
-  var totalF=0;
-
-  for(var i=0; i< totalCalories.length; i++) {
-    totalCal += totalCalories[i]*totalGramsIntake[i];
-    totalPro += totalProtein[i]*totalGramsIntake[i];
-    totalCarb += totalCarbs[i]*totalGramsIntake[i];
-    totalF += totalFat[i]*totalGramsIntake[i];
-  }
-
-  console.log(totalFat);
-
-    total = {
-      totalCalories: totalCal,
-      totalCarbs: totalCarb,
-      totalProtein: totalPro,
-      totalFat: totalF,
-    };
-  
-    console.log(total);
-
-    for (let tot in total){
-      total[tot] /= 100
-      total[tot] = total[tot].toFixed(1);
-    }
-
-    // for (let tot in total) {
-    //   total[tot] *= totalGramsIntake / 100;
-    //   total[tot] = total[tot].toFixed(1);
-    // }
-
+  console.log("display", totalDisp);
 
   res.render("userDashboard", {
     userName: "hello",
@@ -123,7 +70,7 @@ app.get("/userDashboard", auth.protect, async (req, res) => {
     fatTD: fatTD,
     proteinTD: proteinTD,
     foodData: foodData1,
-    total: total,
+    total: totalDisp,
   });
 });
 
@@ -149,7 +96,7 @@ app.get("/userDasboard/FoodDelete/:_id", async (req, res) => {
   const { _id } = req.params;
   await FoodData.deleteOne({ _id })
     .then(() => {
-      res.redirect("/userDashboard");
+      res.redirect("/totalItem");
     })
     .catch((err) => console.log(err));
 });
@@ -175,13 +122,21 @@ app.get("/resetPassword/:token", async (req, res, next) => {
   });
 });
 
+app.get("/userExist", auth.isLoggedIn, (req, res)=>{
+  res.render("userExist")
+})
+
+app.get("/userNotExist", auth.isLoggedIn, (req, res)=>{
+  res.render("userNotExist")
+})
+
 // ------------------------------------------------ Post Requests ----------------------------------------------------------//
 app.post("/foodIntakeUpdate", (req, res) => {
   let foodIntakeUpdate = req.body.foodIntake;
   let foodID = req.body.foodID;
   FoodData.updateOne({ _id: foodID }, { gramsIntake: foodIntakeUpdate })
     .then(() => {
-      res.redirect("/userDashboard");
+      res.redirect("/totalItem");
     })
     .catch((err) => {
       console.log(err);
@@ -270,10 +225,6 @@ app.post("/addItem", auth.protect, async (req, res) => {
   
   var date = new Date();
 
-  console.log("fdate", date.getMonth(), date.getDate(), date.getFullYear())
-
-  console.log("lsadl", date.toISOString().slice(0,10))
-
   if (foodNameTD === undefined) {
     foodNameTD = "";
     caloriesTD = "";
@@ -296,7 +247,91 @@ app.post("/addItem", auth.protect, async (req, res) => {
 
   const newFood = new FoodData(newFoodAdd);
   await newFood.save();
+  res.redirect("/totalItem");
+});
+
+app.get("/totalItem", auth.protect, async(req,res)=>{
+
+  var totalCarbs = [];
+  var totalCalories = [];
+  var totalProtein = [];
+  var totalFat = [];
+  var totalGramsIntake = [];
+  let total=undefined
+  var date = new Date() 
+
+  foodData1 = await FoodData.find({ userID: req.user._id});
+
+  for (let fd in foodData1) {
+      if(foodData1[fd].date===`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`){
+      totalCalories.push(parseFloat(foodData1[fd].calories))
+      totalCarbs.push(parseFloat(foodData1[fd].carbohydrate))
+      totalProtein.push(parseFloat(foodData1[fd].protein))
+      totalFat.push(parseFloat(foodData1[fd].fat))
+      totalGramsIntake.push(parseFloat(foodData1[fd].gramsIntake))
+    }
+  }
+  
+  var totalCal = 0;
+  var totalPro = 0;
+  var totalCarb = 0;
+  var totalF=0;
+
+  for(var i=0; i< totalCalories.length; i++) {
+    totalCal += totalCalories[i]*totalGramsIntake[i];
+    totalPro += totalProtein[i]*totalGramsIntake[i];
+    totalCarb += totalCarbs[i]*totalGramsIntake[i];
+    totalF += totalFat[i]*totalGramsIntake[i];
+  }
+
+    total = {
+      totalCalories: totalCal,
+      totalCarbs: totalCarb,
+      totalProtein: totalPro,
+      totalFat: totalF,
+    };
+
+    for (let tot in total){
+      total[tot] /= 100
+      total[tot] = total[tot].toFixed(1);
+    }
+
+    const newTotalAdd = {
+      totalCalories: total.totalCalories,
+      totalCarbs: total.totalCarbs,
+      totalProteins: total.totalProtein,
+      totalFats: total.totalFat,
+      gramsIntake: req.body.gramsIntake,
+      userID: req.user._id,
+      date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+    };
+
+    
+  const totalExist = await Total.findOne({ userID: req.user._id, date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`})
+  if(totalExist){
+    Total.updateOne({ userID: req.user._id, date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`}, { totalCalories: total.totalCalories,
+      totalCarbs: total.totalCarbs,
+      totalProteins: total.totalProtein,
+      totalFats: total.totalFat, })
+    .then(() => {
+      console.log("successfully updated");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }else{
+    const newTotal = new Total(newTotalAdd);
+    await newTotal.save();
+  }
   res.redirect("/userDashboard");
+})
+
+app.get("/notfound", (req, res) => {
+  res.render("notFound");
+});
+
+app.use((req, res) => {
+  res.status(404).redirect("notFound");
 });
 
 module.exports = app;
