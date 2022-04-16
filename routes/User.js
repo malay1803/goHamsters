@@ -38,8 +38,6 @@ app.get("/directory1", auth.isLoggedIn, (req, res) => {
 });
 
 app.get("/login", auth.isLoggedIn, (req, res) => {
-  console.log(req.cookies.jwt);
-  console.log(auth.isLoggedIn);
   if(req.cookies.jwt==="loggedout"){
     res.render("login");
   }else if(req.cookies.jwt){
@@ -54,6 +52,9 @@ app.get("/userDashboard", auth.protect, async (req, res) => {
  const foodData1 = await FoodData.find({ userID: req.user._id});
 
   const totalDisp = await Total.find({ userID: req.user._id})
+  for(let i in totalDisp){
+    console.log(totalDisp[i].userID)
+  }
   console.log("display", totalDisp);
 
   res.render("userDashboard", {
@@ -224,10 +225,6 @@ app.post("/addItem", auth.protect, async (req, res) => {
   
   var date = new Date();
 
-  console.log("fdate", date.getMonth(), date.getDate(), date.getFullYear())
-
-  console.log("lsadl", date.toISOString().slice(0,10))
-
   if (foodNameTD === undefined) {
     foodNameTD = "";
     caloriesTD = "";
@@ -266,7 +263,6 @@ app.get("/totalItem", auth.protect, async(req,res)=>{
   foodData1 = await FoodData.find({ userID: req.user._id});
 
   for (let fd in foodData1) {
-    console.log("123213new", foodData1[fd].date, `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`);
       if(foodData1[fd].date===`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`){
       totalCalories.push(parseFloat(foodData1[fd].calories))
       totalCarbs.push(parseFloat(foodData1[fd].carbohydrate))
@@ -310,9 +306,8 @@ app.get("/totalItem", auth.protect, async(req,res)=>{
       date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
     };
 
-  console.log(newTotalAdd)
+    
   const totalExist = await Total.findOne({ userID: req.user._id, date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`})
-  console.log("dasd", totalExist);
   if(totalExist){
     Total.updateOne({ userID: req.user._id, date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`}, { totalCalories: total.totalCalories,
       totalCarbs: total.totalCarbs,
@@ -330,5 +325,13 @@ app.get("/totalItem", auth.protect, async(req,res)=>{
   }
   res.redirect("/userDashboard");
 })
+
+app.get("/notfound", (req, res) => {
+  res.render("notFound");
+});
+
+app.use((req, res) => {
+  res.status(404).redirect("notFound");
+});
 
 module.exports = app;
