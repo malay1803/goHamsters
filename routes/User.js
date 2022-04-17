@@ -134,6 +134,10 @@ app.get("/invalidPass", auth.isLoggedIn, (req, res)=>{
   res.render("invalidPass")
 })
 
+app.get("/wrongPassword", auth.isLoggedIn, (req, res)=>{
+  res.render("wrongPassword")
+})
+
 
 // ------------------------------------------------ Post Requests ----------------------------------------------------------//
 app.post("/foodIntakeUpdate", (req, res) => {
