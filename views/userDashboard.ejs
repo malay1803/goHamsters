@@ -276,7 +276,7 @@ $(".showAnalytics").on("click", ()=>{
   console.log("qwerty", countj)
   const reqCalories = parseInt($("#reqCalories").val())
 
-    for(let j=0; j<=countj.length; j++){
+    for(let j=0; j<countj; j++){
       totCal1.push($("#totCal"+j).val())
       totCarb.push($("#totCarb"+j).val())
       totPro.push($("#totPro"+j).val())
@@ -289,7 +289,7 @@ $(".showAnalytics").on("click", ()=>{
 
     var calDate = {};
 
-    for(let i = 0; i < totCal1.length; i++){
+    for(let i = 0; i <= totCal1.length; i++){
       calDate[totDate[i]] = totCal1[i];
     }
 
