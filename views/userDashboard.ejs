@@ -119,7 +119,7 @@
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Calories</th>
+                <th>Calories(in 100gms)</th>
                 <th>Carbohydrates</th>
                 <th>Fat</th>
                 <th>Protein</th>
@@ -137,7 +137,7 @@
           </table>
           <div class="addItemsDiv w-100">
             <div class="row" id="takeIntake">
-              <input type="text" class="addItemsInput w-100 rounded p-1 border-0 shadow-sm" name="gramsIntake" placeholder="Enter grams intake(default 100)"></input>
+              <input type="text" class="addItemsInput w-100 rounded p-1 border-0 shadow-sm" name="gramsIntake" placeholder="Enter grams intake"></input>
             </div>
             <div class="row d-flex justify-content-around mt-3" id="selectMealType">
               <select name="meal" class="w-50" id="meal">
@@ -276,7 +276,7 @@ $(".showAnalytics").on("click", ()=>{
   console.log("qwerty", countj)
   const reqCalories = parseInt($("#reqCalories").val())
 
-    for(let j=0; j<=countj.length; j++){
+    for(let j=0; j<countj; j++){
       totCal1.push($("#totCal"+j).val())
       totCarb.push($("#totCarb"+j).val())
       totPro.push($("#totPro"+j).val())
@@ -289,7 +289,7 @@ $(".showAnalytics").on("click", ()=>{
 
     var calDate = {};
 
-    for(let i = 0; i < totCal1.length; i++){
+    for(let i = 0; i <= totCal1.length; i++){
       calDate[totDate[i]] = totCal1[i];
     }
 

@@ -138,6 +138,10 @@ app.get("/wrongPassword", auth.isLoggedIn, (req, res)=>{
   res.render("wrongPassword")
 })
 
+app.get("/emailSent", auth.isLoggedIn, (req, res)=>{
+  res.render("emailSent")
+})
+
 
 // ------------------------------------------------ Post Requests ----------------------------------------------------------//
 app.post("/foodIntakeUpdate", (req, res) => {
@@ -175,7 +179,7 @@ app.post("/editProfileSubmit/:id", auth.protect, async (req,res)=>{
 app.post("/addUser", auth.signup, view.adduser);
 
 app.post("/forgotPassword", auth.forgotPassword, async (req, res, next) => {
-  res.redirect("login");
+  res.redirect("/emailSent");
 });
 
 app.post(
