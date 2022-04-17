@@ -313,6 +313,14 @@ $(".showAnalytics").on("click", ()=>{
   });
 
 
+  let todayCal = totCal1.slice(-1)[0]
+  
+  let calHad = reqCalories-todayCal
+
+  if(todayCal>reqCalories){
+    console.log("today cal", todayCal)
+    calHad = 0
+  }
 
   var myDoughnutChart1 = new Chart(doughnutChart1, {
     type: "doughnut",
@@ -321,7 +329,7 @@ $(".showAnalytics").on("click", ()=>{
       datasets: [
         {
           label: "Calories",
-          data: [totCal1.slice(-1)[0], reqCalories-totCal1.slice(-1)[0]],
+          data: [todayCal, calHad],
           backgroundColor: [
             "#79addc",
             "#ffc09f",

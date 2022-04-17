@@ -16,9 +16,6 @@ function signinCheck(){
   
     if(inPassword===""){
       $("#inPassword").append(`<div class="errorMessage">Password can't be empty.</div>`)
-    }
-    else if(!(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(inPassword))){
-      $("#inPassword").append(`<div class="errorMessage">Invalid password.</div>`)
     }else{
       count+=1
     }

@@ -130,6 +130,11 @@ app.get("/userNotExist", auth.isLoggedIn, (req, res)=>{
   res.render("userNotExist")
 })
 
+app.get("/invalidPass", auth.isLoggedIn, (req, res)=>{
+  res.render("invalidPass")
+})
+
+
 // ------------------------------------------------ Post Requests ----------------------------------------------------------//
 app.post("/foodIntakeUpdate", (req, res) => {
   let foodIntakeUpdate = req.body.foodIntake;
