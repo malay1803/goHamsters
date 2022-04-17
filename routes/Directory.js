@@ -66,7 +66,13 @@ router.get("/",auth.isLoggedIn, async (req, res) => {
   if (bodyPart === "midback") {
     excerType = req.query.type;
     var excercises = await Excercise.find({
-      excerciseCategory: "midack" + req.query.type,
+      excerciseCategory: "midback" + req.query.type,
+    });
+  }
+  if (bodyPart === "lowerback") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "lowerback" + req.query.type,
     });
   }
   if (bodyPart === "lats") {
@@ -81,14 +87,74 @@ router.get("/",auth.isLoggedIn, async (req, res) => {
       excerciseCategory: "glutes" + req.query.type,
     });
   }
-
+  if (bodyPart === "hamstrings") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "hamstrings" + req.query.type,
+    });
+  }
+  //female
   if (bodyPart === "ftraps") {
     excerType = req.query.type;
     var excercises = await Excercise.find({
       excerciseCategory: "ftraps" + req.query.type,
     });
   }
-
+  if (bodyPart === "fshoulder") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "fshoulder" + req.query.type,
+    });
+  }
+  if (bodyPart === "fchest") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "fchest" + req.query.type,
+    });
+  }
+  if (bodyPart === "fbiceps") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "fbiceps" + req.query.type,
+    });
+  }
+  if (bodyPart === "fforearms") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "fforearms" + req.query.type,
+    });
+  }
+  if (bodyPart === "fabs") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "fabs" + req.query.type,
+    });
+  }
+  if (bodyPart === "fquads") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "fquads" + req.query.type,
+    });
+  }
+  if (bodyPart === "fcalves") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "fcalves" + req.query.type,
+    });
+  }
+  if (bodyPart === "fmidback") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "fmidback" + req.query.type,
+    });
+  }
+  if (bodyPart === "flats") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "flats" + req.query.type,
+    });
+  }
+  
   if (req.query.type === undefined) {
     excerType = "Stretches";
     bodyPart = "traps";
