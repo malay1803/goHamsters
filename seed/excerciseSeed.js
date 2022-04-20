@@ -2338,7 +2338,96 @@ var excercises = [
     step2: "Bend your arm, touching the kettlebell to the top of the shoulder opposite to the arm being worked.",
     step3: "Raise the weight back to starting position.",
   }),
+  //lowerback
 
+  new Excercise({
+    excerciseImage: "/images/female/lowerback/stretches/1.gif",
+    excerciseName: "Lower Back Stretch",
+    excerciseDesc: "Difficulty: Beginner",
+    excerciseCategory: "flowerbackStretches",
+    step1: "Sit on the floor with the tops of your feet pointed and flat on the ground. Move your arms out in front of you in the diving position, placing your palms flat against the ground.",
+    step2: "With your arms fully extended, rest your buttocks on the heels of your feet, you can crawl your hands forward to extend the stretch if need be.",
+    step3: "Hold the extended position for a few seconds, and return to starting position.",
+  }),
+  new Excercise({
+    excerciseImage: "/images/female/lowerback/bodyweight/1.gif",
+    excerciseName: "Lower Back Stretch",
+    excerciseDesc: "Difficulty: Beginner",
+    excerciseCategory: "flowerbackBodyweight",
+    step1: "Stand with your feet a little past shoulder width apart with a slight bend at your knee. Place your hands behind the back of your head.",
+    step2: "Keeping your back straight, rotate your hips to bring your shoulders down towards the floor. Stop when your chest is parallel with the floor."
+  }),
+  new Excercise({
+    excerciseImage: "/images/female/lowerback/barbell/1.gif",
+    excerciseName: "Deadlift",
+    excerciseDesc: "Difficulty: Advanced",
+    excerciseCategory: "flowerbackBarbells",
+    step1: "Stand with your mid-foot under the bar and grip the bar with your hands, about a shoulder width apart.",
+    step2: "Bend your knees, then lift the bar by straightening your back. It is important to keep your back straight.",
+    step3: "Stand to your full height and hold.",
+    step4: "Lower the bar to the floor by bending your knees and keeping your back straight."
+  }),
+//glutes
+  new Excercise({
+    excerciseImage: "/images/female/glutes/stretches/1.gif",
+    excerciseName: "Glutes Stretch",
+    excerciseDesc: "Difficulty: Beginner",
+    excerciseCategory: "fglutesStretches",
+    step1: "On your front, place one leg forward and then stretch out the same side arm across the mat/floor and fully extend your leg and arm",
+    step2: "Hold at the peak of the stretch, then slowly return to starting position.",
+    step3: "Switch sides and repeat.",
+  }),
+  new Excercise({
+    excerciseImage: "/images/female/glutes/bodyweight/1.gif",
+    excerciseName: "Squats",
+    excerciseDesc: "Difficulty: Beginner",
+    excerciseCategory: "fglutesBodyweight",
+    step1: "Stand with your feet shoulder width apart.",
+    step2: "Flex your knees and hips and sit back into the squat while lowering your body",
+    step3: "Continue down to full depth",
+    step4: "Return to starting position."
+  }),
+  new Excercise({
+    excerciseImage: "/images/female/glutes/barbell/1.gif",
+    excerciseName: "Squats",
+    excerciseDesc: "Difficulty: Beginner",
+    excerciseCategory: "fglutesBarbells",
+    step1: "Stand with your feet shoulder-width apart. Maintain the natural arch in your back, squeezing your shoulder blades and raising your chest.",
+    step2: "Grip the bar across your shoulders and support it on your upper back. Unwrack the bar by straightening your legs, and take a step back.",
+    step3: "Bend your knees as you lower the weight without altering the form of your back until your hips are below your knees.",
+    step4: "Raise the bar back to starting position, lift with your legs and exhale at the top."
+  }),
+
+  //hamstrings
+  new Excercise({
+    excerciseImage: "/images/female/hamstrings/stretches/1.gif",
+    excerciseName: "Hamstrings Stretch",
+    excerciseDesc: "Difficulty: Beginner",
+    excerciseCategory: "fhamstringsStretches",
+    step1: "Sit on the floor with your legs out in front of you.",
+    step2: "Reach forward to try and touch your toes. Reach as far forward as you can go.",
+    step3: "Hold the stretch for a few seconds then return to starting position.",
+  }),
+  new Excercise({
+    excerciseImage: "/images/female/hamstrings/bodyweight/1.gif",
+    excerciseName: "Squats",
+    excerciseDesc: "Difficulty: Beginner",
+    excerciseCategory: "fhamstringsBodyweight",
+    step1: "Stand with your feet shoulder width apart.",
+    step2: "Flex your knees and hips and sit back into the squat while lowering your body",
+    step3: "Continue down to full depth",
+    step4: "Return to starting position."
+  }),
+  new Excercise({
+    excerciseImage: "/images/female/glutes/barbell/1.gif",
+    excerciseName: "Squats",
+    excerciseDesc: "Difficulty: Beginner",
+    excerciseCategory: "fhamstringsBarbells",
+    step1: "Stand with your feet shoulder-width apart. Maintain the natural arch in your back, squeezing your shoulder blades and raising your chest.",
+    step2: "Grip the bar across your shoulders and support it on your upper back. Unwrack the bar by straightening your legs, and take a step back.",
+    step3: "Bend your knees as you lower the weight without altering the form of your back until your hips are below your knees.",
+    step4: "Raise the bar back to starting position, lift with your legs and exhale at the top."
+  }),
 
 ];
 

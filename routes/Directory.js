@@ -160,6 +160,24 @@ router.get("/",auth.isLoggedIn, async (req, res) => {
       excerciseCategory: "ftriceps" + req.query.type,
     });
   }
+  if (bodyPart === "fglutes") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "fglutes" + req.query.type,
+    });
+  }
+  if (bodyPart === "flowerback") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "flowerback" + req.query.type,
+    });
+  }
+  if (bodyPart === "fhamstrings") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "fhamstrings" + req.query.type,
+    });
+  }
   
   if (req.query.type === undefined) {
     excerType = "Stretches";
