@@ -154,6 +154,12 @@ router.get("/",auth.isLoggedIn, async (req, res) => {
       excerciseCategory: "flats" + req.query.type,
     });
   }
+  if (bodyPart === "ftriceps") {
+    excerType = req.query.type;
+    var excercises = await Excercise.find({
+      excerciseCategory: "ftriceps" + req.query.type,
+    });
+  }
   
   if (req.query.type === undefined) {
     excerType = "Stretches";

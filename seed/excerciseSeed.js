@@ -1131,10 +1131,10 @@ var excercises = [
     step4: "Extend your elbows back to the starting position and repeat."
   }),
   new Excercise({
-    excerciseImage: "/images/male/triceps/dumbells/1.gif",
-    excerciseName: "Laying Triceps Extensions",
+    excerciseImage: "/images/male/triceps/dumbbells/1.gif",
+    excerciseName: "Seated Triceps Extensions",
     excerciseDesc: "Difficulty: Intermediate",
-    excerciseCategory: "tricepsDumbells",
+    excerciseCategory: "tricepsDumbbells",
     step1: "Sit on the bench and hold a dumbbell with both hands. Raise the dumbbell overhead at arms length, holding the weight up with the palms of your hands.",
     step2: "Keep your elbows in while you lower the weight behind your head, your upper arms stationary.",
     step3: "Raise the weight back to starting position.",
@@ -2280,6 +2280,66 @@ var excercises = [
     step3: "Keeping your arms straight, move the kettlebell in the direction of your head until your arms are parallel to the floor.",
     step4: "Return to starting to position and repeat."
   }),
+
+  //triceps
+
+  new Excercise({
+    excerciseImage: "/images/female/triceps/stretches/1.gif",
+    excerciseName: "Triceps Stretch",
+    excerciseDesc: "Difficulty: Beginner",
+    excerciseCategory: "ftricepsStretches",
+    step1: "Use the opposite hand to gently apply pressure to the elbow.",
+    step2: "Hold the stretch for a few seconds then repeat with the other arm.",
+    step3: "Raise your left arm above your head, and bend at the elbow so your hand is resting at the top of your back.",
+  }),
+  new Excercise({
+    excerciseImage: "/images/female/triceps/stretches/2.gif",
+    excerciseName: "Triceps Stretch",
+    excerciseDesc: "Difficulty: Beginner",
+    excerciseCategory: "ftricepsStretches",
+    step1: "Hold a band so it is in line with your spine. Hold the top with your right hand and the bottom with your left.",
+    step2: "Keeping the top still, pull down on the band.",
+    step3: "Hold the stretch for a few seconds then repeat with the other arm.",
+  }),
+  new Excercise({
+    excerciseImage: "/images/female/triceps/bodyweight/1.gif",
+    excerciseName: "Dips",
+    excerciseDesc: "Difficulty: Beginner",
+    excerciseCategory: "ftricepsBodyweight",
+    step1: "Hold your body with arms locked above the equipment",
+    step2: "Lower your body slowly while leaning forward, flare out your elbows",
+    step3: "Raise your body above the bars until your arms are locked.",
+  }),
+  new Excercise({
+    excerciseImage: "/images/female/triceps/barbell/1.gif",
+    excerciseName: "Laying Triceps Extensions",
+    excerciseDesc: "Difficulty: Intermediate",
+    excerciseCategory: "ftricepsBarbell",
+    step1: "Lay on a flat bench while holding a barbell with a shoulder-width grip.",
+    step2: "Fully extend your elbows until the barbell is directly over your chest.",
+    step3: "Begin to flex your elbows and allow the barbell to nearly touch your forehead.",
+    step4: "Extend your elbows back to the starting position and repeat."
+  }),
+  new Excercise({
+    excerciseImage: "/images/female/triceps/dumbbells/1.gif",
+    excerciseName: "Seated Triceps Extensions",
+    excerciseDesc: "Difficulty: Intermediate",
+    excerciseCategory: "ftricepsDumbbells",
+    step1: "Sit on the bench and hold a dumbbell with both hands. Raise the dumbbell overhead at arms length, holding the weight up with the palms of your hands.",
+    step2: "Keep your elbows in while you lower the weight behind your head, your upper arms stationary.",
+    step3: "Raise the weight back to starting position.",
+  }),
+  new Excercise({
+    excerciseImage: "/images/female/triceps/kettlebells/1.gif",
+    excerciseName: "Tate Press",
+    excerciseDesc: "Difficulty: Intermediate",
+    excerciseCategory: "ftricepsKettlebells",
+    step1: "Lie flat on your back. Keeping your arm straight, hold the kettlebell above your chest with your palm facing away from your body.",
+    step2: "Bend your arm, touching the kettlebell to the top of the shoulder opposite to the arm being worked.",
+    step3: "Raise the weight back to starting position.",
+  }),
+
+
 ];
 
 const seedDb = async () => {
