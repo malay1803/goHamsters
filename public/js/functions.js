@@ -1,4 +1,4 @@
-// --------nextsection--------
+// --------directory--------
 
 $(".enter").on("click", function () {
   t2.play();
@@ -12,9 +12,7 @@ $(".back1").on("click", function () {
   t2.reverse();
 });
 
-//timeline for select your gender bg
-// var genEle = $(".genderSection").parent().height()
-// console.log(($(".genderSection").css('top').slice(0,-2)/genEle)*100);
+//animation for gender section
 
 t2 = new TimelineMax({ paused: true });
 
@@ -56,11 +54,6 @@ t4.to(".musclePick", 1, { top: "0%", ease: Power4.easeOut }).from(
   { display: "none" }
 );
 
-// $("input[type=radio]").click(function () {
-//   if ($(this).prop("checked")) {
-//     t4.play();
-//   }
-// });
 $(".muscle-map").hide();
 $(".f-muscle-map").hide();
 $("input[type=radio][name=gender][value='male']").click(function () {

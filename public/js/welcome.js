@@ -1,5 +1,3 @@
-
- // welcome
  const tl = gsap.timeline({ paused: true });
 
  tl.to(".panels .panel:first-child, .panels .panel:last-child", {

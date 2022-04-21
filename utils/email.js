@@ -12,7 +12,7 @@ module.exports = class Email {
   }
 
   newTransport() {
-      // Sendgrid
+      // Sendgrid, gmail, Sendinblue
       return nodemailer.createTransport({
         service: 'SendinBlue',
         auth: {
