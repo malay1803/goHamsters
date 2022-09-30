@@ -25,6 +25,7 @@ Using this tool, the user can track his/her calories. For this, the user has to 
 ![image](https://user-images.githubusercontent.com/67311319/193318941-cf10ac43-1509-4a66-881a-db863b4b462f.png)
 
 3. Home page:
+
 ![image](https://user-images.githubusercontent.com/67311319/193319085-d034d9b4-8dd7-4f3d-8129-44e5db7d8031.png)
 
 4. Directory landing page:
