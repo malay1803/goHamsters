@@ -38,22 +38,21 @@ app.get("/directory1", auth.isLoggedIn, (req, res) => {
 });
 
 app.get("/login", auth.isLoggedIn, (req, res) => {
-  if(req.cookies.jwt==="loggedout"){
+  if (req.cookies.jwt === "loggedout") {
     res.render("login");
-  }else if(req.cookies.jwt){
-    res.redirect("/userDashboard")
-  }else{
+  } else if (req.cookies.jwt) {
+    res.redirect("/userDashboard");
+  } else {
     res.render("login");
   }
 });
 
 app.get("/userDashboard", auth.protect, async (req, res) => {
-  
- const foodData1 = await FoodData.find({ userID: req.user._id});
+  const foodData1 = await FoodData.find({ userID: req.user._id });
 
-  const totalDisp = await Total.find({ userID: req.user._id})
-  for(let i in totalDisp){
-    console.log(totalDisp[i].userID)
+  const totalDisp = await Total.find({ userID: req.user._id });
+  for (let i in totalDisp) {
+    console.log(totalDisp[i].userID);
   }
   console.log("display", totalDisp);
 
@@ -86,7 +85,6 @@ app.get("/", auth.isLoggedIn, (req, res) => {
 app.get("/editProfile", auth.protect, async (req, res) => {
   res.render("editProfile");
 });
-
 
 app.get("/logout", auth.logout, (req, res) => {
   res.redirect("/login");
@@ -122,26 +120,25 @@ app.get("/resetPassword/:token", async (req, res, next) => {
   });
 });
 
-app.get("/userExist", auth.isLoggedIn, (req, res)=>{
-  res.render("userExist")
-})
+app.get("/userExist", auth.isLoggedIn, (req, res) => {
+  res.render("userExist");
+});
 
-app.get("/userNotExist", auth.isLoggedIn, (req, res)=>{
-  res.render("userNotExist")
-})
+app.get("/userNotExist", auth.isLoggedIn, (req, res) => {
+  res.render("userNotExist");
+});
 
-app.get("/invalidPass", auth.isLoggedIn, (req, res)=>{
-  res.render("invalidPass")
-})
+app.get("/invalidPass", auth.isLoggedIn, (req, res) => {
+  res.render("invalidPass");
+});
 
-app.get("/wrongPassword", auth.isLoggedIn, (req, res)=>{
-  res.render("wrongPassword")
-})
+app.get("/wrongPassword", auth.isLoggedIn, (req, res) => {
+  res.render("wrongPassword");
+});
 
-app.get("/emailSent", auth.isLoggedIn, (req, res)=>{
-  res.render("emailSent")
-})
-
+app.get("/emailSent", auth.isLoggedIn, (req, res) => {
+  res.render("emailSent");
+});
 
 // ------------------------------------------------ Post Requests ----------------------------------------------------------//
 app.post("/foodIntakeUpdate", (req, res) => {
@@ -156,25 +153,28 @@ app.post("/foodIntakeUpdate", (req, res) => {
     });
 });
 
-app.post("/editProfileSubmit/:id", auth.protect, async (req,res)=>{
-  const editValues = req.body
-  const edit = await User.findByIdAndUpdate({_id:req.params.id}, {
-    $set:{
-      firstName: editValues.firstName,
-      lastName: editValues. lastName,
-      Age: editValues.editAge,
-      height: editValues.editHeight,
-      weight: editValues.editWeight,
-      weight: editValues.editWeight,
-      activity: editValues.editActivity,
-      reqCalories: editValues.userCalories,
-      gender: editValues.options
+app.post("/editProfileSubmit/:id", auth.protect, async (req, res) => {
+  const editValues = req.body;
+  const edit = await User.findByIdAndUpdate(
+    { _id: req.params.id },
+    {
+      $set: {
+        firstName: editValues.firstName,
+        lastName: editValues.lastName,
+        Age: editValues.editAge,
+        height: editValues.editHeight,
+        weight: editValues.editWeight,
+        weight: editValues.editWeight,
+        activity: editValues.editActivity,
+        reqCalories: editValues.userCalories,
+        gender: editValues.options,
+      },
     }
-  })
+  );
   // const newEditUser = new User(editUser)
-  await edit.save()
-  res.redirect("/userDashboard")
-})
+  await edit.save();
+  res.redirect("/userDashboard");
+});
 
 app.post("/addUser", auth.signup, view.adduser);
 
@@ -191,7 +191,6 @@ app.post(
 );
 
 app.post("/loginUser", auth.login, async (req, res) => {
-  
   res.redirect("/userDashboard");
 });
 
@@ -199,9 +198,9 @@ app.post("/search", async (req, res) => {
   var query = req.body.searchQuery;
   request.get(
     {
-      url: "https://api.calorieninjas.com/v1/nutrition?query=" + query,
+      url: process.env.API_URL + query,
       headers: {
-        "X-Api-Key": "o6l5WsZgJr9hRQRTRauoog==vQ8OewoiWvHVb690",
+        "X-Api-Key": process.env.API_KEY,
       },
     },
     async function (error, response, body) {
@@ -235,7 +234,7 @@ app.post("/addItem", auth.protect, async (req, res) => {
   carbsTD = carbs;
   fatTD = fat;
   proteinTD = protein;
-  
+
   var date = new Date();
 
   if (foodNameTD === undefined) {
@@ -255,7 +254,7 @@ app.post("/addItem", auth.protect, async (req, res) => {
     meal: req.body.meal,
     gramsIntake: req.body.gramsIntake,
     userID: req.user._id,
-    date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+    date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
   };
 
   const newFood = new FoodData(newFoodAdd);
@@ -263,81 +262,93 @@ app.post("/addItem", auth.protect, async (req, res) => {
   res.redirect("/totalItem");
 });
 
-app.get("/totalItem", auth.protect, async(req,res)=>{
-
+app.get("/totalItem", auth.protect, async (req, res) => {
   var totalCarbs = [];
   var totalCalories = [];
   var totalProtein = [];
   var totalFat = [];
   var totalGramsIntake = [];
-  let total=undefined
-  var date = new Date() 
+  let total = undefined;
+  var date = new Date();
 
-  foodData1 = await FoodData.find({ userID: req.user._id});
+  foodData1 = await FoodData.find({ userID: req.user._id });
 
   for (let fd in foodData1) {
-      if(foodData1[fd].date===`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`){
-      totalCalories.push(parseFloat(foodData1[fd].calories))
-      totalCarbs.push(parseFloat(foodData1[fd].carbohydrate))
-      totalProtein.push(parseFloat(foodData1[fd].protein))
-      totalFat.push(parseFloat(foodData1[fd].fat))
-      totalGramsIntake.push(parseFloat(foodData1[fd].gramsIntake))
+    if (
+      foodData1[fd].date ===
+      `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+    ) {
+      totalCalories.push(parseFloat(foodData1[fd].calories));
+      totalCarbs.push(parseFloat(foodData1[fd].carbohydrate));
+      totalProtein.push(parseFloat(foodData1[fd].protein));
+      totalFat.push(parseFloat(foodData1[fd].fat));
+      totalGramsIntake.push(parseFloat(foodData1[fd].gramsIntake));
     }
   }
-  
+
   var totalCal = 0;
   var totalPro = 0;
   var totalCarb = 0;
-  var totalF=0;
+  var totalF = 0;
 
-  for(var i=0; i< totalCalories.length; i++) {
-    totalCal += totalCalories[i]*totalGramsIntake[i];
-    totalPro += totalProtein[i]*totalGramsIntake[i];
-    totalCarb += totalCarbs[i]*totalGramsIntake[i];
-    totalF += totalFat[i]*totalGramsIntake[i];
+  for (var i = 0; i < totalCalories.length; i++) {
+    totalCal += totalCalories[i] * totalGramsIntake[i];
+    totalPro += totalProtein[i] * totalGramsIntake[i];
+    totalCarb += totalCarbs[i] * totalGramsIntake[i];
+    totalF += totalFat[i] * totalGramsIntake[i];
   }
 
-    total = {
-      totalCalories: totalCal,
-      totalCarbs: totalCarb,
-      totalProtein: totalPro,
-      totalFat: totalF,
-    };
+  total = {
+    totalCalories: totalCal,
+    totalCarbs: totalCarb,
+    totalProtein: totalPro,
+    totalFat: totalF,
+  };
 
-    for (let tot in total){
-      total[tot] /= 100
-      total[tot] = total[tot].toFixed(1);
-    }
+  for (let tot in total) {
+    total[tot] /= 100;
+    total[tot] = total[tot].toFixed(1);
+  }
 
-    const newTotalAdd = {
-      totalCalories: total.totalCalories,
-      totalCarbs: total.totalCarbs,
-      totalProteins: total.totalProtein,
-      totalFats: total.totalFat,
-      gramsIntake: req.body.gramsIntake,
-      userID: req.user._id,
-      date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
-    };
+  const newTotalAdd = {
+    totalCalories: total.totalCalories,
+    totalCarbs: total.totalCarbs,
+    totalProteins: total.totalProtein,
+    totalFats: total.totalFat,
+    gramsIntake: req.body.gramsIntake,
+    userID: req.user._id,
+    date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
+  };
 
-    
-  const totalExist = await Total.findOne({ userID: req.user._id, date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`})
-  if(totalExist){
-    Total.updateOne({ userID: req.user._id, date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`}, { totalCalories: total.totalCalories,
-      totalCarbs: total.totalCarbs,
-      totalProteins: total.totalProtein,
-      totalFats: total.totalFat, })
-    .then(() => {
-      console.log("successfully updated");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }else{
+  const totalExist = await Total.findOne({
+    userID: req.user._id,
+    date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
+  });
+  if (totalExist) {
+    Total.updateOne(
+      {
+        userID: req.user._id,
+        date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
+      },
+      {
+        totalCalories: total.totalCalories,
+        totalCarbs: total.totalCarbs,
+        totalProteins: total.totalProtein,
+        totalFats: total.totalFat,
+      }
+    )
+      .then(() => {
+        console.log("successfully updated");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else {
     const newTotal = new Total(newTotalAdd);
     await newTotal.save();
   }
   res.redirect("/userDashboard");
-})
+});
 
 app.get("/notfound", (req, res) => {
   res.render("notFound");
